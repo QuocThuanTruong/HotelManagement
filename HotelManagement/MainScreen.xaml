@@ -1,0 +1,79 @@
+﻿<Window x:Class="HotelManagement.MainScreen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HotelManagement"
+        xmlns:loc="clr-namespace:HotelManagement.Properties"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Background="Transparent"
+        Name="mainScreen"
+        AllowsTransparency="True"
+        Title="MainScreen" Height="768" Width="1366" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
+    <Grid x:Name="mainContainer"
+          Background="Transparent">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Name="navigationDrawer" Width="240*"/>
+            <ColumnDefinition Name="pageContent" Width="1126*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Name="windowOptions" Height="40*"/>
+            <RowDefinition Height="728*"/>
+        </Grid.RowDefinitions>
+
+        <Border
+            Grid.ColumnSpan="3"
+            Grid.RowSpan="2"
+            Width="{Binding ElementName=mainContainer, Path=ActualWidth}"
+            Height="{Binding ElementName=mainContainer, Path=ActualHeight}"
+            CornerRadius="30"
+            Background="White"/>
+
+        <!-- Tool bar -->
+        <Rectangle Grid.Column="1"
+                   Fill="Transparent"
+                   MouseDown="Rectangle_MouseDown"
+                   Height="{Binding ActualHeight, ElementName=windowOptionsContainer}"
+                   Grid.Row="0"/>
+
+        <StackPanel Name="windowOptionsContainer"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    FlowDirection="RightToLeft"
+                    Width="80"
+                    Grid.Column="1"
+                    Grid.Row="0">
+
+            <Button Name="closeWindowButton"
+                    Click="closeWindowButton_Click"
+                    Margin="5, 5, 0, 0"
+                    Padding="5, 0, 5, 0"
+                    Style="{StaticResource WindowOptionsButton}"
+                    Foreground="Red"
+                    ToolTip="Close">
+
+                <Image Name="iconCloseImage"
+                       Width="14"
+                       Height="14"
+                       Source=""/>
+            </Button>
+
+            <Button Name="minimizeWindowButton"
+                    Click="minimizeWindowButton_Click"
+                    Margin="0, 5, 0, 0"
+                    Padding="5, 0, 5, 0"
+                    Style="{StaticResource WindowOptionsButton}"
+                    ToolTip="Minimized">
+
+                <Image Name="iconMinimizeImage"
+                       Width="14"
+                       Height="2"
+                       Source=""/>
+            </Button>
+        </StackPanel>
+
+    </Grid>
+</Window>

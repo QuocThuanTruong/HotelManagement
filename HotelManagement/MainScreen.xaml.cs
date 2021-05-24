@@ -10,19 +10,33 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace HotelManagement
 {
 	/// <summary>
-	/// Interaction logic for MainWindow.xaml
+	/// Interaction logic for MainScreen.xaml
 	/// </summary>
-	public partial class MainWindow : Window
+	public partial class MainScreen : Window
 	{
-		public MainWindow()
+		public MainScreen()
 		{
 			InitializeComponent();
+		}
+
+		private void Rectangle_MouseDown(object sender, MouseButtonEventArgs e)
+		{
+			this.DragMove();
+		}
+
+		private void closeWindowButton_Click(object sender, RoutedEventArgs e)
+		{
+			this.Close();
+		}
+
+		private void minimizeWindowButton_Click(object sender, RoutedEventArgs e)
+		{
+			this.WindowState = WindowState.Minimized;
 		}
 	}
 }
