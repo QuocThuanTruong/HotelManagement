@@ -2,12 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:HotelManagement">
 
-    <FontFamily x:Key="OswaldBold">pack://application:,,,/Assets/Fonts/Oswald-Bold.ttf #Oswald Bold</FontFamily>
-    <FontFamily x:Key="OswaldMedium">pack://application:,,,/Assets/Fonts/Oswald-Medium.ttf #Oswald Medium</FontFamily>
-    <FontFamily x:Key="OswaldExtraLight">pack://application:,,,/Assets/Fonts/Oswald-ExtraLight.ttf #Oswald ExtraLight</FontFamily>
-    <FontFamily x:Key="OswaldLight">pack://application:,,,/Assets/Fonts/Oswald-Light.ttf #Oswald Light</FontFamily>
-    <FontFamily x:Key="OswaldRegular">pack://application:,,,/Assets/Fonts/Oswald-Regular.ttf #Oswald Regualar</FontFamily>
-    <FontFamily x:Key="OswaldSemiBold">pack://application:,,,/Assets/Fonts/Oswald-SemiBold.ttf #Oswald SemiBold</FontFamily>
+    <FontFamily x:Key="Bebas">pack://application:,,,/Assets/Fonts/UTM Bebas.ttf #UTM Bebas</FontFamily>
 
     <FontFamily x:Key="GilroyBold">pack://application:,,,/Assets/Fonts/SVN-Gilroy Bold.otf #SVN-Gilroy</FontFamily>
     <FontFamily x:Key="GilroyMedium">pack://application:,,,/Assets/Fonts/SVN-Gilroy Medium.otf #SVN-Gilroy</FontFamily>
