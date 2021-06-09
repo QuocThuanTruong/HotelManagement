@@ -20,11 +20,11 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Name="windowOptions" Height="40*"/>
-            <RowDefinition Height="728*"/>
+            <RowDefinition Name="windowOptions" Height="50*"/>
+            <RowDefinition Height="718*"/>
         </Grid.RowDefinitions>
 
-        <Border
+        <Border x:Name="mainContainerBg"
             Grid.ColumnSpan="3"
             Grid.RowSpan="2"
             Width="{Binding ElementName=mainContainer, Path=ActualWidth}"
@@ -43,6 +43,7 @@
                     Orientation="Horizontal"
                     HorizontalAlignment="Right"
                     FlowDirection="RightToLeft"
+                    Margin="0, 0, 6, 0"
                     Width="80"
                     Grid.Column="1"
                     Grid.Row="0">
@@ -51,6 +52,7 @@
                     Click="closeWindowButton_Click"
                     Margin="5, 5, 0, 0"
                     Padding="5, 0, 5, 0"
+                    materialDesign:ButtonAssist.CornerRadius="18"
                     Style="{StaticResource WindowOptionsButton}"
                     Foreground="Red"
                     ToolTip="Close">
@@ -58,22 +60,25 @@
                 <Image Name="iconCloseImage"
                        Width="14"
                        Height="14"
-                       Source=""/>
+                       Source="{StaticResource IconPurpleClose}"/>
             </Button>
 
             <Button Name="minimizeWindowButton"
                     Click="minimizeWindowButton_Click"
                     Margin="0, 5, 0, 0"
                     Padding="5, 0, 5, 0"
+                    materialDesign:ButtonAssist.CornerRadius="18"
                     Style="{StaticResource WindowOptionsButton}"
                     ToolTip="Minimized">
 
                 <Image Name="iconMinimizeImage"
                        Width="14"
                        Height="2"
-                       Source=""/>
+                       Source="{StaticResource IconPurpleMinimize}"/>
             </Button>
         </StackPanel>
+        
+        
 
     </Grid>
 </Window>

@@ -168,7 +168,7 @@
     <Content Include="Assets\Images\ic-gray-room.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Images\ic-maximize.png">
+    <Content Include="Assets\Images\ic-close.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Images\ic-minimize.png">
