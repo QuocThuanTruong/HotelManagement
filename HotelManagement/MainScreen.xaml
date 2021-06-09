@@ -6,17 +6,19 @@
         xmlns:local="clr-namespace:HotelManagement"
         xmlns:loc="clr-namespace:HotelManagement.Properties"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:custom="clr-namespace:HotelManagement.CustomViews"
         mc:Ignorable="d"
         Background="Transparent"
         Name="mainScreen"
         AllowsTransparency="True"
+        Loaded="Window_Loaded"
         Title="MainScreen" Height="768" Width="1366" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
     <Grid x:Name="mainContainer"
           Background="Transparent">
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Name="navigationDrawer" Width="240*"/>
-            <ColumnDefinition Name="pageContent" Width="1126*"/>
+            <ColumnDefinition Name="navigationDrawer" Width="250*"/>
+            <ColumnDefinition Name="pageContent" Width="1116*"/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
@@ -77,8 +79,412 @@
                        Source="{StaticResource IconPurpleMinimize}"/>
             </Button>
         </StackPanel>
-        
-        
+
+
+        <Grid x:Name="drawerContainer"
+            Grid.Column="0"
+            Grid.RowSpan="2">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="4*"/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.RowSpan="2"
+                    Background="{StaticResource MyPurpleGradient}"
+                    CornerRadius="30, 30, 30, 30"/>
+
+            <Image Width="153"
+                   Height="76"
+                   Source="{StaticResource AppLogo}"/>
+
+            <Grid Name="drawerButtons"
+              Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="460*"/>
+                    <RowDefinition Height="140*"/>
+                    <RowDefinition Height="80*"/>
+                    <RowDefinition Height="68*"/>
+                </Grid.RowDefinitions>
+
+                <ListBox 
+                         ItemContainerStyle="{StaticResource DrawerListBoxItem}"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                         ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                            Grid.Column="0"
+                            Grid.Row="1">
+
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+
+                    <!-- Dashboard page button-->
+                    <!--<Grid Name="dashboardPageBtnBg">
+
+                    </Grid>-->
+
+
+                </ListBox>
+            </Grid>
+
+            <!-- Drawer buttons -->
+            <Grid Name="contentDrawerContainer"
+              Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="460*"/>
+                    <RowDefinition Height="140*"/>
+                    <RowDefinition Height="80*"/>
+                    <RowDefinition Height="68*"/>
+                </Grid.RowDefinitions>
+
+                <ListBox Name="pageButtonContainer"
+                         ItemContainerStyle="{StaticResource DrawerListBoxItem}"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                         ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                            Margin="0, 0, 18, 0"
+                            Grid.Column="0"
+                            Grid.Row="1"
+                         Grid.RowSpan="2">
+
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+
+                    <!-- Dashboard page button-->
+                    <Grid Name="dashboardPageBtnContainer">
+                        <!-- Click -->
+                        <!-- Active Background="White"
+                                BorderThickness="0" -->
+                        <Button Name="dashboardPageButton"
+                                Click="DrawerButton_Click"
+                                Style="{StaticResource DrawerButton}">
+
+                            <Grid Name="dashboardPageContent" 
+                              Width="{Binding ActualWidth, ElementName=dashboardPageButton}">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2.4*"/>
+                                    <ColumnDefinition Width="7*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Name="iconDashboardPage"
+                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                   Grid.Column="0"
+                                   Margin="10, 0, 0, 0"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Source="{DynamicResource IconWhiteDashboard}"
+                                   Width="19"
+                                   Height="19"/>
+
+                                <TextBlock Name="dashboardPageName"
+                                       Grid.Column="0"
+                                       Grid.ColumnSpan="2"
+                                       Margin="60, 0, 0, 0"
+                                       HorizontalAlignment="Left"
+                                       Style="{DynamicResource DrawerMediumText}"
+                                       Text="DASHBOARD"/>
+                            </Grid>
+                        </Button>
+                    </Grid>
+
+                    <!-- home button-->
+                    <Grid Name="roomPageBtnContainer">
+                        <!-- Click -->
+                        <Button Name="roomPageButton"
+                                Click="DrawerButton_Click"
+                                Style="{StaticResource DrawerButton}">
+
+                            <Grid Name="roomPageContent" 
+                              Width="{Binding ActualWidth, ElementName=dashboardPageButton}">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2.4*"/>
+                                    <ColumnDefinition Width="7*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Name="iconRoomPage"
+                                   Grid.Column="0"
+                                    Margin="10, 0, 0, 0"
+                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Source="{DynamicResource IconWhiteRoomKey}"
+                                   Width="19"
+                                   Height="19"/>
+
+                                <TextBlock Name="roomPageName"
+                                       Grid.Column="0"
+                                       Grid.ColumnSpan="2"
+                                       Margin="60, 0, 0, 0"
+                                       HorizontalAlignment="Left"
+                                       Style="{DynamicResource DrawerMediumText}"
+                                       Text="DS PHÒNG"/>
+                            </Grid>
+                        </Button>
+                    </Grid>
+
+                    <!--Add site button-->
+                    <Grid Name="roomMngBtnContainer">
+
+                        <!-- Click -->
+                        <Button Name="roomMngPageButton"
+                                Click="DrawerButton_Click"
+                                Style="{StaticResource DrawerButton}">
+
+                            <Grid Name="roomMngPageContent" 
+                              Width="{Binding ActualWidth, ElementName=dashboardPageButton}">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2.4*"/>
+                                    <ColumnDefinition Width="7*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Name="iconRoomMngPage"
+                                    Margin="10, 0, 0, 0"
+                                   Grid.Column="0"
+                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Source="{DynamicResource IconWhiteRoom}"
+                                   Width="20"
+                                   Height="21"/>
+
+                                <TextBlock Name="roomMngPageName"
+                                       Grid.Column="0"
+                                       Grid.ColumnSpan="2"
+                                       Margin="60, 0, 0, 0"
+                                       HorizontalAlignment="Left"
+                                       Style="{DynamicResource DrawerMediumText}"
+                                       Text="QL PHÒNG"/>
+                            </Grid>
+                        </Button>
+                    </Grid>
+
+
+                    <!-- About button-->
+                    <Grid Name="rentBillPageBtnContainer">
+                        <!-- Click -->
+                        <Button Name="rentBillPageButton"
+                                Click="DrawerButton_Click"
+                                Style="{StaticResource DrawerButton}">
+
+                            <Grid Name="rentBillPageContent" 
+                              Width="{Binding ActualWidth, ElementName=dashboardPageButton}">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2.4*"/>
+                                    <ColumnDefinition Width="7*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Name="iconRentBillPage"
+                                    Margin="10, 0, 0, 0"
+                                   Grid.Column="0"
+                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Source="{DynamicResource IconWhiteRentBill}"
+                                   Width="19"
+                                   Height="19"/>
+
+                                <TextBlock Name="rentBillPageName"
+                                       Grid.Column="0"
+                                       Grid.ColumnSpan="2"
+                                       Margin="60, 0, 0, 0"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       Style="{DynamicResource DrawerMediumText}"
+                                       Text="QL PHIẾU THUÊ"/>
+
+                                <Button Name="badgeButton"
+                                   Visibility="Collapsed"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="2"
+                                    Width="21"
+                                    Height="21"
+                                    Margin="25, 8, 0, 0"
+                                    BorderBrush="White"
+                                    BorderThickness="1.5"
+                                    VerticalContentAlignment="Center"
+                                    materialDesign:ButtonAssist.CornerRadius="11"
+                                    HorizontalAlignment="Left"
+                                    Style="{StaticResource StepButton}">
+
+                                    <TextBlock Name="badgeTextBlock"
+                                           VerticalAlignment="Center"
+                                           Text="10"
+                                           FontSize="11"
+                                           Style="{StaticResource MediumLargeText}"/>
+                                </Button>
+                            </Grid>
+                        </Button>
+                    </Grid>
+
+                    <!-- Help button-->
+                    <Grid Name="invoicePageBtnContainer">
+                        <!-- Click -->
+                        <Button Name="invoicePageButton"
+                                Click="DrawerButton_Click"
+                                Style="{StaticResource DrawerButton}">
+
+                            <Grid Name="invoicePageContent" 
+                              Width="{Binding ActualWidth, ElementName=dashboardPageButton}">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2.4*"/>
+                                    <ColumnDefinition Width="7*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Name="iconInvoicePage"
+                                    Margin="10, 0, 0, 0"
+                                   Grid.Column="0"
+                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Source="{DynamicResource IconWhiteInvoice}"
+                                   Width="19"
+                                   Height="19"/>
+
+                                <TextBlock Name="invoicePageName"
+                                       Grid.Column="0"
+                                       Grid.ColumnSpan="2"
+                                       Margin="60, 0, 0, 0"
+                                       HorizontalAlignment="Left"
+                                       Style="{DynamicResource DrawerMediumText}"
+                                       Text="QL HÓA ĐƠN"/>
+                            </Grid>
+                        </Button>
+                    </Grid>
+
+                    <!-- About button-->
+                    <Grid Name="roomCatPageBtnContainer">
+                        <!-- Click -->
+                        <Button Name="roomCatPageButton"
+                                Click="DrawerButton_Click"
+                                Style="{StaticResource DrawerButton}">
+
+                            <Grid Name="roomCatPageContent" 
+                              Width="{Binding ActualWidth, ElementName=dashboardPageButton}">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2.4*"/>
+                                    <ColumnDefinition Width="7*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Name="iconRoomCatPage"
+                                    Margin="10, 0, 0, 0"
+                                   Grid.Column="0"
+                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Source="{DynamicResource IconWhiteRoomCat}"
+                                   Width="19"
+                                   Height="19"/>
+
+                                <TextBlock Name="romCatPageName"
+                                       Grid.Column="0"
+                                       Grid.ColumnSpan="2"
+                                       Margin="60, 0, 0, 0"
+                                       HorizontalAlignment="Left"
+                                       Style="{DynamicResource DrawerMediumText}"
+                                       Text="QL LOẠI PHÒNG"/>
+                            </Grid>
+                        </Button>
+                    </Grid>
+
+                    <!-- About button-->
+                    <Grid Name="helpPageBtnContainer">
+                        <!-- Click -->
+                        <Button Name="helpPageButton"
+                                Click="DrawerButton_Click"
+                                Style="{StaticResource DrawerButton}">
+
+                            <Grid Name="helpPageContent" 
+                              Width="{Binding ActualWidth, ElementName=dashboardPageButton}">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2.4*"/>
+                                    <ColumnDefinition Width="7*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Name="iconHelpPage"
+                                    Margin="10, 0, 0, 0"
+                                   Grid.Column="0"
+                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Source="{DynamicResource IconWhiteHelp}"
+                                   Width="19"
+                                   Height="19"/>
+
+                                <TextBlock Name="helpPageName"
+                                       Grid.Column="0"
+                                       Grid.ColumnSpan="2"
+                                       Margin="60, 0, 0, 0"
+                                       HorizontalAlignment="Left"
+                                       Style="{DynamicResource DrawerMediumText}"
+                                       Text="HELP"/>
+                            </Grid>
+                        </Button>
+                    </Grid>
+
+                    <!-- About button-->
+                    <Grid Name="aboutPageBtnContainer">
+                        <!-- Click -->
+                        <Button Name="aboutPageButton"
+                                Click="DrawerButton_Click"
+                                Style="{StaticResource DrawerButton}">
+
+                            <Grid Name="aboutPageContent" 
+                              Width="{Binding ActualWidth, ElementName=dashboardPageButton}">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2.4*"/>
+                                    <ColumnDefinition Width="7*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Name="iconAboutPage"
+                                    Margin="10, 0, 0, 0"
+                                   Grid.Column="0"
+                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Source="{DynamicResource IconWhiteAbout}"
+                                   Width="19"
+                                   Height="19"/>
+
+                                <TextBlock Name="aboutPageName"
+                                       Grid.Column="0"
+                                       Grid.ColumnSpan="2"
+                                       Margin="60, 0, 0, 0"
+                                       HorizontalAlignment="Left"
+                                       Style="{DynamicResource DrawerMediumText}"
+                                       Text="ABOUT US"/>
+                            </Grid>
+                        </Button>
+                    </Grid>
+                </ListBox>
+            </Grid>
+
+
+
+        </Grid>
+
+        <!-- Page Navigation -->
+        <Frame Name="pageNavigation" 
+               NavigationUIVisibility="Hidden"
+               Grid.Column="2"
+               Grid.RowSpan="2"
+               Grid.Row="1">
+
+        </Frame>
+
 
     </Grid>
 </Window>

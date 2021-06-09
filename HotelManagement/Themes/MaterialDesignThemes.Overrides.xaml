@@ -18,11 +18,11 @@
     </ResourceDictionary.MergedDictionaries>
 
     <!-- Redefined color -->
-    <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#172975"/>
-    <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="#172975"/>
-    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#172975"/>
+    <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#623ae8"/>
+    <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="#623ae8"/>
+    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#623ae8"/>
     <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="#8fa2e2"/>
-    <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#172975"/>
+    <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#623ae8"/>
     <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="#8fa2e2"/>
     <SolidColorBrush x:Key="MaterialDesignTextFieldBoxHoverBackground" Color="#8fa2e2"/>
 
@@ -82,16 +82,54 @@
     </Style>
 
     <Style x:Key="DrawerButton" TargetType="{x:Type ButtonBase}" BasedOn="{StaticResource WindowOptionsButton}">
-        <Setter Property="Width" Value="165"/>
-        <Setter Property="Height" Value="38"/>
+        <Setter Property="Width" Value="200"/>
+        <Setter Property="Height" Value="45"/>
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="BorderBrush" Value="{DynamicResource MyBlue}"/>
-        <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource MyPurple}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Foreground" Value="White"/> <!-- hover -->
         <Setter Property="materialDesign:RippleAssist.Feedback" Value="White" />
-        <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="19" />
+        <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="23" />
 
     </Style>
+
+    <Style x:Key="DrawerListBoxItem" TargetType="ListBoxItem">
+        <Setter Property="SnapsToDevicePixels" Value="true"/>
+        <Setter Property="OverridesDefaultStyle" Value="true"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <Border Name="Border" 
+                            Padding="4" 
+                            SnapsToDevicePixels="true"
+                            Background="Transparent">
+                        <ContentPresenter VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="true">
+                            <Setter TargetName="Border" Property="Background" Value="Transparent"/>
+                        </Trigger>
+
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Foreground" Value="Transparent"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="Border" Property="Background" Value="Transparent"/>
+                            <Setter Property="Grid.ZIndex" Value="1"/>
+                            <Setter Property="RenderTransformOrigin" Value="0.5, 0.5"/>
+                            <Setter Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="1.05" ScaleY="1.05"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
 
     <Style x:Key="CardScaleHover" TargetType="{x:Type materialDesign:Card}" >
         <Style.Triggers>
@@ -572,9 +610,9 @@
     <Style x:Key="StepButton" TargetType="{x:Type Button}" BasedOn="{StaticResource RecipeButton}">
         <Setter Property="Height" Value="30"/>
         <Setter Property="Width" Value="85"/>
-        <Setter Property="Background" Value="{DynamicResource MyRed}"/>
-        <Setter Property="Foreground" Value="{DynamicResource RedHover}"/>
-        <Setter Property="materialDesign:RippleAssist.Feedback" Value="{DynamicResource LightRedHover}"/>
+        <Setter Property="Background" Value="{DynamicResource MyPurpleGradient}"/>
+        <Setter Property="Foreground" Value="{DynamicResource MyPurple}"/>
+        <Setter Property="materialDesign:RippleAssist.Feedback" Value="{DynamicResource LightPurpleHover}"/>
         <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="5"/>
         <Setter Property="materialDesign:ShadowAssist.ShadowDepth" Value="Depth0"/>
     </Style>
@@ -809,7 +847,7 @@
             <Border Grid.RowSpan="3" CornerRadius="4" Background="Transparent" />
             <Track Name="PART_Track" Grid.Row="1" IsDirectionReversed="true">
                 <Track.Thumb>
-                    <Thumb Style="{StaticResource ScrollBarThumb}" Margin="0" Background="{DynamicResource MyLightGray3}" BorderBrush="Transparent"/>
+                    <Thumb Style="{StaticResource ScrollBarThumb}" Margin="0" Background="{DynamicResource MyPurpleGradient}" BorderBrush="Transparent"/>
                 </Track.Thumb>
             </Track>
         </Grid>
@@ -825,7 +863,7 @@
             <Border Grid.ColumnSpan="3" CornerRadius="4" Background="Transparent"/>
             <Track Name="PART_Track" Grid.Column="1" IsDirectionReversed="False">
                 <Track.Thumb>
-                    <Thumb Style="{StaticResource ScrollBarThumb}" Margin="0" Background="{DynamicResource MyLightGray3}" BorderBrush="Transparent" />
+                    <Thumb Style="{StaticResource ScrollBarThumb}" Margin="0" Background="{DynamicResource MyPurpleGradient}" BorderBrush="Transparent" />
                 </Track.Thumb>
             </Track>
         </Grid>

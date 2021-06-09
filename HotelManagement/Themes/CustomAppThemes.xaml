@@ -7,11 +7,15 @@
     <local_converter:AbsolutePathConverter x:Key="PathConverter"/>
 
     <!-- Define Color -->
+    <SolidColorBrush x:Key="MyPurple" Color="#6f51ff"/>
     <SolidColorBrush x:Key="MyRed" Color="#d92027"/>
     <SolidColorBrush x:Key="MyOrange" Color="#fe9e0c"/>
-    <SolidColorBrush x:Key="MyYellow" Color="#ffcd3c"/>
+    <SolidColorBrush x:Key="MyGreen" Color="#39b54a"/>
+    <SolidColorBrush x:Key="MyYellow" Color="#ffb22c"/>
     <SolidColorBrush x:Key="LightYellow" Color="#fce68d"/>
-    <SolidColorBrush x:Key="MyBlue" Color="#172975"/>
+    <SolidColorBrush x:Key="MyBlue" Color="#312089"/>
+    <SolidColorBrush x:Key="MyLightBlue" Color="#084fff"/>
+    <SolidColorBrush x:Key="MyDarkBlue" Color="#172975"/>
     <SolidColorBrush x:Key="MyBlack" Color="#303030"/>
     <SolidColorBrush x:Key="MyLightGray" Color="#efefef"/>
     <SolidColorBrush x:Key="MyLightGray2" Color="#e6e6e6"/>
@@ -22,65 +26,15 @@
     <SolidColorBrush x:Key="OrangeHover" Color="#ff8b00"/>
     <SolidColorBrush x:Key="RedHover" Color="#e5173a"/>
     <SolidColorBrush x:Key="LightRedHover" Color="#ff6666"/>
+    <SolidColorBrush x:Key="LightPurpleHover" Color="#b466ff"/>
     <Color x:Key="YellowShadow">#fcdd00</Color>
 
+    <LinearGradientBrush x:Key="MyPurpleGradient">
+        <GradientStop Color="#623ae8" Offset="0"/>
+        <GradientStop Color="#586cff" Offset="1.0"/>
+    </LinearGradientBrush>
+
     <!-- Define Text Appearance-->
-
-    <Style TargetType="TextBlock"
-               x:Key="LargeHeaderText">
-        <Setter Property="FontSize" Value="39"/>
-        <Setter Property="FontFamily" Value="{DynamicResource OswaldMedium}"/>
-        <Setter Property="TextWrapping" Value="Wrap"/>
-        <Setter Property="TextAlignment" Value="Center"/>
-        <Setter Property="Foreground" Value="White"/>
-    </Style>
-
-    <Style TargetType="TextBlock"
-               x:Key="HeaderText">
-        <Setter Property="FontSize" Value="28"/>
-        <Setter Property="FontFamily" Value="{DynamicResource OswaldMedium}"/>
-        <Setter Property="TextWrapping" Value="Wrap"/>
-        <Setter Property="TextAlignment" Value="Center"/>
-        <Setter Property="Foreground" Value="{DynamicResource MyBlue}"/>
-    </Style>
-
-    <Style TargetType="TextBlock"
-               x:Key="MediumHeaderText">
-        <Setter Property="FontSize" Value="22"/>
-        <Setter Property="FontFamily" Value="{DynamicResource OswaldMedium}"/>
-        <Setter Property="TextWrapping" Value="Wrap"/>
-        <Setter Property="TextAlignment" Value="Left"/>
-        <Setter Property="Foreground" Value="{DynamicResource MyBlue}"/>
-    </Style>
-
-    <Style TargetType="TextBlock"
-               x:Key="SmallHeaderText">
-        <Setter Property="FontSize" Value="16"/>
-        <Setter Property="FontFamily" Value="{DynamicResource OswaldMedium}"/>
-        <Setter Property="TextWrapping" Value="Wrap"/>
-        <Setter Property="TextAlignment" Value="Left"/>
-        <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="Foreground" Value="{DynamicResource MyBlue}"/>
-    </Style>
-
-
-    <Style TargetType="TextBlock"
-                   x:Key="MediumText">
-        <Setter Property="FontSize" Value="13.5"/>
-        <Setter Property="FontFamily" Value="{DynamicResource GilroyRegular}"/>
-        <Setter Property="TextWrapping" Value="Wrap"/>
-        <Setter Property="TextAlignment" Value="Justify"/>
-        <Setter Property="Foreground" Value="{DynamicResource MyBlue}"/>
-    </Style>
-
-    <Style TargetType="TextBlock"
-                   x:Key="DetailTextBlock">
-        <Setter Property="FontSize" Value="13"/>
-        <Setter Property="FontFamily" Value="{DynamicResource GilroyMedium}"/>
-        <Setter Property="TextWrapping" Value="Wrap"/>
-        <Setter Property="TextAlignment" Value="Justify"/>
-        <Setter Property="Foreground" Value="{DynamicResource MyBlack}"/>
-    </Style>
 
     <Style TargetType="TextBlock" x:Key="LinkTextBlock" BasedOn="{StaticResource DetailTextBlock}">
         <Style.Triggers>
@@ -91,34 +45,16 @@
     </Style>
 
     <Style TargetType="TextBlock"
-                   x:Key="SmallText">
-        <Setter Property="FontSize" Value="12"/>
-        <Setter Property="FontFamily" Value="{DynamicResource GilroyRegular}"/>
+                   x:Key="GilroySemiBold20">
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="FontFamily" Value="{DynamicResource GilroySemiBold}"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="TextAlignment" Value="Justify"/>
         <Setter Property="Foreground" Value="{DynamicResource MyBlue}"/>
     </Style>
 
     <Style TargetType="TextBlock"
-                   x:Key="RegularText">
-        <Setter Property="FontSize" Value="14"/>
-        <Setter Property="FontFamily" Value="{DynamicResource GilroyMedium}"/>
-        <Setter Property="TextWrapping" Value="Wrap"/>
-        <Setter Property="TextAlignment" Value="Justify"/>
-        <Setter Property="Foreground" Value="{DynamicResource MyBlue}"/>
-    </Style>
-
-    <Style TargetType="TextBlock"
-                   x:Key="StepRegularText">
-        <Setter Property="FontSize" Value="15"/>
-        <Setter Property="FontFamily" Value="{DynamicResource GilroyMedium}"/>
-        <Setter Property="TextWrapping" Value="Wrap"/>
-        <Setter Property="TextAlignment" Value="Justify"/>
-        <Setter Property="Foreground" Value="White"/>
-    </Style>
-
-    <Style TargetType="TextBlock"
-                   x:Key="MemberRegularText">
+                   x:Key="GilroySemiBold15">
         <Setter Property="FontSize" Value="15"/>
         <Setter Property="FontFamily" Value="{DynamicResource GilroySemiBold}"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
@@ -127,44 +63,50 @@
     </Style>
 
     <Style TargetType="TextBlock"
-                   x:Key="ShoppingLargeText">
-        <Setter Property="FontSize" Value="19"/>
-        <Setter Property="FontFamily" Value="{DynamicResource GilroyMedium}"/>
-        <Setter Property="Foreground" Value="{DynamicResource MyBlack}"/>
-    </Style>
-
-
-    <Style TargetType="TextBlock"
-               x:Key="StepLargeText">
-        <Setter Property="FontSize" Value="23"/>
-        <Setter Property="FontFamily" Value="{DynamicResource GilroyBold}"/>
-        <Setter Property="TextWrapping" Value="Wrap"/>
-        <Setter Property="TextAlignment" Value="Center"/>
-        <Setter Property="Foreground" Value="White"/>
-    </Style>
-
-    <Style TargetType="TextBlock"
-               x:Key="MemberLargeText">
-        <Setter Property="FontSize" Value="19"/>
-        <Setter Property="FontFamily" Value="{DynamicResource GilroyBold}"/>
-        <Setter Property="TextWrapping" Value="Wrap"/>
-        <Setter Property="TextAlignment" Value="Center"/>
-        <Setter Property="Foreground" Value="{StaticResource MyBlack}"/>
-    </Style>
-
-    <Style TargetType="TextBox"
-                   x:Key="RegularTextTb">
-        <Setter Property="FontSize" Value="16"/>
-        <Setter Property="FontFamily" Value="{DynamicResource GilroyRegular}"/>
+                   x:Key="HelveticalBold35">
+        <Setter Property="FontSize" Value="35"/>
+        <Setter Property="FontFamily" Value="{DynamicResource HelvetiaBold}"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="TextAlignment" Value="Justify"/>
         <Setter Property="Foreground" Value="{DynamicResource MyBlue}"/>
     </Style>
 
+
     <Style TargetType="TextBlock"
-                   x:Key="LargeTitleText">
-        <Setter Property="FontSize" Value="20"/>
-        <Setter Property="FontFamily" Value="{DynamicResource OswaldBold}"/>
-        <Setter Property="Foreground" Value="{DynamicResource MyBlue}"/>
+                   x:Key="MediumLargeText">
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="FontFamily" Value="{DynamicResource GilroyMedium}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Justify"/>
+        <Setter Property="Foreground" Value="White"/>
     </Style>
+
+    <Style TargetType="TextBlock"
+                   x:Key="GilroyRegular135">
+        <Setter Property="FontSize" Value="13.5"/>
+        <Setter Property="FontFamily" Value="{DynamicResource GilroyRegular}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Justify"/>
+        <Setter Property="Foreground" Value="{DynamicResource MyBlack}"/>
+    </Style>
+
+    <Style TargetType="TextBlock"
+                   x:Key="GilroyRegular15">
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="FontFamily" Value="{DynamicResource GilroyRegular}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Justify"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+
+
+    <Style TargetType="TextBlock"
+                   x:Key="GilroyMedium15">
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="FontFamily" Value="{DynamicResource GilroyMedium}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Justify"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+
 </ResourceDictionary>
