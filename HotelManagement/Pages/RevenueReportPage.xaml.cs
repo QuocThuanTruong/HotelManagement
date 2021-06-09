@@ -16,31 +16,26 @@ using System.Windows.Shapes;
 namespace HotelManagement.Pages
 {
 	/// <summary>
-	/// Interaction logic for DashboardPage.xaml
+	/// Interaction logic for RevenueReportPage.xaml
 	/// </summary>
-	public partial class DashboardPage : Page
+	public partial class RevenueReportPage : Page
 	{
-		public delegate void ShowReportPage();
-		public event ShowReportPage ShowReportPageEvent;
+		public delegate void BackDashboard();
+		public event BackDashboard BackDashboardEvent;
 
-		public DashboardPage()
+		public RevenueReportPage()
 		{
 			InitializeComponent();
 		}
 
-		private void yearCombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		private void backButton_Click(object sender, RoutedEventArgs e)
 		{
-
+			BackDashboardEvent?.Invoke();
 		}
 
-		private void monthCombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		private void densityButton_Click(object sender, RoutedEventArgs e)
 		{
 
-		}
-
-		private void showReportButton_Click(object sender, RoutedEventArgs e)
-		{
-			ShowReportPageEvent?.Invoke();
 		}
 	}
 }

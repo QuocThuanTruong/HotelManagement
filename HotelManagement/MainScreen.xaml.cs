@@ -88,57 +88,73 @@ namespace HotelManagement
 			{
 				iconDashboardPage.Source = (ImageSource)FindResource(_mainScreenButtons[0].Item4);
 				dashboardPageName.Foreground = (Brush)FindResource("MyPurple");
-				result = new DashboardPage();
+				DashboardPage dashboard = new DashboardPage();
+				dashboard.ShowReportPageEvent += Dashboard_ShowReportPageEvent;
+				result = dashboard;
 			}
 			else if (selectedButton.Name == roomPageButton.Name)
 			{
-				iconRoomPage.Source = (ImageSource)FindResource(_mainScreenButtons[0].Item4);
+				iconRoomPage.Source = (ImageSource)FindResource(_mainScreenButtons[1].Item4);
 				roomPageName.Foreground = (Brush)FindResource("MyPurple");
 				result = new ListRoomPage();
 
 			}
 			else if (selectedButton.Name == roomMngPageButton.Name)
 			{
-				iconRoomMngPage.Source = (ImageSource)FindResource(_mainScreenButtons[0].Item4);
+				iconRoomMngPage.Source = (ImageSource)FindResource(_mainScreenButtons[2].Item4);
 				roomMngPageName.Foreground = (Brush)FindResource("MyPurple");
 				result = new RoomManagementPage();
 
 			}
 			else if (selectedButton.Name == rentBillPageButton.Name)
 			{
-				iconRentBillPage.Source = (ImageSource)FindResource(_mainScreenButtons[0].Item4);
+				iconRentBillPage.Source = (ImageSource)FindResource(_mainScreenButtons[3].Item4);
 				rentBillPageName.Foreground = (Brush)FindResource("MyPurple");
 				result = new RentBillManagementPage();
 
 			}
 			else if (selectedButton.Name == invoicePageButton.Name)
 			{
-				iconInvoicePage.Source = (ImageSource)FindResource(_mainScreenButtons[0].Item4);
+				iconInvoicePage.Source = (ImageSource)FindResource(_mainScreenButtons[4].Item4);
 				invoicePageName.Foreground = (Brush)FindResource("MyPurple");
 				result = new InvoiceManagementPage();
 
 			}
 			else if (selectedButton.Name == roomCatPageButton.Name)
 			{
-				iconRoomCatPage.Source = (ImageSource)FindResource(_mainScreenButtons[0].Item4);
+				iconRoomCatPage.Source = (ImageSource)FindResource(_mainScreenButtons[5].Item4);
 				romCatPageName.Foreground = (Brush)FindResource("MyPurple");
 				result = new RoomCategoriesManagementPage();
 
 			}
 			else if (selectedButton.Name == helpPageButton.Name)
 			{
-				iconHelpPage.Source = (ImageSource)FindResource(_mainScreenButtons[0].Item4);
+				iconHelpPage.Source = (ImageSource)FindResource(_mainScreenButtons[6].Item4);
 				helpPageName.Foreground = (Brush)FindResource("MyPurple");
 				result = new HelpPage();
 			}
 			else if (selectedButton.Name == aboutPageButton.Name)
 			{
-				iconAboutPage.Source = (ImageSource)FindResource(_mainScreenButtons[5].Item4);
-				aboutPageName.Foreground = Brushes.White;
+				iconAboutPage.Source = (ImageSource)FindResource(_mainScreenButtons[7].Item4);
+				aboutPageName.Foreground = (Brush)FindResource("MyPurple");
 				result = new AboutPage();
 			}
 
 			return result;
+		}
+
+		private void Dashboard_ShowReportPageEvent()
+		{
+			RevenueReportPage reportPage = new RevenueReportPage();
+			reportPage.BackDashboardEvent += ReportPage_BackDashboardEvent;
+			pageNavigation.NavigationService.Navigate(reportPage);
+			clearDrawerButton();
+		}
+
+		private void ReportPage_BackDashboardEvent()
+		{
+
+			DrawerButton_Click(dashboardPageButton, null);
 		}
 
 		//private void CakeDetailPage_UpdateOrder(int value)
@@ -154,7 +170,7 @@ namespace HotelManagement
 		//	}
 		//}
 
-		
+
 
 		private void clearDrawerButton()
 		{

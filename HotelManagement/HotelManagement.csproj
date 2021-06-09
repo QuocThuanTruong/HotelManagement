@@ -102,6 +102,9 @@
     <Compile Include="Pages\RentBillManagementPage.xaml.cs">
       <DependentUpon>RentBillManagementPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\RevenueReportPage.xaml.cs">
+      <DependentUpon>RevenueReportPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\RoomCategoriesManagementPage.xaml.cs">
       <DependentUpon>RoomCategoriesManagementPage.xaml</DependentUpon>
     </Compile>
@@ -144,6 +147,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Assets\Fonts\HelveticaNeue-Bold.otf" />
+    <Resource Include="Assets\Fonts\Bebas Neue Pro Regular.otf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -184,6 +188,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\RentBillManagementPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\RevenueReportPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -10,5 +10,7 @@
     <FontFamily x:Key="GilroySemiBold">pack://application:,,,/Assets/Fonts/SVN-Gilroy SemiBold.otf #SVN-Gilroy SemiBold</FontFamily>
     <FontFamily x:Key="GilroyThin">pack://application:,,,/Assets/Fonts/SVN-Gilroy Thin.otf #SVN-Gilroy Thin</FontFamily>
     <FontFamily x:Key="HelvetiaBold">pack://application:,,,/Assets/Fonts/HelveticaNeue-Bold.otf #Helvetica Neue Bold</FontFamily>
+    <FontFamily x:Key="BebasNeue">pack://application:,,,/Assets/Fonts/Bebas Neue Pro Regular.otf #Bebas Neue Pro</FontFamily>
+    <FontFamily x:Key="UTMBebas">pack://application:,,,/Assets/Fonts/UTM Bebas.ttf #UTM Bebas</FontFamily>
 
 </ResourceDictionary>

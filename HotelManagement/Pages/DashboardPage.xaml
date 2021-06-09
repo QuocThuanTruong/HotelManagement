@@ -399,7 +399,7 @@
                         Style="{StaticResource StepButton}"
                         materialDesign:ButtonAssist.CornerRadius="18"
                         Height="35"  
-                        Click="addToOrderButton_Click"
+                        Click="showReportButton_Click"
                         materialDesign:ShadowAssist.ShadowDepth="Depth0">
 
                 <TextBlock Text="XUẤT BIỂU MẪU"

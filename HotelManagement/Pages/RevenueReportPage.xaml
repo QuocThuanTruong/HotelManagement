@@ -1,0 +1,429 @@
+﻿<Page x:Class="HotelManagement.Pages.RevenueReportPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:HotelManagement.Pages"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      d:DesignHeight="718" d:DesignWidth="1116"
+      Background="White"
+      Title="RevenueReportPage">
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="618*"/>
+        </Grid.RowDefinitions>
+
+ 
+
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2.2*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="9.5*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel HorizontalAlignment="Center">
+                <!-- change here -->
+                <TextBlock Text="BÁO CÁO DANH THU THEO LOẠI PHÒNG"
+                           Name="reportTitleTextBlock"
+                           Style="{StaticResource UTMBebas36}"/>
+
+                <TextBlock Text="Tháng 07"
+                           Name="reportMonthTextBlock"
+                           Margin="0, 6, 0, 0"
+                           HorizontalAlignment="Center"
+                           Style="{StaticResource GilroyMedium21}"/>
+
+                <Rectangle Width="200"
+                           Height="2"
+                           Opacity="0.4"
+                           Margin="0, 12, 0, 0"
+                           Fill="{DynamicResource MyLightBlue}"/>
+            </StackPanel>
+
+            <!--revenue list-->
+            <Grid x:Name="revenueListContainer"
+                  Visibility="Visible"
+                Grid.Row="2"
+                  Width="766">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="37*"/>
+                    <RowDefinition Height="350*"/>
+                </Grid.RowDefinitions>
+
+                <materialDesign:Card Background="{DynamicResource MyPurpleGradient}"
+                                     Opacity="0.62"
+                                     Grid.Row="0"
+                                             materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                                             UniformCornerRadius="5">
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.12*"/>
+                            <ColumnDefinition Width="0.4*"/>
+                            <ColumnDefinition Width="0.1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="0.1*"/>
+                            <ColumnDefinition Width="0.8*"/>
+                            <ColumnDefinition Width="0.1*"/>
+                            <ColumnDefinition Width="0.6*"/>
+                            <ColumnDefinition Width="0.05*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="STT"
+                                           Grid.Column="1"
+                                            VerticalAlignment="Center"
+                                           Style="{StaticResource GilroyBold16}"/>
+
+                        <TextBlock Text="Loại phòng"
+                                           Grid.Column="3"
+                                            VerticalAlignment="Center"
+                                           Style="{StaticResource GilroyBold16}"/>
+
+                        <TextBlock Text="Doanh thu"
+                                           Grid.Column="5"
+                                            VerticalAlignment="Center"
+                                           Style="{StaticResource GilroyBold16}"/>
+
+                        <TextBlock Text="Tỉ lệ"
+                                           Grid.Column="7"
+                                            VerticalAlignment="Center"
+                                           Style="{StaticResource GilroyBold16}"/>
+
+                    </Grid>
+
+                </materialDesign:Card>
+
+                <ListView Name="roomRevenueList"
+                  Grid.Column="1"
+                  Grid.Row="1"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  Margin="0, 8, 0, 0"
+                  ItemContainerStyle="{StaticResource SiteHoverListBox}">
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid 
+                              Margin="2, 0, 10, 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.12*"/>
+                                    <ColumnDefinition Width="0.42*"/>
+                                    <ColumnDefinition Width="0.1*"/>
+                                    <ColumnDefinition Width="1.07*"/>
+                                    <ColumnDefinition Width="0.1*"/>
+                                    <ColumnDefinition Width="0.84*"/>
+                                    <ColumnDefinition Width="0.1*"/>
+                                    <ColumnDefinition Width="0.6*"/>
+                                    <ColumnDefinition Width="0.05*"/>
+                                </Grid.ColumnDefinitions>
+
+
+                                <!-- Binding data -->
+                                <TextBlock 
+                                Margin="0, 0, 0, 0"
+                                Grid.Column="1"
+                                HorizontalAlignment="Left"
+                                Text="1"
+                                VerticalAlignment="Center"
+                                    Foreground="{DynamicResource MyBlack}"
+                                Style="{StaticResource GilroyRegular15}"/>
+
+                                <!-- Binding data -->
+                                <TextBlock 
+                                Grid.Column="3"
+                                HorizontalAlignment="Left"
+                                Text="Phòng đơn"
+                                VerticalAlignment="Center"
+                                    Foreground="{DynamicResource MyBlack}"
+                                Style="{StaticResource GilroyRegular15}"/>
+
+                                <!-- Binding data -->
+                                <TextBlock 
+                                Grid.Column="5"
+                                HorizontalAlignment="Left"
+                                Text="9.000.000 đ"
+                                VerticalAlignment="Center"
+                                    Foreground="{DynamicResource MyBlack}"
+                                Style="{StaticResource GilroyRegular15}"/>
+
+                                <!-- Binding data -->
+                                <TextBlock 
+                                Grid.Column="7"
+                                    Margin="8, 0,0, 0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Text="30%"
+                                    Foreground="{DynamicResource MyBlack}"
+                                Style="{StaticResource GilroyRegular15}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+
+                    <Grid></Grid>
+                    <Grid></Grid>
+                    <Grid></Grid>
+                    <Grid></Grid>
+                </ListView>
+
+
+                <materialDesign:ColorZone Mode="Custom"
+                                  VerticalAlignment="Bottom"
+                                  Padding="0, 20, 4, 0"
+                                  HorizontalAlignment="Right"
+                                  Grid.Column="1"
+                                  Grid.Row="3">
+
+                    <materialDesign:ColorZone.Effect>
+                        <DropShadowEffect BlurRadius="10" 
+                                          ShadowDepth="1" 
+                                          Color="#ffbc00" 
+                                          Opacity="0.4" 
+                                          RenderingBias="Performance" />
+                    </materialDesign:ColorZone.Effect>
+
+
+                </materialDesign:ColorZone>
+            </Grid>
+
+
+            <!--density list-->
+            <Grid x:Name="densityListContainer"
+                  Visibility="Collapsed"
+                Grid.Row="2"
+                  Width="766">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="37*"/>
+                    <RowDefinition Height="350*"/>
+                </Grid.RowDefinitions>
+
+                <materialDesign:Card Background="{DynamicResource MyPurpleGradient}"
+                                     Opacity="0.62"
+                                     Grid.Row="0"
+                                             materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                                             UniformCornerRadius="5">
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.12*"/>
+                            <ColumnDefinition Width="0.4*"/>
+                            <ColumnDefinition Width="0.1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="0.1*"/>
+                            <ColumnDefinition Width="0.8*"/>
+                            <ColumnDefinition Width="0.1*"/>
+                            <ColumnDefinition Width="0.6*"/>
+                            <ColumnDefinition Width="0.05*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="STT"
+                                           Grid.Column="1"
+                                            VerticalAlignment="Center"
+                                           Style="{StaticResource GilroyBold16}"/>
+
+                        <TextBlock Text="Phòng"
+                                           Grid.Column="3"
+                                            VerticalAlignment="Center"
+                                           Style="{StaticResource GilroyBold16}"/>
+
+                        <TextBlock Text="Số ngày thuê"
+                                           Grid.Column="5"
+                                            VerticalAlignment="Center"
+                                           Style="{StaticResource GilroyBold16}"/>
+
+                        <TextBlock Text="Tỉ lệ"
+                                           Grid.Column="7"
+                                            VerticalAlignment="Center"
+                                           Style="{StaticResource GilroyBold16}"/>
+
+                    </Grid>
+
+                </materialDesign:Card>
+
+                <ListView Name="roomDensityList"
+                  Grid.Column="1"
+                  Grid.Row="1"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  Margin="0, 8, 0, 0"
+                  ItemContainerStyle="{StaticResource SiteHoverListBox}">
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid 
+                              Margin="2, 0, 10, 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.12*"/>
+                                    <ColumnDefinition Width="0.42*"/>
+                                    <ColumnDefinition Width="0.1*"/>
+                                    <ColumnDefinition Width="1.07*"/>
+                                    <ColumnDefinition Width="0.1*"/>
+                                    <ColumnDefinition Width="0.84*"/>
+                                    <ColumnDefinition Width="0.1*"/>
+                                    <ColumnDefinition Width="0.6*"/>
+                                    <ColumnDefinition Width="0.05*"/>
+                                </Grid.ColumnDefinitions>
+
+
+                                <!-- Binding data -->
+                                <TextBlock 
+                                Margin="0, 0, 0, 0"
+                                Grid.Column="1"
+                                HorizontalAlignment="Left"
+                                Text="1"
+                                VerticalAlignment="Center"
+                                    Foreground="{DynamicResource MyBlack}"
+                                Style="{StaticResource GilroyRegular15}"/>
+
+                                <!-- Binding data -->
+                                <TextBlock 
+                                Grid.Column="3"
+                                HorizontalAlignment="Left"
+                                Text="P.301"
+                                VerticalAlignment="Center"
+                                    Foreground="{DynamicResource MyBlack}"
+                                Style="{StaticResource GilroyRegular15}"/>
+
+                                <!-- Binding data -->
+                                <TextBlock 
+                                Grid.Column="5"
+                                HorizontalAlignment="Left"
+                                Text="30 ngày"
+                                VerticalAlignment="Center"
+                                    Foreground="{DynamicResource MyBlack}"
+                                Style="{StaticResource GilroyRegular15}"/>
+
+                                <!-- Binding data -->
+                                <TextBlock 
+                                Grid.Column="7"
+                                    Margin="8, 0,0, 0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Text="30%"
+                                    Foreground="{DynamicResource MyBlack}"
+                                Style="{StaticResource GilroyRegular15}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+
+                    <Grid></Grid>
+                    <Grid></Grid>
+                    <Grid></Grid>
+                    <Grid></Grid>
+                </ListView>
+
+
+                <materialDesign:ColorZone Mode="Custom"
+                                  VerticalAlignment="Bottom"
+                                  Padding="0, 20, 4, 0"
+                                  HorizontalAlignment="Right"
+                                  Grid.Column="1"
+                                  Grid.Row="3">
+
+                    <materialDesign:ColorZone.Effect>
+                        <DropShadowEffect BlurRadius="10" 
+                                          ShadowDepth="1" 
+                                          Color="#ffbc00" 
+                                          Opacity="0.4" 
+                                          RenderingBias="Performance" />
+                    </materialDesign:ColorZone.Effect>
+
+
+                </materialDesign:ColorZone>
+            </Grid>
+
+            <!--button-->
+
+            <materialDesign:ColorZone Mode="Custom"
+                                  VerticalAlignment="Center"
+                                  Padding="0, 0, 4, 0"
+                                  HorizontalAlignment="Center"
+                                  Grid.Column="1"
+                                  Grid.Row="3">
+
+                <materialDesign:ColorZone.Effect>
+                    <DropShadowEffect BlurRadius="10" 
+                                          ShadowDepth="1" 
+                                          Color="#563add" 
+                                          Opacity="0.4" 
+                                          RenderingBias="Performance" />
+                </materialDesign:ColorZone.Effect>
+
+                <StackPanel 
+                        Height="40"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+
+                    <Button Name="backButton"
+                        Width="150"
+                        Style="{StaticResource StepButton}"
+                        materialDesign:ButtonAssist.CornerRadius="18"
+                        Height="35"  
+                        Click="backButton_Click"
+                        materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                        <Grid Width="150">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="4*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Image Width="15"
+                               Height="15"
+                                   Margin="6, 0, 0, 0"
+                               RenderOptions.BitmapScalingMode="HighQuality"
+                               Source="{DynamicResource IconWhiteBack}"/>
+
+                            <TextBlock 
+                            HorizontalAlignment="Center"
+                            Grid.Column="1"
+                            Margin="0, 0, 22, 0"
+                           Style="{StaticResource GilroyMedium15}"
+                           Foreground="White"
+                           Text="BACK"/>
+                        </Grid>
+
+                    </Button>
+
+                    <Button Name="densityButton"
+                        Click="densityButton_Click"
+                        Width="230"
+                        Margin="46, 0, 0, 0"
+                        Style="{StaticResource StepButton}"
+                        materialDesign:ButtonAssist.CornerRadius="18"
+                        Height="35"                        
+                        materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                        <Grid Width="230">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.8*"/>
+                                <ColumnDefinition Width="4*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Image Width="15"
+                               Height="15"
+                                   Margin="6, 0, 0, 0"
+                               RenderOptions.BitmapScalingMode="HighQuality"
+                               Source="{DynamicResource IconWhiteInvoice}"/>
+
+                            <!-- CLICK THÌ ĐỔI TEXT QUA BÁO CÁO DOANH THU & NGƯỢC LẠI-->
+                            <TextBlock 
+                            HorizontalAlignment="Center"
+                            Grid.Column="1"
+                            Margin="0, 0, 22, 0"
+                           Style="{StaticResource GilroyMedium15}"
+                           Foreground="White"
+                           Text="BÁO CÁO MẬT ĐỘ"/>
+                        </Grid>
+
+                    </Button>
+                </StackPanel>
+            </materialDesign:ColorZone>
+
+        </Grid>
+
+    </Grid>
+</Page>
