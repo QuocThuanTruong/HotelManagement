@@ -21,18 +21,21 @@ namespace HotelManagement
 	public partial class MainScreen : Window
 	{
 		private List<Tuple<Button, Image, string, string, TextBlock>> _mainScreenButtons;
+		private int role;
 
 		public MainScreen()
 		{
 			InitializeComponent();
 		}
 
+		public MainScreen(int role)
+		{
+			InitializeComponent();
+			this.role = role;
+		}
+
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
-			DashboardPage dashBoardPage = new DashboardPage();
-
-			pageNavigation.NavigationService.Navigate(dashBoardPage);
-
 			_mainScreenButtons = new List<Tuple<Button, Image, string, string, TextBlock>>()
 			{
 				new Tuple<Button, Image, string, string, TextBlock>(dashboardPageButton, iconDashboardPage, "IconWhiteDashboard", "IconPurpleDashboard", dashboardPageName),
@@ -41,12 +44,43 @@ namespace HotelManagement
 				new Tuple<Button, Image, string, string, TextBlock>(rentBillPageButton, iconRentBillPage, "IconWhiteRentBill", "IconPurpleRentBill", rentBillPageName),
 				new Tuple<Button, Image, string, string, TextBlock>(invoicePageButton, iconInvoicePage, "IconWhiteInvoice", "IconPurpleInvoice", invoicePageName),
 				new Tuple<Button, Image, string, string, TextBlock>(roomCatPageButton, iconRoomCatPage, "IconWhiteRoomCat", "IconPurpleRoomCat", romCatPageName),
+				new Tuple<Button, Image, string, string, TextBlock>(cusCatPageButton, iconCusCatPage, "IconWhiteCustomer", "IconPurpleCustomer", cusCatPageName),
+				new Tuple<Button, Image, string, string, TextBlock>(empPageButton, iconEmpPage, "IconWhiteEmployee", "IconPurpleEmployee", empPageName),
+				new Tuple<Button, Image, string, string, TextBlock>(configPageButton, iconConfigPage, "IconWhiteConfig", "IconPurpleConfig", configPageName),
+				new Tuple<Button, Image, string, string, TextBlock>(settingPageButton, iconSettingPage, "IconWhiteSetting", "IconPurpleSetting", settingPageName),
 				new Tuple<Button, Image, string, string, TextBlock>(helpPageButton, iconHelpPage, "IconWhiteHelp", "IconPurpleHelp", helpPageName),
 				new Tuple<Button, Image, string, string, TextBlock>(aboutPageButton, iconAboutPage, "IconWhiteAbout", "IconPurpleAbout", aboutPageName)
 			};
 
+			Page startPage = new DashboardPage();
+			Button startButton = dashboardPageButton;
+
+			if (role == 0)
+			{
+				startPage = new ListRoomPage();
+				startButton = roomPageButton;
+			}
+
+			pageNavigation.NavigationService.Navigate(startPage);
 			//Default load page is home page
-			DrawerButton_Click(dashboardPageButton, e);
+			DrawerButton_Click(startButton, e);
+
+			initVisibleButton();
+
+			greetingTextBox.Text = "Hello mother fuker!";
+		}
+
+		private void initVisibleButton()
+		{
+			if (role == 0)
+			{
+				dashboardPageBtnContainer.Visibility = Visibility.Collapsed;
+				roomMngBtnContainer.Visibility = Visibility.Collapsed;
+				roomCatPageBtnContainer.Visibility = Visibility.Collapsed;
+				cusCatPageBtnContainer.Visibility = Visibility.Collapsed;
+				empPageBtnContainer.Visibility = Visibility.Collapsed;
+				configPageBtnContainer.Visibility = Visibility.Collapsed;
+			}
 		}
 
 		private void DrawerButton_Click(object sender, RoutedEventArgs e)
@@ -96,7 +130,10 @@ namespace HotelManagement
 			{
 				iconRoomPage.Source = (ImageSource)FindResource(_mainScreenButtons[1].Item4);
 				roomPageName.Foreground = (Brush)FindResource("MyPurple");
-				result = new ListRoomPage();
+				ListRoomPage listRoom = new ListRoomPage();
+				listRoom.CreateRentBillEvent += ListRoom_CreateRentBillEvent;
+				listRoom.CreateInvoiceEvent += ListRoom_CreateInvoiceEvent;
+				result = listRoom;
 
 			}
 			else if (selectedButton.Name == roomMngPageButton.Name)
@@ -110,14 +147,18 @@ namespace HotelManagement
 			{
 				iconRentBillPage.Source = (ImageSource)FindResource(_mainScreenButtons[3].Item4);
 				rentBillPageName.Foreground = (Brush)FindResource("MyPurple");
-				result = new RentBillManagementPage();
+				RentBillManagementPage rentBill = new RentBillManagementPage();
+				rentBill.EditRentBillEvent += RentBill_EditRentBillEvent;
+				result = rentBill;
 
 			}
 			else if (selectedButton.Name == invoicePageButton.Name)
 			{
 				iconInvoicePage.Source = (ImageSource)FindResource(_mainScreenButtons[4].Item4);
 				invoicePageName.Foreground = (Brush)FindResource("MyPurple");
-				result = new InvoiceManagementPage();
+				InvoiceManagementPage invoiceManagement = new InvoiceManagementPage();
+				invoiceManagement.ViewInvoiceEvent += InvoiceManagement_ViewInvoiceEvent;
+				result = invoiceManagement;
 
 			}
 			else if (selectedButton.Name == roomCatPageButton.Name)
@@ -127,20 +168,85 @@ namespace HotelManagement
 				result = new RoomCategoriesManagementPage();
 
 			}
+			else if (selectedButton.Name == cusCatPageButton.Name)
+			{
+				iconCusCatPage.Source = (ImageSource)FindResource(_mainScreenButtons[6].Item4);
+				cusCatPageName.Foreground = (Brush)FindResource("MyPurple");
+				result = new CustomerCategoriesManagementPage();
+
+			}
+			else if (selectedButton.Name == empPageButton.Name)
+			{
+				iconEmpPage.Source = (ImageSource)FindResource(_mainScreenButtons[7].Item4);
+				empPageName.Foreground = (Brush)FindResource("MyPurple");
+				result = new EmployeeManagementPage();
+
+			}
+			else if (selectedButton.Name == configPageButton.Name)
+			{
+				iconConfigPage.Source = (ImageSource)FindResource(_mainScreenButtons[8].Item4);
+				configPageName.Foreground = (Brush)FindResource("MyPurple");
+				result = new ConfigPage();
+
+			}
+			else if (selectedButton.Name == settingPageButton.Name)
+			{
+				iconSettingPage.Source = (ImageSource)FindResource(_mainScreenButtons[9].Item4);
+				settingPageName.Foreground = (Brush)FindResource("MyPurple");
+				result = new ChangePasswordPage();
+
+			}
 			else if (selectedButton.Name == helpPageButton.Name)
 			{
-				iconHelpPage.Source = (ImageSource)FindResource(_mainScreenButtons[6].Item4);
+				iconHelpPage.Source = (ImageSource)FindResource(_mainScreenButtons[10].Item4);
 				helpPageName.Foreground = (Brush)FindResource("MyPurple");
 				result = new HelpPage();
 			}
 			else if (selectedButton.Name == aboutPageButton.Name)
 			{
-				iconAboutPage.Source = (ImageSource)FindResource(_mainScreenButtons[7].Item4);
+				iconAboutPage.Source = (ImageSource)FindResource(_mainScreenButtons[11].Item4);
 				aboutPageName.Foreground = (Brush)FindResource("MyPurple");
 				result = new AboutPage();
 			}
 
 			return result;
+		}
+
+		private void InvoiceManagement_ViewInvoiceEvent(int id)
+		{
+			CreateInvoicePage createInvoicePage = new CreateInvoicePage(id, invoicePageButton);
+			createInvoicePage.BackPageEvent += All_BackPageEvent;
+			pageNavigation.NavigationService.Navigate(createInvoicePage);
+			clearDrawerButton();
+		}
+
+		private void All_BackPageEvent(Button page)
+		{
+			DrawerButton_Click(page, null);
+		}
+
+		private void RentBill_EditRentBillEvent(int id)
+		{
+			CreateRentBillPage createRentBill = new CreateRentBillPage(id, rentBillPageButton);
+			createRentBill.BackPageEvent += All_BackPageEvent;
+			pageNavigation.NavigationService.Navigate(createRentBill);
+			clearDrawerButton();
+		}
+
+		private void ListRoom_CreateInvoiceEvent(int id)
+		{
+			CreateInvoicePage createInvoicePage = new CreateInvoicePage(id, roomPageButton);
+			createInvoicePage.BackPageEvent += All_BackPageEvent;
+			pageNavigation.NavigationService.Navigate(createInvoicePage);
+			clearDrawerButton();
+		}
+
+		private void ListRoom_CreateRentBillEvent(int id)
+		{
+			CreateRentBillPage createRentBill = new CreateRentBillPage(id, roomPageButton);
+			createRentBill.BackPageEvent += All_BackPageEvent;
+			pageNavigation.NavigationService.Navigate(createRentBill);
+			clearDrawerButton();
 		}
 
 		private void Dashboard_ShowReportPageEvent()

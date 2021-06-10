@@ -98,6 +98,13 @@
                    Height="76"
                    Source="{StaticResource AppLogo}"/>
 
+            <TextBlock x:Name="greetingTextBox"
+                       Text="Hello Manager!"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Bottom"
+                       Foreground="White"
+                       Style="{StaticResource GilroySemiBold15}"/>
+
             <Grid Name="drawerButtons"
               Grid.Row="2">
                 <Grid.RowDefinitions>
@@ -113,6 +120,7 @@
                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                          ScrollViewer.VerticalScrollBarVisibility="Disabled"
                             Grid.Column="0"
+                    Grid.RowSpan="4"
                             Grid.Row="1">
 
                     <ListBox.ItemsPanel>
@@ -132,7 +140,8 @@
 
             <!-- Drawer buttons -->
             <Grid Name="contentDrawerContainer"
-              Grid.Row="2">
+              Grid.Row="2"
+                  Grid.RowSpan="4">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="20*"/>
                     <RowDefinition Height="460*"/>
@@ -148,7 +157,7 @@
                             Margin="0, 0, 18, 0"
                             Grid.Column="0"
                             Grid.Row="1"
-                         Grid.RowSpan="2">
+                         Grid.RowSpan="4">
 
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -157,7 +166,8 @@
                     </ListBox.ItemsPanel>
 
                     <!-- Dashboard page button-->
-                    <Grid Name="dashboardPageBtnContainer">
+                    <Grid Name="dashboardPageBtnContainer"
+                          Margin="4">
                         <!-- Click -->
                         <!-- Active Background="White"
                                 BorderThickness="0" -->
@@ -195,7 +205,7 @@
                     </Grid>
 
                     <!-- home button-->
-                    <Grid Name="roomPageBtnContainer">
+                    <Grid Name="roomPageBtnContainer" Margin="4">
                         <!-- Click -->
                         <Button Name="roomPageButton"
                                 Click="DrawerButton_Click"
@@ -231,7 +241,7 @@
                     </Grid>
 
                     <!--Add site button-->
-                    <Grid Name="roomMngBtnContainer">
+                    <Grid Name="roomMngBtnContainer" Margin="4">
 
                         <!-- Click -->
                         <Button Name="roomMngPageButton"
@@ -269,7 +279,7 @@
 
 
                     <!-- About button-->
-                    <Grid Name="rentBillPageBtnContainer">
+                    <Grid Name="rentBillPageBtnContainer" Margin="4">
                         <!-- Click -->
                         <Button Name="rentBillPageButton"
                                 Click="DrawerButton_Click"
@@ -327,7 +337,7 @@
                     </Grid>
 
                     <!-- Help button-->
-                    <Grid Name="invoicePageBtnContainer">
+                    <Grid Name="invoicePageBtnContainer" Margin="4">
                         <!-- Click -->
                         <Button Name="invoicePageButton"
                                 Click="DrawerButton_Click"
@@ -363,7 +373,7 @@
                     </Grid>
 
                     <!-- About button-->
-                    <Grid Name="roomCatPageBtnContainer">
+                    <Grid Name="roomCatPageBtnContainer" Margin="4">
                         <!-- Click -->
                         <Button Name="roomCatPageButton"
                                 Click="DrawerButton_Click"
@@ -399,9 +409,155 @@
                     </Grid>
 
                     <!-- About button-->
+                    <Grid Name="cusCatPageBtnContainer" Margin="4">
+                        <!-- Click -->
+                        <Button Name="cusCatPageButton"
+                                Click="DrawerButton_Click"
+                                Style="{StaticResource DrawerButton}">
+
+                            <Grid Name="cusCatPageContent" 
+                              Width="{Binding ActualWidth, ElementName=dashboardPageButton}">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2.4*"/>
+                                    <ColumnDefinition Width="7*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Name="iconCusCatPage"
+                                    Margin="10, 0, 0, 0"
+                                   Grid.Column="0"
+                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Source="{DynamicResource IconWhiteCustomer}"
+                                   Width="19"
+                                   Height="19"/>
+
+                                <TextBlock Name="cusCatPageName"
+                                       Grid.Column="0"
+                                       Grid.ColumnSpan="2"
+                                       Margin="60, 0, 0, 0"
+                                       HorizontalAlignment="Left"
+                                       Style="{DynamicResource DrawerMediumText}"
+                                       Text="QL LOẠI KHÁCH"/>
+                            </Grid>
+                        </Button>
+                    </Grid>
+
+
+                    <!-- About button-->
+                    <Grid Name="empPageBtnContainer" Margin="4">
+                        <!-- Click -->
+                        <Button Name="empPageButton"
+                                Click="DrawerButton_Click"
+                                Style="{StaticResource DrawerButton}">
+
+                            <Grid Name="empPageContent" 
+                              Width="{Binding ActualWidth, ElementName=dashboardPageButton}">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2.4*"/>
+                                    <ColumnDefinition Width="7*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Name="iconEmpPage"
+                                    Margin="10, 0, 0, 0"
+                                   Grid.Column="0"
+                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Source="{DynamicResource IconWhiteEmployee}"
+                                   Width="19"
+                                   Height="19"/>
+
+                                <TextBlock Name="empPageName"
+                                       Grid.Column="0"
+                                       Grid.ColumnSpan="2"
+                                       Margin="60, 0, 0, 0"
+                                       HorizontalAlignment="Left"
+                                       Style="{DynamicResource DrawerMediumText}"
+                                       Text="QL NHÂN VIÊN"/>
+                            </Grid>
+                        </Button>
+                    </Grid>
+
+                    <!-- About button-->
+                    <Grid Name="configPageBtnContainer" Margin="4">
+                        <!-- Click -->
+                        <Button Name="configPageButton"
+                                Click="DrawerButton_Click"
+                                Style="{StaticResource DrawerButton}">
+
+                            <Grid Name="configPageContent" 
+                              Width="{Binding ActualWidth, ElementName=dashboardPageButton}">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2.4*"/>
+                                    <ColumnDefinition Width="7*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Name="iconConfigPage"
+                                    Margin="10, 0, 0, 0"
+                                   Grid.Column="0"
+                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Source="{DynamicResource IconWhiteConfig}"
+                                   Width="19"
+                                   Height="19"/>
+
+                                <TextBlock Name="configPageName"
+                                       Grid.Column="0"
+                                       Grid.ColumnSpan="2"
+                                       Margin="60, 0, 0, 0"
+                                       HorizontalAlignment="Left"
+                                       Style="{DynamicResource DrawerMediumText}"
+                                       Text="CẤU HÌNH KHÁC"/>
+                            </Grid>
+                        </Button>
+                    </Grid>
+
+                    <!-- About button-->
+                    <Grid Name="settingPageBtnContainer" Margin="4">
+                        <!-- Click -->
+                        <Button Name="settingPageButton"
+                                Click="DrawerButton_Click"
+                                Style="{StaticResource DrawerButton}">
+
+                            <Grid Name="settingPageContent" 
+                              Width="{Binding ActualWidth, ElementName=dashboardPageButton}">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2.4*"/>
+                                    <ColumnDefinition Width="7*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Name="iconSettingPage"
+                                    Margin="10, 0, 0, 0"
+                                   Grid.Column="0"
+                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Source="{DynamicResource IconWhiteSetting}"
+                                   Width="19"
+                                   Height="19"/>
+
+                                <TextBlock Name="settingPageName"
+                                       Grid.Column="0"
+                                       Grid.ColumnSpan="2"
+                                       Margin="60, 0, 0, 0"
+                                       HorizontalAlignment="Left"
+                                       Style="{DynamicResource DrawerMediumText}"
+                                       Text="ĐỔI MẬT KHẨU"/>
+                            </Grid>
+                        </Button>
+                    </Grid>
+
+                    <!-- About button-->
                     <Grid Name="helpPageBtnContainer">
                         <!-- Click -->
                         <Button Name="helpPageButton"
+                                Visibility="Collapsed"
                                 Click="DrawerButton_Click"
                                 Style="{StaticResource DrawerButton}">
 
@@ -437,7 +593,8 @@
                     <!-- About button-->
                     <Grid Name="aboutPageBtnContainer">
                         <!-- Click -->
-                        <Button Name="aboutPageButton"
+                        <Button Name="aboutPageButton"   
+                                Visibility="Collapsed"
                                 Click="DrawerButton_Click"
                                 Style="{StaticResource DrawerButton}">
 

@@ -1,10 +1,10 @@
-﻿<Page x:Class="HotelManagement.Pages.RoomCategoriesManagementPage"
+﻿<Page x:Class="HotelManagement.Pages.EmployeeManagementPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:HotelManagement.Pages"
-      mc:Ignorable="d" 
+       mc:Ignorable="d" 
       Background="White"
        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       d:DesignHeight="718" d:DesignWidth="1116"
@@ -21,7 +21,7 @@
         <StackPanel HorizontalAlignment="Center"
                     Grid.RowSpan="2">
             <!-- change here -->
-            <TextBlock Text="QUẢN LÍ LOẠI PHÒNG"
+            <TextBlock Text="QUẢN LÍ NHÂN VIÊN"
                            HorizontalAlignment="Center"
                       Margin="0, 30, 0, 0"
                            Name="reportTitleTextBlock"
@@ -44,7 +44,7 @@
             <StackPanel Grid.Row="1" HorizontalAlignment="Center">
 
 
-                <TextBlock Text="Thông tin loại phòng"
+                <TextBlock Text="Thông tin nhân viên"
                                    Style="{StaticResource Bebas21}"/>
 
                 <StackPanel Orientation="Horizontal">
@@ -63,38 +63,36 @@
                                      Margin="12, 7, 2 ,0"
                               Padding="5, 5, 0, 5"
                                      Style="{StaticResource AddRecipePageTextBox}"
-                                     materialDesign:HintAssist.Hint="Tên loại phòng"
+                                     materialDesign:HintAssist.Hint="Tên nhân viên"
                                      Grid.Column="1"
                                      Grid.Row="1"/>
-
-                    <Grid>
-                        <TextBox Name="memberReceiptMoneyTextBox"
-                                    Padding="5, 5, 60, 5"
-                                    Width="160"
-                                    Margin="12, 8, 2 ,0"
-                                    Style="{StaticResource AddRecipePageTextBox}"
-                                    materialDesign:HintAssist.Hint="Đơn giá"
-                                    Grid.Column="1"
-                                    Grid.Row="1"
-                                          />
-
-                        <TextBlock Text="đ/ngày"
-                                    Margin="0, 9, 12, 0"
-                                    VerticalAlignment="Center"
-                                    HorizontalAlignment="Right"
-                                    Style="{StaticResource GilroyRegular135}"/>
-                    </Grid>
-
 
                     <TextBox Name="customerAddrTextBox"
                                      Padding="5, 5, 0, 5"
-                                     Width="180"
+                                     Width="150"
                                      Margin="12, 8, 2 ,0"
                                      Style="{StaticResource AddRecipePageTextBox}"
-                                     materialDesign:HintAssist.Hint="Số lượng khách tối đa"
+                                     materialDesign:HintAssist.Hint="CMND"
                                      Grid.Column="1"
                                      Grid.Row="1"/>
 
+                    <TextBox Name="usernameTextBox"
+                                     Padding="5, 5, 0, 5"
+                                     Width="140"
+                                     Margin="12, 8, 2 ,0"
+                                     Style="{StaticResource AddRecipePageTextBox}"
+                                     materialDesign:HintAssist.Hint="Tài khoản"
+                                     Grid.Column="1"
+                                     Grid.Row="1"/>
+
+                    <TextBox Name="passwordTextBox"
+                                     Padding="5, 5, 0, 5"
+                                     Width="140"
+                                     Margin="12, 8, 2 ,0"
+                                     Style="{StaticResource AddRecipePageTextBox}"
+                                     materialDesign:HintAssist.Hint="Mật khẩu"
+                                     Grid.Column="1"
+                                     Grid.Row="1"/>
 
 
                     <Button Name="addCustomerButton"
@@ -141,38 +139,45 @@
                                 <ColumnDefinition Width="0.07*"/>
                                 <ColumnDefinition Width="0.13*"/>
                                 <ColumnDefinition Width="0.1*"/>
+                                <ColumnDefinition Width="0.6*"/>
+                                <ColumnDefinition Width="0.1*"/>
+                                <ColumnDefinition Width="0.4*"/>
+                                <ColumnDefinition Width="0.1*"/>
                                 <ColumnDefinition Width="0.5*"/>
                                 <ColumnDefinition Width="0.1*"/>
-                                <ColumnDefinition Width="0.6*"/>
+                                <ColumnDefinition Width="0.45*"/>
                                 <ColumnDefinition Width="0.1*"/>
-                                <ColumnDefinition Width="0.6*"/>
-                                <ColumnDefinition Width="0.1*"/>
-                                <ColumnDefinition Width="0.37*"/>
+                                <ColumnDefinition Width="0.4*"/>
                                 <ColumnDefinition Width="0.03*"/>
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock Text="STT"
+                            <TextBlock Text="ID"
                                            Grid.Column="1"
                                             VerticalAlignment="Center"
                                            Style="{StaticResource GilroyBold16}"/>
 
-                            <TextBlock Text="Loại phòng"
+                            <TextBlock Text="Tên nhân viên"
                                            Grid.Column="3"
                                             VerticalAlignment="Center"
                                            Style="{StaticResource GilroyBold16}"/>
 
-                            <TextBlock Text="Đơn giá"
+                            <TextBlock Text="CMND"
                                            Grid.Column="5"
                                             VerticalAlignment="Center"
                                            Style="{StaticResource GilroyBold16}"/>
 
-                            <TextBlock Text="Số lượng khách tối đa"
+                            <TextBlock Text="Tài khoản"
                                            Grid.Column="7"
                                             VerticalAlignment="Center"
                                            Style="{StaticResource GilroyBold16}"/>
 
-                            <TextBlock Text="Hành động"
+                            <TextBlock Text="Mật khẩu"
                                            Grid.Column="9"
+                                            VerticalAlignment="Center"
+                                           Style="{StaticResource GilroyBold16}"/>
+
+                            <TextBlock Text="Hành động"
+                                           Grid.Column="11"
                                             VerticalAlignment="Center"
                                            Style="{StaticResource GilroyBold16}"/>
 
@@ -194,13 +199,15 @@
                                         <ColumnDefinition Width="0.07*"/>
                                         <ColumnDefinition Width="0.13*"/>
                                         <ColumnDefinition Width="0.1*"/>
+                                        <ColumnDefinition Width="0.6*"/>
+                                        <ColumnDefinition Width="0.1*"/>
+                                        <ColumnDefinition Width="0.4*"/>
+                                        <ColumnDefinition Width="0.1*"/>
                                         <ColumnDefinition Width="0.5*"/>
                                         <ColumnDefinition Width="0.1*"/>
-                                        <ColumnDefinition Width="0.6*"/>
+                                        <ColumnDefinition Width="0.45*"/>
                                         <ColumnDefinition Width="0.1*"/>
-                                        <ColumnDefinition Width="0.6*"/>
-                                        <ColumnDefinition Width="0.1*"/>
-                                        <ColumnDefinition Width="0.37*"/>
+                                        <ColumnDefinition Width="0.4*"/>
                                         <ColumnDefinition Width="0.03*"/>
                                     </Grid.ColumnDefinitions>
 
@@ -212,35 +219,45 @@
                                     Foreground="{DynamicResource MyBlack}"
                                 Style="{StaticResource GilroyRegular15}"/>
 
-                                    <TextBlock Text="Đơn"
+                                    <TextBlock Text="Quoc Thuan Truong"
                                            Grid.Column="3"
                                              HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                     Foreground="{DynamicResource MyBlack}"
                                 Style="{StaticResource GilroyRegular15}"/>
 
-                                    <TextBlock Text="1.000.000 đ/ngày"
+                                    <TextBlock Text="123456789"
                                            Grid.Column="5"
                                             HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                     Foreground="{DynamicResource MyBlack}"
                                 Style="{StaticResource GilroyRegular15}"/>
 
-                                    <TextBlock Text="4 khách"
+                                    <TextBlock Text="NV_THUAN"
                                            Grid.Column="7"
                                             HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                     Foreground="{DynamicResource MyBlack}"
                                 Style="{StaticResource GilroyRegular15}"/>
 
-                                    <StackPanel Grid.Column="9" 
+                                    
+                                    <!--bidning lên hiện *** thôi
+                                    add thì bình thường, update thì cũng hiện ***-->
+                                    <TextBlock Text="*******"
+                                           Grid.Column="9"
+                                            HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                    Foreground="{DynamicResource MyBlack}"
+                                Style="{StaticResource GilroyRegular15}"/>
+
+                                    <StackPanel Grid.Column="11" 
                                        HorizontalAlignment="Center"
                                             Orientation="Horizontal"
                                             VerticalAlignment="Center">
-                                        
+
                                         <!-- bấm nút edit thì bidning lên trên
                                         và icon nút thêm đổi từ dấu cộng thành IconWhiteUpdate -->
-                                        
+
                                         <Button Name="editButton"
                                             Width="35"
                                             Background="{DynamicResource MyBlue}"
@@ -324,7 +341,7 @@
                                           RenderingBias="Performance" />
                 </materialDesign:ColorZone.Effect>
 
-              
+
             </materialDesign:ColorZone>
 
         </Grid>

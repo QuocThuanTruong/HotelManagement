@@ -4,11 +4,619 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:HotelManagement.Pages"
+       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+       xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="718" d:DesignWidth="1116"
+     xmlns:converter="clr-namespace:HotelManagement.Converters"
       Title="ListRoomPage">
 
-    <Grid>
-        
+
+    <Grid Name="mainContainer">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="962*"/>
+            <ColumnDefinition Width="40*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60*"/>
+            <RowDefinition Height="75*"/>
+            <RowDefinition Height="525*"/>
+            <RowDefinition Height="88*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Name="searchContainer"
+                    Orientation="Horizontal"
+              Grid.Column="1"
+              Grid.Row="0">
+
+
+            <!-- Search box-->
+            <materialDesign:ColorZone Mode="Custom"
+                                      HorizontalAlignment="Left"
+                                      Margin="0, 0, 20, 0"
+                                      Height="{Binding ActualHeight, ElementName=searchContainer}">
+
+                <materialDesign:ColorZone.Effect>
+                    <DropShadowEffect BlurRadius="10" 
+                                      ShadowDepth="1" 
+                                      Color="LightGray" 
+                                      Opacity="0.5" 
+                                      RenderingBias="Performance" />
+                </materialDesign:ColorZone.Effect>
+
+                <materialDesign:Card Name="searchBoxContainer"
+                                 Width="350"
+                                 Height="45"
+                                 Style="{StaticResource CardScaleHover}"
+                                 UniformCornerRadius="23"
+                                 materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                                 Grid.Column="0">
+
+                    <Grid Name="searchContentCard">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50*"/>
+                            <ColumnDefinition Width="300*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button Name="searchButton"
+                                materialDesign:ButtonAssist.CornerRadius="20"
+                                Background="Transparent"
+                                Padding="0"
+                                BorderThickness="0"
+                                materialDesign:RippleAssist.Feedback="{DynamicResource RippleBlue}"
+                                Width="40"
+                                Height="40">
+
+                            <Image Name="iconSearch"
+                                   HorizontalAlignment="Center"
+                                   RenderOptions.BitmapScalingMode="HighQuality"
+                               Width="23"
+                               Height="22"
+                               Source="{StaticResource IconPurpleSearch}"/>
+
+                        </Button>
+
+
+                        <!-- Search text box -->
+                        <TextBox Name="searchTextBox"
+                                 Margin="0, 8, 12, 0"
+                                 Style="{StaticResource SearchTextBox}"
+                                 materialDesign:HintAssist.Hint="Tìm kiếm phòng.."
+                                 Grid.Column="1" 
+                                 />
+                    </Grid>
+                </materialDesign:Card>
+            </materialDesign:ColorZone>
+
+            <!-- date mặc định sửa ngày thành hôm nay và load lên  box-->
+            <materialDesign:ColorZone Mode="Custom"
+                                      Margin="0, 0, 20, 0"
+                                      Height="{Binding ActualHeight, ElementName=searchContainer}"
+                                      Grid.Column="1">
+
+                <materialDesign:ColorZone.Effect>
+                    <DropShadowEffect BlurRadius="10" 
+                                      ShadowDepth="1" 
+                                      Color="LightGray" 
+                                      Opacity="0.5" 
+                                      RenderingBias="Performance" />
+                </materialDesign:ColorZone.Effect>
+
+                <materialDesign:Card
+                                      Style="{StaticResource CardScaleHover}"
+                                 Width="135"
+                                 Height="45"
+                                 UniformCornerRadius="23"
+                                 materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                                 Grid.Column="0">
+
+                    <Grid>
+                        <DatePicker Name="startDatePicker"
+                                    BorderThickness="0"
+                                    materialDesign:TextFieldAssist.DecorationVisibility ="Collapsed"
+                                    HorizontalAlignment="Center"
+                                    Height="32"
+                                    Width="105"
+                                    HorizontalContentAlignment="Center"
+                                    Foreground="{DynamicResource MyBlack}"
+                                    materialDesign:HintAssist.IsFloating="False"
+                                    materialDesign:HintAssist.Hint="Ngày"
+                                    FontFamily="{StaticResource GilroyRegular}"
+                                    FontSize="14"
+                                    Style="{StaticResource MaterialDesignDatePicker}"/>
+
+                        <Border Height="34"
+                                    BorderBrush="White"
+                                    BorderThickness="3"
+                                    CornerRadius="4"/>
+
+                    </Grid>
+                </materialDesign:Card>
+            </materialDesign:ColorZone>
+
+
+            <!-- cat combo box-->
+            <materialDesign:ColorZone Mode="Custom"
+                                      Margin="0, 0, 20, 0"
+                                      Height="{Binding ActualHeight, ElementName=searchContainer}"
+                                      Grid.Column="1">
+
+                <materialDesign:ColorZone.Effect>
+                    <DropShadowEffect BlurRadius="10" 
+                                      ShadowDepth="1" 
+                                      Color="LightGray" 
+                                      Opacity="0.5" 
+                                      RenderingBias="Performance" />
+                </materialDesign:ColorZone.Effect>
+
+                <materialDesign:Card Name="catBoxContainer"
+                                      Style="{StaticResource CardScaleHover}"
+                                 Width="180"
+                                 Height="45"
+                                 UniformCornerRadius="23"
+                                 materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                                 Grid.Column="0">
+
+                    <Grid Name="catContentCard"
+                                Width="145"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1.1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Name="titleCatTextBlock"
+                                   VerticalAlignment="Center"
+                                   Style="{StaticResource GilroyRegular135}"
+                                   Foreground="{DynamicResource MyBlack}"
+                                   Text="Loại phòng: "/>
+
+                        <ComboBox Name="catComboBox"
+                                  SelectedIndex="0"
+                                  Style="{StaticResource SearchBoxComboBox}"
+                                  ItemContainerStyle="{StaticResource SearchBoxComboBoxItem}"
+                                  Height="30"
+                                  Grid.Column="1"
+                                  BorderBrush="{DynamicResource MyBlack}"
+                                  BorderThickness="0"
+                                  materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
+                                  Margin="4, 2, 0, 0"
+                                  OverridesDefaultStyle="True">
+
+                            <!-- binding-->
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock 
+                                        Text="Đơn"
+                                        VerticalAlignment="Center"
+                                        Margin="5, 1, 0, 0"
+                                        Grid.Column="1"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+
+                            <TextBlock></TextBlock>
+                            <TextBlock></TextBlock>
+                            <TextBlock></TextBlock>
+
+                        </ComboBox>
+                    </Grid>
+                </materialDesign:Card>
+            </materialDesign:ColorZone>
+
+
+            <!-- Sort combo box-->
+            <materialDesign:ColorZone Mode="Custom"
+                                      Margin="0, 0, 0, 0"
+                                      Height="{Binding ActualHeight, ElementName=searchContainer}"
+                                      Grid.Column="1">
+
+                <materialDesign:ColorZone.Effect>
+                    <DropShadowEffect BlurRadius="10" 
+                                      ShadowDepth="1" 
+                                      Color="LightGray" 
+                                      Opacity="0.5" 
+                                      RenderingBias="Performance" />
+                </materialDesign:ColorZone.Effect>
+
+                <materialDesign:Card Name="sortBoxContainer"
+                                      Style="{StaticResource CardScaleHover}"
+                                 Width="200"
+                                 Height="45"
+                                 UniformCornerRadius="23"
+                                 materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                                 Grid.Column="0">
+
+                    <Grid Name="sortContentCard"
+                                Width="165"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.75*"/>
+                            <ColumnDefinition Width="1.5*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Name="titleSortTextBlock"
+                                   VerticalAlignment="Center"
+                                   Style="{StaticResource GilroyRegular135}"
+                                   Foreground="{DynamicResource MyBlack}"
+                                   Text="Sắp xếp: "/>
+
+                        <ComboBox Name="sortTypeComboBox"
+                                  SelectedIndex="0"
+                                  Style="{StaticResource SearchBoxComboBox}"
+                                  ItemContainerStyle="{StaticResource SearchBoxComboBoxItem}"
+                                  Height="30"
+                                  Grid.Column="1"
+                                  BorderBrush="{DynamicResource MyBlack}"
+                                  BorderThickness="0"
+                                  materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
+                                  Margin="4, 2, 0, 0"
+                                  OverridesDefaultStyle="True">
+
+                            <!-- Date -->
+                            <ComboBoxItem Name="sortByDescRoom">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="8*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Width="7"
+                                           Height="13"
+                                           Grid.Column="0"
+                                           VerticalAlignment="Center"
+                                           Source="{StaticResource IconDesc}"/>
+
+                                    <TextBlock Name="titleDesDate"
+                                               Text="Số phòng"
+                                               VerticalAlignment="Center"
+                                               Margin="5, 0, 0, 0"
+                                               Grid.Column="1"/>
+                                </Grid>
+                            </ComboBoxItem>
+
+                            <ComboBoxItem Name="sortByAscRoom">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="8*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Width="7"
+                                           Height="13"
+                                           Grid.Column="0"
+                                           VerticalAlignment="Center"
+                                           Source="{StaticResource IconAsc}"/>
+
+                                    <TextBlock Name="titleAscDate"
+                                               Text="Số phòng"
+                                               VerticalAlignment="Center"
+                                               Margin="5, 0, 0, 0"
+                                               Grid.Column="1"/>
+                                </Grid>
+                            </ComboBoxItem>
+
+                            <!-- A-Z -->
+                            <ComboBoxItem Name="sortByDescPrice">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="8*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Width="7"
+                                           Height="13"
+                                           Grid.Column="0"
+                                           VerticalAlignment="Center"
+                                           Source="{StaticResource IconDesc}"/>
+
+                                    <TextBlock Name="titleAZ"
+                                               Text="Giá tiền"
+                                               VerticalAlignment="Center"
+                                               Margin="5, 0, 0, 0"
+                                               Grid.Column="1"/>
+                                </Grid>
+                            </ComboBoxItem>
+
+                            <ComboBoxItem Name="sortByAscPrice">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="8*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Width="7"
+                                           Height="13"
+                                           Grid.Column="0"
+                                           VerticalAlignment="Center"
+                                           Source="{StaticResource IconAsc}"/>
+
+                                    <TextBlock Name="titleZA"
+                                               Text="Giá tiền"
+                                               VerticalAlignment="Center"
+                                               Margin="5, 0, 0, 0"
+                                               Grid.Column="1"/>
+                                </Grid>
+                            </ComboBoxItem>
+
+                        </ComboBox>
+                    </Grid>
+                </materialDesign:Card>
+            </materialDesign:ColorZone>
+
+
+
+        </StackPanel>
+
+
+        <!-- Main list - large list view -->
+        <ListView Name="roomListView"
+                  SelectionChanged="roomListView_SelectionChanged"
+                  Visibility="Visible"
+                  ItemContainerStyle="{StaticResource NonHoverListBoxItem}"
+                  SelectionMode="Single"
+                  ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                  HorizontalAlignment="Left"
+                  Margin="0, 50, 0, 150"
+                  Grid.Column="1"
+                  Grid.ColumnSpan="2"
+                  Grid.Row="1"
+                  Grid.RowSpan="3">
+
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="3"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <!-- Binding tag as ID of recipe -->
+                    <Grid Name="recipeCardContainer"
+                          Tag="{Binding ID_Cake}"
+                          Width="295"
+                          Margin="0, 0, 30, 0"
+                          Height="195">
+
+                        <Border Width="230"
+                            Height="20"
+                            VerticalAlignment="Bottom"
+                            Margin="0, 0, 0, 15"
+                            Opacity="0.35"
+                            Background="{StaticResource MyLightBlue}">
+                            <Border.Effect>
+                                <BlurEffect Radius="50" KernelType="Gaussian"/>
+                            </Border.Effect>
+                        </Border>
+
+                        <Button Name="cakeItemButton"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                ClickMode="Hover"
+                                Width="295"
+                                Height="150"
+                                Background="#12084fff"
+                                Style="{StaticResource RecipeButton}"
+                                Padding="18">
+
+                            <StackPanel VerticalAlignment="Center"
+                                        Width="246"
+                                        Orientation="Horizontal"
+                                        Margin="0, 0, 0, 10"
+                                        HorizontalAlignment="Left">
+
+                                <Grid Width="94"
+                                  Height="94">
+
+                                    <Border CornerRadius="47"
+                                        Background="{StaticResource MyLightBlue}"
+                                        Opacity="0.29"/>
+
+                                    <!--binding-->
+                                    <TextBlock Text="999"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               Style="{StaticResource BebasNeue48}"/>
+                                </Grid>
+
+                                <StackPanel VerticalAlignment="Center"
+                                        Margin="20, 4, 0, 0">
+                                    <!-- binding -->
+                                    <StackPanel Orientation="Horizontal"
+                                                Margin="0, 0, 0, 6">
+                                        <Image Width="16"
+                                               Height="16"
+                                               Margin="0, 0, 10, 0"
+                                               Source="{StaticResource IconGrayRoom}"/>
+
+                                        <TextBlock Text="Đơn"
+                                                   Foreground="#808080"
+                                           Style="{StaticResource GilroyRegular135}"/>
+                                        
+                                    </StackPanel>
+
+                                    <TextBlock Text="1.000.000 đ"
+                                           Style="{StaticResource GilroySemiBold21}"/>
+                                </StackPanel>
+
+
+                            </StackPanel>
+                        </Button>
+
+                        <Button 
+                            VerticalAlignment="Bottom"
+                            Width="125"
+                            Style="{StaticResource StepButton}"
+                            materialDesign:ButtonAssist.CornerRadius="20"
+                            Height="38"  
+                            ClickMode="Hover"
+                            Margin="0, 0, 0, 6"
+                            materialDesign:ShadowAssist.ShadowDepth="Depth0">
+
+                            <!-- binding -->
+                            <TextBlock 
+                                HorizontalAlignment="Center"
+                               Style="{StaticResource GilroyMedium15}"
+                               Foreground="White"
+                               Text="THUÊ NGAY"/>
+                        </Button>
+
+
+                        <!-- Binding data -->
+                        <Image 
+                            Width="68"
+                            Height="55"
+                            VerticalAlignment="Top"
+                            HorizontalAlignment="Right"
+                            Stretch="UniformToFill"
+                            Margin="0, 8, 8, 0"
+                            Cursor="Hand"
+                            RenderOptions.BitmapScalingMode="HighQuality"
+                            Source="{StaticResource BadageEmpty}"
+                        />
+
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+            <Grid></Grid>
+            <Grid></Grid>
+            <Grid></Grid>
+            <Grid></Grid>
+            <Grid></Grid>
+            <Grid></Grid>
+        </ListView>
+
+
+        <Grid Name="pageContainer"
+              Grid.Column="1"
+              Grid.Row="3"
+              Grid.RowSpan="2">
+
+            <StackPanel Name="pageButtonContainer"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        FlowDirection="RightToLeft">
+
+                <Button Name="lastPageButton"
+                        ToolTip="Last page"
+                        Click="lastPageButton_Click"
+                        Width="27"
+                        Height="40"
+                        materialDesign:ButtonAssist.CornerRadius="0"
+                        Style="{StaticResource WindowOptionsButton}">
+
+                    <Image Name="iconLast"
+                           Width="27"
+                           Height="36"
+                           RenderOptions.BitmapScalingMode="HighQuality"
+                           Source="{StaticResource IconPurpleLast}"/>
+                </Button>
+
+                <Button Name="nextPageButton"
+                        ToolTip="Next page"
+                        Click="nextPageButton_Click"
+                        Width="27"
+                        Height="40"
+                        materialDesign:ButtonAssist.CornerRadius="0"
+                        Style="{StaticResource WindowOptionsButton}">
+
+                    <Image Name="iconNext"
+                           Width="27"
+                           Height="36"
+                           RenderOptions.BitmapScalingMode="HighQuality"
+                           Source="{StaticResource IconPurpleNext}"/>
+                </Button>
+
+                <materialDesign:ColorZone Mode="Custom"
+                                          Width="70"
+                                      Height="{Binding ActualHeight, ElementName=pageContainer}">
+
+                    <materialDesign:ColorZone.Effect>
+                        <DropShadowEffect BlurRadius="10" 
+                                          ShadowDepth="1" 
+                                          Color="#563add" 
+                                          Opacity="0.5" 
+                                          RenderingBias="Performance" />
+                    </materialDesign:ColorZone.Effect>
+
+                    <materialDesign:Card Name="currenPageContainer"
+                                         Width="60"
+                                         Background="{StaticResource MyPurpleGradient}"
+                                         Margin="0, 0, 0, 4"
+                                         Height="28"
+                                         UniformCornerRadius="14"
+                                         materialDesign:ShadowAssist.ShadowDepth="Depth0">
+
+                        <!-- Binding data -->
+                        <TextBlock Name="currentPageTextBlock"
+                                   FlowDirection="LeftToRight"
+                                   Text="1 of 5"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Foreground="White"
+                                   Style="{StaticResource GilroyRegular12}"
+                                   FontFamily="{StaticResource GilroySemiBold}"/>
+                    </materialDesign:Card>
+                </materialDesign:ColorZone>
+
+                <Button Name="prevPageButton"
+                        ToolTip="Previous page"
+                        Click="prevPageButton_Click"           
+                        Width="27"
+                        Height="40"
+                        materialDesign:ButtonAssist.CornerRadius="0"
+                        Style="{StaticResource WindowOptionsButton}">
+
+                    <Image Name="iconPrev"
+                           Width="27"
+                           Height="36"
+                           RenderOptions.BitmapScalingMode="HighQuality"
+                           Source="{StaticResource IconPurplePrev}"/>
+                </Button>
+
+                <Button Name="firstPageButton"
+                        ToolTip="First page"
+                        Click="firstPageButton_Click"
+                        Width="27"
+                        Height="40"
+                        materialDesign:ButtonAssist.CornerRadius="0"
+                        Style="{StaticResource WindowOptionsButton}">
+
+                    <Image Name="iconFirst"
+                           Width="27"
+                           Height="36"
+                           RenderOptions.BitmapScalingMode="HighQuality"
+                           Source="{StaticResource IconPurpleFirst}"/>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <TextBlock Name="currentResultTextBlock"
+                   Grid.Column="1"
+                   Grid.Row="3"
+                   Margin="12, 0, 200, 0"
+                   VerticalAlignment="Center"
+                   Text="Hiển thị 12 trong tổng số 72 phòng"
+                   Foreground="{StaticResource MyBlack}"
+                   FontFamily="{StaticResource GilroyMedium}"
+                   Style="{StaticResource GilroyRegular15}"/>
+
+     
+
+        <!-- Post mesage to notification to user here -->
+        <materialDesign:Snackbar Name="notiMessageSnackbar"
+                                 HorizontalAlignment="Left"
+                                 MessageQueue="{materialDesign:MessageQueue}"
+                                 Margin="24, 0, 0, 8"
+                                 MaxWidth="1000"
+                                 IsActive="False"
+                                 Grid.Column="1"
+                                 Grid.Row="2"
+                                 Grid.RowSpan="2">
+        </materialDesign:Snackbar>
+
     </Grid>
 </Page>

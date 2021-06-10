@@ -16,20 +16,13 @@ using System.Windows.Shapes;
 namespace HotelManagement.Pages
 {
 	/// <summary>
-	/// Interaction logic for InvoideManagementPage.xaml
+	/// Interaction logic for ChangePasswordPage.xaml
 	/// </summary>
-	public partial class InvoiceManagementPage : Page
+	public partial class ChangePasswordPage : Page
 	{
-		public delegate void ViewInvoice(int id);
-		public event ViewInvoice ViewInvoiceEvent;
-		public InvoiceManagementPage()
+		public ChangePasswordPage()
 		{
 			InitializeComponent();
-		}
-
-		private void viewButton_Click(object sender, RoutedEventArgs e)
-		{
-			ViewInvoiceEvent?.Invoke(1);
 		}
 	}
 }

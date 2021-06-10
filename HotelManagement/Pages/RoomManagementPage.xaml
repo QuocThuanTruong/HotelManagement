@@ -5,10 +5,347 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:HotelManagement.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      Background="White"
+       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      d:DesignHeight="718" d:DesignWidth="1116"
       Title="RoomManagementPage">
 
     <Grid>
-        
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="668*"/>
+        </Grid.RowDefinitions>
+
+
+
+        <StackPanel HorizontalAlignment="Center" 
+                        Grid.RowSpan="2" 
+                        Margin="0, 25, 0, 0">
+            <!-- change here -->
+            <TextBlock Text="DANH MỤC PHÒNG"
+                           HorizontalAlignment="Center"
+                           Name="reportTitleTextBlock"
+                           Style="{StaticResource UTMBebas36}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1">
+
+            <StackPanel Orientation="Vertical" 
+                        Margin="0, 30, 20, 0"
+                        HorizontalAlignment="Center">
+
+                <TextBlock Text="Thông tin phòng"
+                                   Style="{StaticResource Bebas21}"/>
+
+                <StackPanel Orientation="Horizontal">
+
+                    <materialDesign:Card Background="{StaticResource MyPurpleGradient}"
+                                                 Margin="2, 7, 0 ,0"
+                                                 Width="23"
+                                                 Height="34"
+                                         Opacity="0.62"
+                                                 materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                                                 UniformCornerRadius="5">
+                    </materialDesign:Card>
+
+                    <TextBox Name="roomNameTextBox"
+                                     Width="180"
+                                     Margin="12, 7, 2 ,0"
+                              Padding="5, 5, 0, 5"
+                                     Style="{StaticResource AddRecipePageTextBox}"
+                                     materialDesign:HintAssist.Hint="Số phòng"
+                                     Grid.Column="1"
+                                     Grid.Row="1"/>
+
+                    <Grid 
+                        Width="154"
+                        VerticalAlignment="Top"
+                        Margin="12, 9, 0, 0"
+                        Grid.Column="1"
+                        Grid.Row="1">
+
+                        <Border Height="34"
+                                        BorderBrush="Black"
+                                        BorderThickness="1"
+                                        CornerRadius="4"/>
+
+                        <ComboBox Name="roomTypeComboBox"
+                                        HorizontalAlignment="Left"
+                                        Style="{StaticResource AddRecipeComboBox}"
+                                        ItemContainerStyle="{StaticResource SearchBoxComboBoxItem}"
+                                        Height="30"
+                                        SelectedIndex="0"
+                                        HorizontalContentAlignment="Left"
+                                        BorderBrush="{DynamicResource MyBlack}"
+                                        BorderThickness="0"
+                                        materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
+                                        Margin="12, 2, 0, 2"
+                                        OverridesDefaultStyle="True"
+                                        Width="130">
+
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="Loại phòng"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+
+                            <!--xóa này-->
+                            <TextBlock />
+                            <TextBlock/>
+
+                        </ComboBox>
+
+                    </Grid>
+
+
+                    <Grid>
+                        <TextBox Name="roomPriceTextBox"
+                                    Padding="5, 5, 60, 5"
+                                    Width="180"
+                                    Margin="12, 8, 2 ,0"
+                                    Style="{StaticResource AddRecipePageTextBox}"
+                                    materialDesign:HintAssist.Hint="Đơn giá"
+                                    Grid.Column="1"
+                                    Grid.Row="1"
+                                          />
+
+                        <TextBlock Text="đ/ngày"
+                                    Margin="0, 9, 12, 0"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Right"
+                                    Style="{StaticResource GilroyRegular135}"/>
+                    </Grid>
+
+
+                    <TextBox Name="noteTextBox"
+                                     Padding="5, 5, 0, 5"
+                                     Width="350"
+                                     Margin="12, 8, 2 ,0"
+                                     Style="{StaticResource AddRecipePageTextBox}"
+                                     materialDesign:HintAssist.Hint="Ghi chú"
+                                     Grid.Column="1"
+                                     Grid.Row="1"/>
+
+
+
+                    <Button Name="addRoomButton"
+                                   Click="addRoomButton_Click"
+                                    Margin="20,8,0,0"
+                                    VerticalAlignment="Center"
+                                    Width="34"
+                                    Style="{StaticResource StepButton}"
+                                    materialDesign:ButtonAssist.CornerRadius="17"
+                                    Height="34"                        
+                                    materialDesign:ShadowAssist.ShadowDepth="Depth0" >
+
+                        <Image Name="iconAddRoom"
+                                        Width="16"
+                                        Height="16"
+                                        RenderOptions.BitmapScalingMode="HighQuality"
+                                        Source="{StaticResource IconWhiteAdd}"/>
+                    </Button>
+
+                </StackPanel>
+
+            </StackPanel>
+            
+            <Grid x:Name="revenueListContainer"
+                  Margin="50, 20, 50, 50"
+                  
+                  Visibility="Visible">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="46*"/>
+                    <RowDefinition Height="630*"/>
+                </Grid.RowDefinitions>
+
+                <materialDesign:Card Background="{DynamicResource MyPurpleGradient}"
+                                     Opacity="0.62"
+                                     Grid.Row="0"
+                                             materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                                             UniformCornerRadius="5">
+
+                    <Grid Height="40">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.07*"/>
+                            <ColumnDefinition Width="0.13*"/>
+                            <ColumnDefinition Width="0.1*"/>
+                            <ColumnDefinition Width="0.35*"/>
+                            <ColumnDefinition Width="0.1*"/>
+                            <ColumnDefinition Width="0.45*"/>
+                            <ColumnDefinition Width="0.1*"/>
+                            <ColumnDefinition Width="0.6*"/>
+                            <ColumnDefinition Width="0.1*"/>
+                            <ColumnDefinition Width="0.9*"/>
+                            <ColumnDefinition Width="0.1*"/>
+                            <ColumnDefinition Width="0.3*"/>
+                            <ColumnDefinition Width="0.07*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="STT"
+                                           Grid.Column="1"
+                                            VerticalAlignment="Center"
+                                           Style="{StaticResource GilroyBold16}"/>
+
+                        <TextBlock Text="Phòng"
+                                           Grid.Column="3"
+                                            VerticalAlignment="Center"
+                                           Style="{StaticResource GilroyBold16}"/>
+
+                        <TextBlock Text="Loại phòng"
+                                           Grid.Column="5"
+                                            VerticalAlignment="Center"
+                                           Style="{StaticResource GilroyBold16}"/>
+
+                        <TextBlock Text="Đơn giá"
+                                           Grid.Column="7"
+                                            VerticalAlignment="Center"
+                                           Style="{StaticResource GilroyBold16}"/>
+
+                        <TextBlock Text="Ghi chú"
+                                           Grid.Column="9"
+                                            VerticalAlignment="Center"
+                                           Style="{StaticResource GilroyBold16}"/>
+
+                        <TextBlock Text="Hành động"
+                                           Grid.Column="11"
+                                            VerticalAlignment="Center"
+                                           Style="{StaticResource GilroyBold16}"/>
+
+                    </Grid>
+
+                </materialDesign:Card>
+
+                <ListView Name="roomRevenueList"
+                  Grid.Column="1"
+                  Grid.Row="1"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  Margin="0, 8, 0, 0"
+                  ItemContainerStyle="{StaticResource SiteHoverListBox}">
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Height="37">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.07*"/>
+                                    <ColumnDefinition Width="0.13*"/>
+                                    <ColumnDefinition Width="0.1*"/>
+                                    <ColumnDefinition Width="0.35*"/>
+                                    <ColumnDefinition Width="0.1*"/>
+                                    <ColumnDefinition Width="0.45*"/>
+                                    <ColumnDefinition Width="0.1*"/>
+                                    <ColumnDefinition Width="0.6*"/>
+                                    <ColumnDefinition Width="0.1*"/>
+                                    <ColumnDefinition Width="0.9*"/>
+                                    <ColumnDefinition Width="0.1*"/>
+                                    <ColumnDefinition Width="0.3*"/>
+                                    <ColumnDefinition Width="0.07*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Text="STT"
+                                           Grid.Column="1"
+                                             HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                    Foreground="{DynamicResource MyBlack}"
+                                Style="{StaticResource GilroyRegular15}"/>
+
+                                <TextBlock Text="Phòng"
+                                           Grid.Column="3"
+                                             HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                    Foreground="{DynamicResource MyBlack}"
+                                Style="{StaticResource GilroyRegular15}"/>
+
+                                <TextBlock Text="Loại phòng"
+                                           Grid.Column="5"
+                                            HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                    Foreground="{DynamicResource MyBlack}"
+                                Style="{StaticResource GilroyRegular15}"/>
+
+                                <TextBlock Text="1.000.000 đ/ngày"
+                                           Grid.Column="7"
+                                            HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                    Foreground="{DynamicResource MyBlack}"
+                                Style="{StaticResource GilroyRegular15}"/>
+
+                                <TextBlock Text="Ghi chú"
+                                           Grid.Column="9"
+                                            HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                    Foreground="{DynamicResource MyBlack}"
+                                Style="{StaticResource GilroyRegular15}"/>
+
+                                <StackPanel Grid.Column="11" 
+                                             HorizontalAlignment="Center"
+                                            Orientation="Horizontal"
+                                            VerticalAlignment="Center">
+                                    <Button Name="editButton"
+                                            Click="editButton_Click"
+                                            Width="35"
+                                            Background="{DynamicResource MyBlue}"
+                                            Foreground="#1b3896"
+                                            materialDesign:RippleAssist.Feedback="LightBlue"
+                                            Style="{StaticResource StepButton}"
+                                            materialDesign:ButtonAssist.CornerRadius="6"
+                                            Height="35"  
+                                         
+                                            materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                                        <Image Width="16"
+                                               Height="16"
+                                               RenderOptions.BitmapScalingMode="HighQuality"
+                                               Source="{DynamicResource IconWhiteEdit}"/>
+                                    </Button>
+
+                                    <Button Name="deleteButton"
+                                            Margin="15, 0, 0, 0"
+                                            Width="35"
+                                            Background="#d92027"
+                                            Foreground="#f42f3d"
+                                            materialDesign:RippleAssist.Feedback="#ff6489"
+                                            Style="{StaticResource StepButton}"
+                                            materialDesign:ButtonAssist.CornerRadius="6"
+                                            Height="35"  
+                   
+                                            materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                                        <Image Width="16"
+                                               Height="16"
+                                               RenderOptions.BitmapScalingMode="HighQuality"
+                                               Source="{DynamicResource IconWhiteTrash}"/>
+                                    </Button>
+                                </StackPanel>
+
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+
+                    <Grid></Grid>
+                    <Grid></Grid>
+                    <Grid></Grid>
+                    <Grid></Grid>
+                </ListView>
+
+
+                <materialDesign:ColorZone Mode="Custom"
+                                  VerticalAlignment="Bottom"
+                                  Padding="0, 20, 4, 0"
+                                  HorizontalAlignment="Right"
+                                  Grid.Column="1"
+                                  Grid.Row="3">
+
+                    <materialDesign:ColorZone.Effect>
+                        <DropShadowEffect BlurRadius="10" 
+                                          ShadowDepth="1" 
+                                          Color="#ffbc00" 
+                                          Opacity="0.4" 
+                                          RenderingBias="Performance" />
+                    </materialDesign:ColorZone.Effect>
+
+
+                </materialDesign:ColorZone>
+            </Grid>
+        </StackPanel>
+
     </Grid>
 </Page>

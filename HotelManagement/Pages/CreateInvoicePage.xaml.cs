@@ -16,20 +16,29 @@ using System.Windows.Shapes;
 namespace HotelManagement.Pages
 {
 	/// <summary>
-	/// Interaction logic for InvoideManagementPage.xaml
+	/// Interaction logic for CreateInvoicePage.xaml
 	/// </summary>
-	public partial class InvoiceManagementPage : Page
+	public partial class CreateInvoicePage : Page
 	{
-		public delegate void ViewInvoice(int id);
-		public event ViewInvoice ViewInvoiceEvent;
-		public InvoiceManagementPage()
+		public delegate void BackPage(Button page);
+		public event BackPage BackPageEvent;
+		private int id;
+		private Button backPage;
+		public CreateInvoicePage()
 		{
 			InitializeComponent();
 		}
 
-		private void viewButton_Click(object sender, RoutedEventArgs e)
+		public CreateInvoicePage(int id, Button backPage)
 		{
-			ViewInvoiceEvent?.Invoke(1);
+			InitializeComponent();
+			this.id = id;
+			this.backPage = backPage;
+		}
+
+		private void backButton_Click(object sender, RoutedEventArgs e)
+		{
+			BackPageEvent?.Invoke(backPage);
 		}
 	}
 }

@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace HotelManagement.Converter
+namespace HotelManagement.Converters
 {
     public class BrushOpacityConverter : IValueConverter
     {

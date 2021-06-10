@@ -20,9 +20,41 @@ namespace HotelManagement.Pages
 	/// </summary>
 	public partial class ListRoomPage : Page
 	{
+		public delegate void CreateRentBill(int id);
+		public delegate void CreateInvoice(int id);
+
+		public event CreateRentBill CreateRentBillEvent;
+		public event CreateInvoice CreateInvoiceEvent;
+
 		public ListRoomPage()
 		{
 			InitializeComponent();
+		}
+
+		private void lastPageButton_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void nextPageButton_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void prevPageButton_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void firstPageButton_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void roomListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			CreateRentBillEvent?.Invoke(1);
+			//CreateInvoiceEvent?.Invoke(1);
 		}
 	}
 }

@@ -20,9 +20,16 @@ namespace HotelManagement.Pages
 	/// </summary>
 	public partial class RentBillManagementPage : Page
 	{
+		public delegate void EditRentBill(int id);
+		public event EditRentBill EditRentBillEvent;
 		public RentBillManagementPage()
 		{
 			InitializeComponent();
+		}
+
+		private void editButton_Click(object sender, RoutedEventArgs e)
+		{
+			EditRentBillEvent?.Invoke(1);
 		}
 	}
 }

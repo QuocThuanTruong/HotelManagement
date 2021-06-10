@@ -38,5 +38,18 @@
     <ImageSource x:Key="IconWhiteRoomKey">pack://application:,,,/Assets/Images/ic-white-room-key.png</ImageSource>
     <ImageSource x:Key="IconWhiteRoom">pack://application:,,,/Assets/Images/ic-white-room.png</ImageSource>
     <ImageSource x:Key="IconWhiteTrash">pack://application:,,,/Assets/Images/ic-white-trash.png</ImageSource>
-    
+    <ImageSource x:Key="IconDesc">pack://application:,,,/Assets/Images/ic-desc.png</ImageSource>
+    <ImageSource x:Key="IconAsc">pack://application:,,,/Assets/Images/ic-asc.png</ImageSource>
+    <ImageSource x:Key="IconWhiteUpdate">pack://application:,,,/Assets/Images/ic-white-update.png</ImageSource>
+
+    <ImageSource x:Key="IconPurpleConfig">pack://application:,,,/Assets/Images/ic-purple-config.png</ImageSource>
+    <ImageSource x:Key="IconPurpleCustomer">pack://application:,,,/Assets/Images/ic-purple-customer.png</ImageSource>
+    <ImageSource x:Key="IconPurpleSetting">pack://application:,,,/Assets/Images/ic-purple-setting.png</ImageSource>
+    <ImageSource x:Key="IconPurpleEmployee">pack://application:,,,/Assets/Images/ic-purple_employee.png</ImageSource>
+    <ImageSource x:Key="IconWhiteConfig">pack://application:,,,/Assets/Images/ic-white-config.png</ImageSource>
+    <ImageSource x:Key="IconWhiteCustomer">pack://application:,,,/Assets/Images/ic-white-customer.png</ImageSource>
+    <ImageSource x:Key="IconWhiteEmployee">pack://application:,,,/Assets/Images/ic-white-employee.png</ImageSource>
+    <ImageSource x:Key="IconWhiteSetting">pack://application:,,,/Assets/Images/ic-white-setting.png</ImageSource>
+    <ImageSource x:Key="HotelBg">pack://application:,,,/Assets/Images/hotel_bg.png</ImageSource>
+
 </ResourceDictionary>

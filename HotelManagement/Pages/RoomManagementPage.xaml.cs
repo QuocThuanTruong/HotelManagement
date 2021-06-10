@@ -24,5 +24,17 @@ namespace HotelManagement.Pages
 		{
 			InitializeComponent();
 		}
+
+		//Bấm edit thì binding data dòng đó lên, sử dụng kĩ thuật set tag/get tag id cho mỗi dòng và đổi icon update, update xong thì trả icon về 
+		private void editButton_Click(object sender, RoutedEventArgs e)
+		{
+			iconAddRoom.Source = (ImageSource)FindResource("IconWhiteUpdate");
+			//iconAddRoom.Source = (ImageSource)FindResource("IconWhiteAdd");
+		}
+
+		private void addRoomButton_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
 	}
 }
