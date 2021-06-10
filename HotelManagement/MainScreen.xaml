@@ -517,7 +517,6 @@
                         </Button>
                     </Grid>
 
-                    <!-- About button-->
                     <Grid Name="settingPageBtnContainer" Margin="4">
                         <!-- Click -->
                         <Button Name="settingPageButton"
