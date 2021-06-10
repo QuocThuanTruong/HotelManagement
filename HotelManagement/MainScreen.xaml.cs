@@ -62,7 +62,7 @@ namespace HotelManagement
 			}
 
 			pageNavigation.NavigationService.Navigate(startPage);
-			//Default load page is home page
+		
 			DrawerButton_Click(startButton, e);
 
 			initVisibleButton();
