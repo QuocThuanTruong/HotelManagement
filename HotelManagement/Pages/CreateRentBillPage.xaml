@@ -76,7 +76,7 @@
                         <Grid Name="startProvinceRoutePickerContainer"
 
                                     HorizontalAlignment="Left"
-                                    Width="160"
+                                    Width="120"
                                     VerticalAlignment="Top"
                                     Margin="2, 8, 0, 0"
                                     Grid.Column="1"
@@ -97,7 +97,7 @@
                                         HorizontalContentAlignment="Left"
                                         BorderBrush="{DynamicResource MyBlack}"
                                         BorderThickness="0"
-                                              Width="136"
+                                              Width="96"
                                         materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
                                         Margin="12, 2, 0, 2"
                                         OverridesDefaultStyle="True">
@@ -112,6 +112,75 @@
                             </ComboBox>
 
                         
+                        </Grid>
+
+                    </StackPanel>
+
+                    <StackPanel Margin="0, 0 ,20 ,0">
+                        <TextBlock Text="Loại phòng"
+                                   Style="{StaticResource Bebas21}"/>
+
+                        <Grid
+                                    HorizontalAlignment="Left"
+                                    Width="120"
+                                    VerticalAlignment="Top"
+                                    Margin="2, 8, 0, 0"
+                                    Grid.Column="1"
+                                    Grid.Row="1">
+
+
+                            <Border Height="34"
+                                            BorderBrush="Black"
+                                            BorderThickness="1"
+                                            CornerRadius="4"/>
+
+                            <ComboBox Name="roomCatComboBox"
+                                        HorizontalAlignment="Left"
+                                        Style="{StaticResource AddRecipeComboBox}"
+                                        ItemContainerStyle="{StaticResource SearchBoxComboBoxItem}"
+                                        Height="30"
+                                        SelectedIndex="0"
+                                        HorizontalContentAlignment="Left"
+                                        BorderBrush="{DynamicResource MyBlack}"
+                                        BorderThickness="0"
+                                              Width="96"
+                                        materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
+                                        Margin="12, 2, 0, 2"
+                                        OverridesDefaultStyle="True">
+
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="Đơn"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                                <TextBlock/>
+                                <TextBlock/>
+                            </ComboBox>
+
+
+                        </Grid>
+
+                    </StackPanel>
+
+                    <StackPanel Margin="0, 0 ,20 ,0">
+                        <TextBlock Text="Đơn giá"
+                                   Style="{StaticResource Bebas21}"/>
+
+                        <Grid
+                             HorizontalAlignment="Left"
+                             Width="104"
+                             VerticalAlignment="Top"
+                             Margin="2, 8, 0, 0"
+                             Grid.Column="1"
+                             Grid.Row="1">
+
+                            <TextBlock x:Name="roomPriceTextBlock"
+                                       Foreground="{DynamicResource MyLightGray4}"
+                                       Style="{StaticResource GilroyMedium17}"
+                                       Margin="0, 6, 0, 0"
+                                       Text="1.000.000 đ"/>
+
+
                         </Grid>
 
                     </StackPanel>
@@ -146,6 +215,7 @@
                         </Grid>
 
                     </StackPanel>
+                    
 
                     
                 </StackPanel>

@@ -33,9 +33,24 @@ namespace HotelManagement.Pages
 			BackDashboardEvent?.Invoke();
 		}
 
-		private void densityButton_Click(object sender, RoutedEventArgs e)
-		{
 
+		private void switchReportButton_Click(object sender, RoutedEventArgs e)
+		{
+			if (densityListContainer.Visibility == Visibility.Collapsed)
+			{
+				densityListContainer.Visibility = Visibility.Visible;
+				revenueListContainer.Visibility = Visibility.Collapsed;
+
+				reportTitleTextBlock.Text = "Báo cáo mật độ sử dụng phòng";
+				switchButtonText.Text = "BÁO CÁO DOANH THU";
+			} else
+			{
+				densityListContainer.Visibility = Visibility.Collapsed;
+				revenueListContainer.Visibility = Visibility.Visible;
+
+				reportTitleTextBlock.Text = "BÁO CÁO DANH THU THEO LOẠI PHÒNG";
+				switchButtonText.Text = "BÁO CÁO MẬT ĐỘ";
+			}
 		}
 	}
 }

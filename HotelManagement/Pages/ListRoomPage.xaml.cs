@@ -54,6 +54,10 @@ namespace HotelManagement.Pages
 		private void roomListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			CreateRentBillEvent?.Invoke(1);
+			//Doi sang da thue BadageRented
+			//Doi text nut thanh THANH TOÁN rentButtonText
+			//Sau khi tạo phieu thue thi binding them ID phieu thue vo luon item do, de lat bam THANH TOAN cho de query
+
 			//CreateInvoiceEvent?.Invoke(1);
 		}
 	}

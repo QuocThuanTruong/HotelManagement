@@ -123,8 +123,8 @@
     <Compile Include="Pages\RentBillManagementPage.xaml.cs">
       <DependentUpon>RentBillManagementPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\RevenueReportPage.xaml.cs">
-      <DependentUpon>RevenueReportPage.xaml</DependentUpon>
+    <Compile Include="Pages\ReportPage.xaml.cs">
+      <DependentUpon>ReportPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\RoomCategoriesManagementPage.xaml.cs">
       <DependentUpon>RoomCategoriesManagementPage.xaml</DependentUpon>
@@ -252,7 +252,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\RevenueReportPage.xaml">
+    <Page Include="Pages\ReportPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

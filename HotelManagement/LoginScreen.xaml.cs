@@ -40,7 +40,7 @@ namespace HotelManagement
 			//compare
 			//get role
 			//role = 0 - nhân viên, 1 - quản lí
-			int role = (new Random()).Next(int.MaxValue) & 1;
+			int role = 1;
 			LoginScreen loginScreen = this;
 
 			MainScreen mainScreen = new MainScreen(role);

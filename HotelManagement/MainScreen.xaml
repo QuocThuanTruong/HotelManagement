@@ -96,6 +96,7 @@
 
             <Image Width="153"
                    Height="76"
+                   RenderOptions.BitmapScalingMode="HighQuality"
                    Source="{StaticResource AppLogo}"/>
 
             <TextBlock x:Name="greetingTextBox"

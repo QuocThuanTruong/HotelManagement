@@ -389,8 +389,8 @@
 
                     </Button>
 
-                    <Button Name="densityButton"
-                        Click="densityButton_Click"
+                    <Button Name="switchReportButton"
+                            Click="switchReportButton_Click"
                         Width="230"
                         Margin="46, 0, 0, 0"
                         Style="{StaticResource StepButton}"
@@ -414,6 +414,7 @@
                             HorizontalAlignment="Center"
                             Grid.Column="1"
                             Margin="0, 0, 22, 0"
+                                Name="switchButtonText"
                            Style="{StaticResource GilroyMedium15}"
                            Foreground="White"
                            Text="BÁO CÁO MẬT ĐỘ"/>
