@@ -134,10 +134,7 @@ namespace HotelManagement.Pages
 				densities.Add(_databaseUtilities.getRoomDensity(rooms[i].SoPhong, _month));
 
 				total += densities[i];
-
 				rooms[i].Density_For_Binding = densities[i].ToString() + " ngày";
-				rooms[i].STT_For_Binding = i + 1;
-				rooms[i].ID_For_Binding = "P." + rooms[i].SoPhong;
 			}
 
 			double temp = 0;
