@@ -73,7 +73,7 @@
                             <StackPanel VerticalAlignment="Center"
                                         Margin="15, 0, 0, 0">
                                 <!-- binding -->
-                                <TextBlock x:Name="tbCheckIn"
+                                <TextBlock x:Name="tbNumCheckIn"
                                            Text="10"
                                            Foreground="{DynamicResource MyLightBlue}"
                                            Style="{StaticResource HelveticalBold35}"/>
@@ -128,7 +128,8 @@
                             <StackPanel VerticalAlignment="Center"
                                         Margin="15, 0, 0, 0">
                                 <!-- binding -->
-                                <TextBlock Text="10"
+                                <TextBlock x:Name="tbNumCheckOut"
+                                           Text="10"
                                            Foreground="{DynamicResource MyYellow}"
                                            Style="{StaticResource HelveticalBold35}"/>
 
@@ -181,7 +182,8 @@
                             <StackPanel VerticalAlignment="Center"
                                         Margin="15, 0, 0, 0">
                                 <!-- binding -->
-                                <TextBlock Text="10"
+                                <TextBlock x:Name="tbNumEmpty"
+                                           Text="10"
                                            Foreground="{DynamicResource MyGreen}"
                                            Style="{StaticResource HelveticalBold35}"/>
 
@@ -234,7 +236,8 @@
                             <StackPanel VerticalAlignment="Center"
                                         Margin="15, 0, 0, 0">
                                 <!-- binding -->
-                                <TextBlock Text="10"
+                                <TextBlock x:Name="tbNumRenting"
+                                           Text="10"
                                            Foreground="{DynamicResource MyRed}"
                                            Style="{StaticResource HelveticalBold35}"/>
 

@@ -29,5 +29,15 @@ namespace HotelManagement
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietPhieuThue> ChiTietPhieuThues { get; set; }
         public virtual LoaiPhong LoaiPhong { get; set; }
+
+        public string TenLoaiPhong { get; set; }
+        public Nullable<double> DonGia { get; set; }
+        public Nullable<int> SLKhachToiDa { get; set; }
+
+        //For Binding
+        public string ID_For_Binding { get; set; }
+        public int STT_For_Binding { get; set; }
+        public string Density_For_Binding { get; set; }
+        public string Percent_For_Binding { get; set; }
     }
 }

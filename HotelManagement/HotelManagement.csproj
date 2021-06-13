@@ -83,6 +83,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Utilities\AppUtilities.cs" />
     <Compile Include="Utilities\DatabaseUtilities.cs" />
   </ItemGroup>
   <ItemGroup>

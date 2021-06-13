@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="HotelManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="HotelManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CauHinh">
           <Key>
             <PropertyRef Name="ID" />
@@ -198,6 +198,7 @@
           <ReturnType>
             <CollectionType>
               <RowType>
+                <Property Name="ID_LoaiPhong" Type="int" />
                 <Property Name="SoPhong" Type="int" Nullable="false" />
                 <Property Name="TinhTrang" Type="bit" />
                 <Property Name="GhiChu" Type="nvarchar" MaxLength="100" />
@@ -276,8 +277,7 @@
             <End Role="Phong" EntitySet="Phong" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="HotelManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -537,7 +537,7 @@
           </AssociationSet>
           <FunctionImport Name="func_getAllRoom" IsComposable="true" ReturnType="Collection(HotelManagementModel.func_getAllRoom_Result)" />
           <FunctionImport Name="func_GetCustomerInRoom" IsComposable="true" ReturnType="Collection(HotelManagementModel.func_GetCustomerInRoom_Result)">
-            <Parameter Name="ID_PhieuThue" Mode="In" Type="Int32" />
+          <Parameter Name="ID_PhieuThue" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
       </Schema>
