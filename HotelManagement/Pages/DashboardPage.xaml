@@ -73,7 +73,8 @@
                             <StackPanel VerticalAlignment="Center"
                                         Margin="15, 0, 0, 0">
                                 <!-- binding -->
-                                <TextBlock Text="10"
+                                <TextBlock x:Name="tbCheckIn"
+                                           Text="10"
                                            Foreground="{DynamicResource MyLightBlue}"
                                            Style="{StaticResource HelveticalBold35}"/>
 
