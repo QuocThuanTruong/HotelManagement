@@ -83,21 +83,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Utilities\AppUtilities.cs" />
-    <Compile Include="Utilities\DatabaseUtilities.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="CauHinh.cs">
       <DependentUpon>HotelManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ChiTietPhieuThue.cs">
       <DependentUpon>HotelManagementModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Converters\AbsolutePathConverter.cs" />
-    <Compile Include="Converters\BrushOpacityConverter.cs" />
-    <Compile Include="Converters\IsActiveViewConverter.cs" />
-    <Compile Include="CustomViews\DashboardButton.xaml.cs">
-      <DependentUpon>DashboardButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="func_getAllRoom_Result.cs">
       <DependentUpon>HotelManagementModel.tt</DependentUpon>
@@ -132,14 +122,30 @@
     <Compile Include="LoaiPhong.cs">
       <DependentUpon>HotelManagementModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="NhanVien.cs">
+      <DependentUpon>HotelManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PhieuThue.cs">
+      <DependentUpon>HotelManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Phong.cs">
+      <DependentUpon>HotelManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\AppUtilities.cs" />
+    <Compile Include="Utilities\DatabaseUtilities.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Converters\AbsolutePathConverter.cs" />
+    <Compile Include="Converters\BrushOpacityConverter.cs" />
+    <Compile Include="Converters\IsActiveViewConverter.cs" />
+    <Compile Include="CustomViews\DashboardButton.xaml.cs">
+      <DependentUpon>DashboardButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LoginScreen.xaml.cs">
       <DependentUpon>LoginScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainScreen.xaml.cs">
       <DependentUpon>MainScreen.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="NhanVien.cs">
-      <DependentUpon>HotelManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Pages\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
@@ -185,12 +191,6 @@
     </Compile>
     <Compile Include="Pages\RoomManagementPage.xaml.cs">
       <DependentUpon>RoomManagementPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PhieuThue.cs">
-      <DependentUpon>HotelManagementModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Phong.cs">
-      <DependentUpon>HotelManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

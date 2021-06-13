@@ -14,10 +14,12 @@ namespace HotelManagement
     public partial class func_getAllRoom_Result
     {
         public int SoPhong { get; set; }
+        public Nullable<int> ID_LoaiPhong { get; set; }
         public Nullable<bool> TinhTrang { get; set; }
         public string GhiChu { get; set; }
         public string TenLoaiPhong { get; set; }
         public Nullable<double> DonGia { get; set; }
         public Nullable<int> SLKhachToiDa { get; set; }
+        public Nullable<bool> Active { get; set; }
     }
 }

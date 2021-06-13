@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="HotelManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="HotelManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CauHinh">
           <Key>
             <PropertyRef Name="ID" />
@@ -198,13 +198,14 @@
           <ReturnType>
             <CollectionType>
               <RowType>
-                <Property Name="ID_LoaiPhong" Type="int" />
                 <Property Name="SoPhong" Type="int" Nullable="false" />
+                <Property Name="ID_LoaiPhong" Type="int" />
                 <Property Name="TinhTrang" Type="bit" />
                 <Property Name="GhiChu" Type="nvarchar" MaxLength="100" />
                 <Property Name="TenLoaiPhong" Type="nvarchar" MaxLength="50" />
                 <Property Name="DonGia" Type="float" />
                 <Property Name="SLKhachToiDa" Type="int" />
+                <Property Name="Active" Type="bit" />
               </RowType>
             </CollectionType>
           </ReturnType>
@@ -277,17 +278,20 @@
             <End Role="Phong" EntitySet="Phong" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="HotelManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <ComplexType Name="func_getAllRoom_Result">
           <Property Name="SoPhong" Type="Int32" Nullable="false" />
+          <Property Name="ID_LoaiPhong" Type="Int32" />
           <Property Name="TinhTrang" Type="Boolean" />
           <Property Name="GhiChu" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="TenLoaiPhong" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DonGia" Type="Double" />
           <Property Name="SLKhachToiDa" Type="Int32" />
+          <Property Name="Active" Type="Boolean" />
         </ComplexType>
         <ComplexType Name="func_GetCustomerInRoom_Result">
           <Property Name="HoTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -537,7 +541,7 @@
           </AssociationSet>
           <FunctionImport Name="func_getAllRoom" IsComposable="true" ReturnType="Collection(HotelManagementModel.func_getAllRoom_Result)" />
           <FunctionImport Name="func_GetCustomerInRoom" IsComposable="true" ReturnType="Collection(HotelManagementModel.func_GetCustomerInRoom_Result)">
-          <Parameter Name="ID_PhieuThue" Mode="In" Type="Int32" />
+            <Parameter Name="ID_PhieuThue" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
       </Schema>
@@ -647,11 +651,13 @@
             <ResultMapping>
               <ComplexTypeMapping TypeName="HotelManagementModel.func_getAllRoom_Result">
                 <ScalarProperty Name="SoPhong" ColumnName="SoPhong" />
+                <ScalarProperty Name="ID_LoaiPhong" ColumnName="ID_LoaiPhong" />
                 <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
                 <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
                 <ScalarProperty Name="TenLoaiPhong" ColumnName="TenLoaiPhong" />
                 <ScalarProperty Name="DonGia" ColumnName="DonGia" />
                 <ScalarProperty Name="SLKhachToiDa" ColumnName="SLKhachToiDa" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

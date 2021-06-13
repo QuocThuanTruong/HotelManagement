@@ -9,7 +9,8 @@
       mc:Ignorable="d" 
       d:DesignHeight="718" d:DesignWidth="1116"
      xmlns:converter="clr-namespace:HotelManagement.Converters"
-      Title="ListRoomPage">
+      Title="ListRoomPage"
+      Loaded="Page_Loaded">
 
 
     <Grid Name="mainContainer">
@@ -84,6 +85,7 @@
                                  Style="{StaticResource SearchTextBox}"
                                  materialDesign:HintAssist.Hint="Tìm kiếm phòng.."
                                  Grid.Column="1" 
+                                 TextChanged="searchTextBox_TextChanged"
                                  />
                     </Grid>
                 </materialDesign:Card>
@@ -181,7 +183,8 @@
                                   BorderThickness="0"
                                   materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
                                   Margin="4, 2, 0, 0"
-                                  OverridesDefaultStyle="True">
+                                  OverridesDefaultStyle="True"
+                                  SelectionChanged="statusComboBox_SelectionChanged">
 
    
                             <TextBlock 
@@ -255,23 +258,19 @@
                                   BorderThickness="0"
                                   materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
                                   Margin="4, 2, 0, 0"
-                                  OverridesDefaultStyle="True">
+                                  OverridesDefaultStyle="True"
+                                  SelectionChanged="catComboBox_SelectionChanged">
 
                             <!-- binding-->
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock 
-                                        Text="Đơn"
+                                        Text="{Binding TenLoaiPhong}"
                                         VerticalAlignment="Center"
                                         Margin="5, 1, 0, 0"
                                         Grid.Column="1"/>
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
-
-                            <TextBlock></TextBlock>
-                            <TextBlock></TextBlock>
-                            <TextBlock></TextBlock>
-
                         </ComboBox>
                     </Grid>
                 </materialDesign:Card>
@@ -325,29 +324,10 @@
                                   BorderThickness="0"
                                   materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
                                   Margin="4, 2, 0, 0"
-                                  OverridesDefaultStyle="True">
+                                  OverridesDefaultStyle="True"
+                                  SelectionChanged="sortTypeComboBox_SelectionChanged">
 
                             <!-- Date -->
-                            <ComboBoxItem Name="sortByDescRoom">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="2*"/>
-                                        <ColumnDefinition Width="8*"/>
-                                    </Grid.ColumnDefinitions>
-
-                                    <Image Width="7"
-                                           Height="13"
-                                           Grid.Column="0"
-                                           VerticalAlignment="Center"
-                                           Source="{StaticResource IconDesc}"/>
-
-                                    <TextBlock Name="titleDesDate"
-                                               Text="Số phòng"
-                                               VerticalAlignment="Center"
-                                               Margin="5, 0, 0, 0"
-                                               Grid.Column="1"/>
-                                </Grid>
-                            </ComboBoxItem>
 
                             <ComboBoxItem Name="sortByAscRoom">
                                 <Grid>
@@ -370,8 +350,7 @@
                                 </Grid>
                             </ComboBoxItem>
 
-                            <!-- A-Z -->
-                            <ComboBoxItem Name="sortByDescPrice">
+                            <ComboBoxItem Name="sortByDescRoom">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="2*"/>
@@ -384,13 +363,17 @@
                                            VerticalAlignment="Center"
                                            Source="{StaticResource IconDesc}"/>
 
-                                    <TextBlock Name="titleAZ"
-                                               Text="Giá tiền"
+                                    <TextBlock Name="titleDesDate"
+                                               Text="Số phòng"
                                                VerticalAlignment="Center"
                                                Margin="5, 0, 0, 0"
                                                Grid.Column="1"/>
                                 </Grid>
                             </ComboBoxItem>
+
+
+                            <!-- A-Z -->
+                           
 
                             <ComboBoxItem Name="sortByAscPrice">
                                 <Grid>
@@ -406,6 +389,27 @@
                                            Source="{StaticResource IconAsc}"/>
 
                                     <TextBlock Name="titleZA"
+                                               Text="Giá tiền"
+                                               VerticalAlignment="Center"
+                                               Margin="5, 0, 0, 0"
+                                               Grid.Column="1"/>
+                                </Grid>
+                            </ComboBoxItem>
+
+                            <ComboBoxItem Name="sortByDescPrice">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="8*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Width="7"
+                                           Height="13"
+                                           Grid.Column="0"
+                                           VerticalAlignment="Center"
+                                           Source="{StaticResource IconDesc}"/>
+
+                                    <TextBlock Name="titleAZ"
                                                Text="Giá tiền"
                                                VerticalAlignment="Center"
                                                Margin="5, 0, 0, 0"
@@ -487,7 +491,7 @@
                                         Opacity="0.29"/>
 
                                     <!--binding-->
-                                    <TextBlock Text="999"
+                                    <TextBlock Text="{Binding SoPhong}"
                                                HorizontalAlignment="Center"
                                                VerticalAlignment="Center"
                                                Style="{StaticResource BebasNeue48}"/>
@@ -503,13 +507,13 @@
                                                Margin="0, 0, 10, 0"
                                                Source="{StaticResource IconGrayRoom}"/>
 
-                                        <TextBlock Text="Đơn"
+                                        <TextBlock Text="{Binding TenLoaiPhong}"
                                                    Foreground="#808080"
                                            Style="{StaticResource GilroyRegular135}"/>
-                                        
+
                                     </StackPanel>
 
-                                    <TextBlock Text="1.000.000 đ"
+                                    <TextBlock Text="{Binding DonGia_For_Binding}"
                                            Style="{StaticResource GilroySemiBold21}"/>
                                 </StackPanel>
 
@@ -548,19 +552,12 @@
                             Margin="0, 8, 8, 0"
                             Cursor="Hand"
                             RenderOptions.BitmapScalingMode="HighQuality"
-                            Source="{StaticResource BadageEmpty}"
+                            Source="{Binding Badage_Status_For_Binding}"
                         />
 
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
-
-            <Grid></Grid>
-            <Grid></Grid>
-            <Grid></Grid>
-            <Grid></Grid>
-            <Grid></Grid>
-            <Grid></Grid>
         </ListView>
 
 

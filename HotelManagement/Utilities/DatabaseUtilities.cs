@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
+using HotelManagement.Converters;
 
 namespace HotelManagement.Utilities
 {
@@ -12,6 +12,10 @@ namespace HotelManagement.Utilities
 
         private static DatabaseUtilities _databaseInstance;
         private static HotelManagementEntities _databaseHotelManagement;
+
+        private ApplicationUtilities _applicationUtilities = ApplicationUtilities.GetAppInstance();
+
+        private AbsolutePathConverter _absolutePathConverter = new AbsolutePathConverter();
 
         public static DatabaseUtilities GetDatabaseInstance()
         {
@@ -70,10 +74,33 @@ namespace HotelManagement.Utilities
 
         public List<Phong> getAllRoom()
         {
-            var result = _databaseHotelManagement
-               .Database
-               .SqlQuery<Phong>("SELECT P.ID_LoaiPhong, P.SoPhong, P.TinhTrang, P.GhiChu, LP.TenLoaiPhong, LP.DonGia, LP.SLKhachToiDa, P.Active FROM dbo.Phong P, dbo.LoaiPhong LP WHERE P.ID_LoaiPhong = LP.ID_LoaiPhong AND P.Active = 1")
-               .ToList();
+            var rooms = _databaseHotelManagement.func_getAllRoom().ToList();
+
+            var result = _applicationUtilities.convertToPhong(rooms);
+
+            for (int i = 0; i < result.Count; ++i)
+            {
+                result[i].DonGia_For_Binding = _applicationUtilities.getMoneyForBinding(Convert.ToInt32(result[i].DonGia ?? 0));
+
+                string uri = "";
+                if (result[i].TinhTrang == true)
+                {
+                    uri = (string)_absolutePathConverter.Convert("Assets/Images/badage-rented.png", null, null, null);
+                }
+                else
+                {
+                    uri = (string)_absolutePathConverter.Convert("Assets/Images/badage-empty.png", null, null, null);
+                }
+
+                BitmapImage bitmap = new BitmapImage();
+
+                bitmap.BeginInit();
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.UriSource = new Uri(uri, UriKind.Relative);
+                bitmap.EndInit();
+
+                result[i].Badage_Status_For_Binding = bitmap;
+            }
 
             return result;
         }

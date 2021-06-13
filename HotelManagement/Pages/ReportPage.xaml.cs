@@ -91,7 +91,7 @@ namespace HotelManagement.Pages
 
 				total += revenues[i];
 
-				roomCategories[i].Revenue_For_Binding = _applicationUtilities.GetMoneyForBinding(revenues[i]);
+				roomCategories[i].Revenue_For_Binding = _applicationUtilities.getMoneyForBinding(revenues[i]);
 			}
 
 			double temp = 0;

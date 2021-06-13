@@ -19,7 +19,15 @@ namespace HotelManagement
         {
             this.Phongs = new HashSet<Phong>();
         }
-    
+
+        public LoaiPhong(int ID, string TenLoaiPhong) 
+        {
+            this.ID_LoaiPhong = ID;
+            this.TenLoaiPhong = TenLoaiPhong;
+
+            this.Phongs = new HashSet<Phong>();
+        }
+
         public int ID_LoaiPhong { get; set; }
         public string TenLoaiPhong { get; set; }
         public Nullable<double> DonGia { get; set; }

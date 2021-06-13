@@ -44,11 +44,34 @@ namespace HotelManagement.Utilities
         }
 
 
-        public string GetMoneyForBinding(int money)
+        public string getMoneyForBinding(int money)
         {
             string result = string.Format("{0:n0}", money);
 
             result += " đ";
+
+            return result;
+        }
+
+        public List<Phong> convertToPhong(List<func_getAllRoom_Result> rooms)
+        {
+            List<Phong> result = new List<Phong>();
+
+            foreach (var room in rooms)
+            {
+                Phong r = new Phong();
+
+                r.SoPhong = room.SoPhong;
+                r.ID_LoaiPhong = room.ID_LoaiPhong;
+                r.TinhTrang = room.TinhTrang;
+                r.GhiChu = room.GhiChu;
+                r.TenLoaiPhong = room.TenLoaiPhong;
+                r.DonGia = room.DonGia;
+                r.SLKhachToiDa = room.SLKhachToiDa;
+                r.Active = room.Active;
+
+                result.Add(r);
+            }
 
             return result;
         }
