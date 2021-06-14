@@ -587,5 +587,50 @@ namespace HotelManagement.Utilities
 
             return result;
         }
+
+        public List<NhanVien> getAllEmployee()
+        {
+            var result = _databaseHotelManagement
+                .Database
+                .SqlQuery<NhanVien>("SELECT * FROM NhanVien Where Active = 'true'")
+                .ToList();
+
+            return result;
+        }
+
+        public void updateEmployee(NhanVien employee)
+        {
+            string role = (employee.LoaiNhanVien ?? false) ? "false" : "true";
+
+            _databaseHotelManagement
+                .Database
+                .ExecuteSqlCommand($"UPDATE NhanVien Set HoTen = N'{employee.HoTen}', CMND = '{employee.CMND}', LoaiNhanVien = '{role}', Username = '{employee.Username}', Password = '{employee.Password}' WHERE ID_NhanVien = {employee.ID_NhanVien}");
+        }
+
+        public void deleteCustomerCategory(NhanVien employee)
+        {
+            _databaseHotelManagement
+                  .Database
+                  .ExecuteSqlCommand($"UPDATE NhanVien Set Active = 'false' WHERE ID_NhanVien = {employee.ID_NhanVien}");
+        }
+
+        public void addNewCustomerCategory(NhanVien employee)
+        {
+            int role = (employee.LoaiNhanVien ?? false) ? 0 : 1;
+
+            _databaseHotelManagement
+                  .Database
+                  .ExecuteSqlCommand($"INSERT [dbo].[NhanVien] ([ID_NhanVien], [HoTen], [CMND], [LoaiNhanVien], [Username], [Password], [Active]) VALUES ({employee.ID_NhanVien}, N'{employee.HoTen}', N'{employee.CMND}', {role}, N'{employee.Username}', N'{employee.Password}', 1)");
+        }
+
+        public int getMaxIdEmployee()
+        {
+            var result = _databaseHotelManagement
+              .Database
+              .SqlQuery<int>($"select max(ID_NhanVien) from NhanVien")
+              .Single();
+
+            return result;
+        }
     }
 }

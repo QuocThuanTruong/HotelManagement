@@ -229,7 +229,7 @@
 
                     </materialDesign:Card>
 
-                    <ListView Name="roomRevenueList"
+                    <ListView Name="employeeListView"
                   Grid.Column="1"
                   Grid.Row="1"
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -258,28 +258,28 @@
                                     </Grid.ColumnDefinitions>
 
 
-                                    <TextBlock Text="ID"
+                                    <TextBlock Text="{Binding ID_NhanVien}"
                                            Grid.Column="1"
                                              HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                     Foreground="{DynamicResource MyBlack}"
                                 Style="{StaticResource GilroyRegular15}"/>
 
-                                    <TextBlock Text="Quoc Thuan Truong"
+                                    <TextBlock Text="{Binding HoTen}"
                                            Grid.Column="3"
                                              HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                     Foreground="{DynamicResource MyBlack}"
                                 Style="{StaticResource GilroyRegular15}"/>
 
-                                    <TextBlock Text="123456789"
+                                    <TextBlock Text="{Binding CMND}"
                                            Grid.Column="5"
                                             HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                     Foreground="{DynamicResource MyBlack}"
                                 Style="{StaticResource GilroyRegular15}"/>
 
-                                    <TextBlock Text="NV_THUAN"
+                                    <TextBlock Text="{Binding Username}"
                                            Grid.Column="7"
                                             HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
@@ -289,7 +289,7 @@
                                     
                                     <!--bidning lên hiện *** thôi
                                     add thì bình thường, update thì cũng hiện ***-->
-                                    <TextBlock Text="*******"
+                                    <TextBlock Text="{Binding HidenPassword}"
                                            Grid.Column="9"
                                             HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
@@ -312,6 +312,8 @@
                                         và icon nút thêm đổi từ dấu cộng thành IconWhiteUpdate -->
 
                                         <Button Name="editButton"
+                                                Tag="{Binding ID_NhanVien}"
+                                                Click="editButton_Click"
                                             Width="35"
                                             Background="{DynamicResource MyBlue}"
                                             Foreground="#1b3896"
@@ -328,6 +330,8 @@
                                         </Button>
 
                                         <Button Name="deleteButton"
+                                                Tag="{Binding ID_NhanVien}"
+                                                Click="deleteButton_Click"
                                             Margin="15, 0, 0, 0"
                                             Width="35"
                                             Background="#d92027"
