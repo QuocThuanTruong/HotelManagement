@@ -11,7 +11,7 @@ namespace HotelManagement
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class NhanVien
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,17 +20,22 @@ namespace HotelManagement
             this.ChiTietPhieuThues = new HashSet<ChiTietPhieuThue>();
             this.HoaDons = new HashSet<HoaDon>();
         }
-    
+
         public int ID_NhanVien { get; set; }
         public string HoTen { get; set; }
         public string CMND { get; set; }
         public Nullable<bool> LoaiNhanVien { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
-    
+        public bool Active { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietPhieuThue> ChiTietPhieuThues { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HoaDon> HoaDons { get; set; }
+
+        //For Binding 
+        public string Role_For_Binding { get; set; }
+        public string HidenPassword { get; set; }
     }
 }

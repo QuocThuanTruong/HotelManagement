@@ -8,7 +8,8 @@
       Background="White"
        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       d:DesignHeight="718" d:DesignWidth="1116"
-      Title="CreateRentBillPage">
+      Title="CreateRentBillPage"
+      Loaded="Page_Loaded">
 
     <Grid>
 
@@ -58,7 +59,7 @@
                                                  UniformCornerRadius="5">
                     </materialDesign:Card>
 
-                    <TextBox Name="roomCatTextBox"
+                    <TextBox Name="nameTextBox"
                                      Width="180"
                                      Margin="12, 7, 2 ,0"
                               Padding="5, 5, 0, 5"
@@ -67,7 +68,7 @@
                                      Grid.Column="1"
                                      Grid.Row="1"/>
 
-                    <TextBox Name="customerAddrTextBox"
+                    <TextBox Name="CMNDTextBox"
                                      Padding="5, 5, 0, 5"
                                      Width="140"
                                      Margin="12, 8, 2 ,0"
@@ -93,6 +94,7 @@
                                      materialDesign:HintAssist.Hint="Mật khẩu"
                                      Grid.Column="1"
                                      Grid.Row="1"/>
+                    
 
                     <Grid
                                     HorizontalAlignment="Left"
@@ -108,7 +110,7 @@
                                             BorderThickness="1"
                                             CornerRadius="4"/>
 
-                        <ComboBox Name="customerNameComboBox"
+                        <ComboBox Name="employeeRoleComboBox"
 
                                         HorizontalAlignment="Left"
                                         Style="{StaticResource AddRecipeComboBox}"
@@ -133,7 +135,7 @@
 
 
                     <Button Name="addCustomerButton"
-                                   
+                                   Click="addCustomerButton_Click"
                                     Margin="16,8,4,0"
                                     VerticalAlignment="Center"
                                     Width="34"
@@ -142,7 +144,7 @@
                                     Height="34"                        
                                     materialDesign:ShadowAssist.ShadowDepth="Depth0" >
 
-                        <Image 
+                        <Image x:Name="iconAddEmployee"
                                         Width="16"
                                         Height="16"
                                         RenderOptions.BitmapScalingMode="HighQuality"
@@ -286,7 +288,7 @@
                                     Foreground="{DynamicResource MyBlack}"
                                 Style="{StaticResource GilroyRegular15}"/>
 
-                                    
+
                                     <!--bidning lên hiện *** thôi
                                     add thì bình thường, update thì cũng hiện ***-->
                                     <TextBlock Text="{Binding HidenPassword}"
@@ -296,7 +298,7 @@
                                     Foreground="{DynamicResource MyBlack}"
                                 Style="{StaticResource GilroyRegular15}"/>
 
-                                    <TextBlock Text="Quản lí"
+                                    <TextBlock Text="{Binding Role_For_Binding}"
                                            Grid.Column="11"
                                             HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
@@ -352,11 +354,6 @@
                                 </Grid>
                             </DataTemplate>
                         </ListView.ItemTemplate>
-
-                        <Grid></Grid>
-                        <Grid></Grid>
-                        <Grid></Grid>
-                        <Grid></Grid>
                     </ListView>
 
 

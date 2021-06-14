@@ -77,6 +77,7 @@
           <Property Name="LoaiNhanVien" Type="bit" />
           <Property Name="Username" Type="varchar" MaxLength="20" />
           <Property Name="Password" Type="varchar" MaxLength="20" />
+          <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="PhieuThue">
           <Key>
@@ -381,6 +382,7 @@
           <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="ChiTietPhieuThues" Relationship="Self.FK_ChiTietPhieuThue_NhanVien" FromRole="NhanVien" ToRole="ChiTietPhieuThue" />
           <NavigationProperty Name="HoaDons" Relationship="Self.FK_HoaDon_NhanVien" FromRole="NhanVien" ToRole="HoaDon" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="PhieuThue">
           <Key>
@@ -623,6 +625,7 @@
           <EntitySetMapping Name="NhanViens">
             <EntityTypeMapping TypeName="HotelManagementModel.NhanVien">
               <MappingFragment StoreEntitySet="NhanVien">
+                <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="ID_NhanVien" ColumnName="ID_NhanVien" />
                 <ScalarProperty Name="HoTen" ColumnName="HoTen" />
                 <ScalarProperty Name="CMND" ColumnName="CMND" />

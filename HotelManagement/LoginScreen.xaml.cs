@@ -46,7 +46,7 @@ namespace HotelManagement
             //get role
             //role = 0 - nhân viên, 1 - quản lí
 
-            /*if (userNameTextBox.Text.Length == 0)
+            if (userNameTextBox.Text.Length == 0)
             {
                 //notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống tên đăng nhập", "OK", () => { });
 
@@ -80,15 +80,15 @@ namespace HotelManagement
                 MainScreen mainScreen = new MainScreen(role);
                 mainScreen.Show();
                 loginScreen.Close();
-            }*/
+            }
 
             //notiMessageSnackbar.MessageQueue.Enqueue($"Sai tên đăng nhập hoặc mật khẩu", "OK", () => { });
 
-            LoginScreen loginScreen = this;
+           /* LoginScreen loginScreen = this;
             int role = 1;
             MainScreen mainScreen = new MainScreen(role);
             mainScreen.Show();
-            loginScreen.Close();
+            loginScreen.Close();*/
         }
 	}
 }

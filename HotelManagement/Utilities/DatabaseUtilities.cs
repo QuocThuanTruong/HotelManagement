@@ -595,6 +595,23 @@ namespace HotelManagement.Utilities
                 .SqlQuery<NhanVien>("SELECT * FROM NhanVien Where Active = 'true'")
                 .ToList();
 
+            for (int i = 0; i < result.Count; ++i)
+            {
+                for (int j = 0; j < result[i].Password.Length; ++j)
+                {
+                    result[i].HidenPassword += "*";
+                }
+
+                if (result[i].LoaiNhanVien == true)
+                {
+                    result[i].Role_For_Binding = "Quản lí";
+                } 
+                else
+                {
+                    result[i].Role_For_Binding = "Nhân viên";
+                }
+            }
+
             return result;
         }
 
@@ -607,14 +624,14 @@ namespace HotelManagement.Utilities
                 .ExecuteSqlCommand($"UPDATE NhanVien Set HoTen = N'{employee.HoTen}', CMND = '{employee.CMND}', LoaiNhanVien = '{role}', Username = '{employee.Username}', Password = '{employee.Password}' WHERE ID_NhanVien = {employee.ID_NhanVien}");
         }
 
-        public void deleteCustomerCategory(NhanVien employee)
+        public void deleteEmployee(NhanVien employee)
         {
             _databaseHotelManagement
                   .Database
                   .ExecuteSqlCommand($"UPDATE NhanVien Set Active = 'false' WHERE ID_NhanVien = {employee.ID_NhanVien}");
         }
 
-        public void addNewCustomerCategory(NhanVien employee)
+        public void addNewEmployee(NhanVien employee)
         {
             int role = (employee.LoaiNhanVien ?? false) ? 0 : 1;
 
