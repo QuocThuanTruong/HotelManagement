@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HotelManagement.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,44 @@ namespace HotelManagement.Pages
 	/// </summary>
 	public partial class ChangePasswordPage : Page
 	{
+
+		private DatabaseUtilities _databaseUtilities = DatabaseUtilities.GetDatabaseInstance();
+		private ApplicationUtilities _applicationUtilities = ApplicationUtilities.GetAppInstance();
 		public ChangePasswordPage()
 		{
 			InitializeComponent();
 		}
-	}
+
+        private void updateButton_Click(object sender, RoutedEventArgs e)
+        {
+			string oldPassword = oldPwdTextBox.Text;
+			string newPassword = newPwdTextBox.Text;
+			string retypePassword = retypePwdTextBox.Text;
+
+			if (oldPassword != Global.staticCurrentEmployee.Password)
+            {
+
+				//notiMessageSnackbar.MessageQueue.Enqueue($"Mật khẩu không chính xác", "OK", () => { });
+
+				return;
+            }
+
+			if (newPassword.Length == 0)
+            {
+				//notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống mật khẩu mớp", "OK", () => { });
+
+				return;
+			}
+
+			if (newPassword != retypePassword)
+			{
+				//notiMessageSnackbar.MessageQueue.Enqueue($"Mật khẩu mới và lặp lại không chính xác", "OK", () => { });
+
+				return;
+			}
+
+			_databaseUtilities.updatePassword(newPassword);
+
+		}
+    }
 }

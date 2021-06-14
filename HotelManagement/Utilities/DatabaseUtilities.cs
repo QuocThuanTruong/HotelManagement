@@ -649,5 +649,12 @@ namespace HotelManagement.Utilities
 
             return result;
         }
+
+        public void updatePassword(string newPassword)
+        {
+            _databaseHotelManagement
+                 .Database
+                 .ExecuteSqlCommand($"UPDATE NhanVien Set Password = N'{newPassword}' WHERE ID_NhanVien = {Global.staticCurrentEmployee.ID_NhanVien}");
+        }
     }
 }
