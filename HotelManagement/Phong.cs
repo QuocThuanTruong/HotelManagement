@@ -39,6 +39,7 @@ namespace HotelManagement
         public string Density_For_Binding { get; set; }
         public string Percent_For_Binding { get; set; }
         public string DonGia_For_Binding { get; set; }
+        public string DonGiaPerDay_For_Binding { get; set; }
         public ImageSource Badage_Status_For_Binding { get; set; }
         public string SLKhachToiDa_For_Binding { get; set; }
     }

@@ -101,7 +101,7 @@ namespace HotelManagement.Utilities
             for (int i = 0; i < result.Count; ++i)
             {
                 result[i].DonGia_For_Binding = _applicationUtilities.getMoneyForBinding(Convert.ToInt32(result[i].DonGia ?? 0));
-
+                result[i].DonGiaPerDay_For_Binding = _applicationUtilities.getMoneyForBinding(Convert.ToInt32(result[i].DonGia ?? 0)) + "/ngày";
                 string uri = "";
                 if (result[i].TinhTrang == true)
                 {
@@ -317,6 +317,27 @@ namespace HotelManagement.Utilities
             _databaseHotelManagement
                 .Database
                 .ExecuteSqlCommand($"UPDATE ChiTietPhieuThue Set Active = 'false' WHERE ID_PhieuThue = {IdRentBill}");
+        }
+
+        public void updateRoom(Phong room)
+        {
+            _databaseHotelManagement
+                .Database
+                .ExecuteSqlCommand($"UPDATE Phong Set ID_LoaiPhong = {room.ID_LoaiPhong}, GhiChu = N'{room.GhiChu}' WHERE SoPhong = {room.SoPhong}");
+        }
+
+        public void deActiveRoom(Phong room)
+        {
+            _databaseHotelManagement
+                .Database
+                .ExecuteSqlCommand($"UPDATE Phong Set Active = 'false' WHERE SoPhong = {room.SoPhong}");
+        }
+
+        public void addNewRoom(Phong room)
+        {
+            _databaseHotelManagement
+                .Database
+                .ExecuteSqlCommand($"INSERT INTO Phong VALUES({room.SoPhong}, {room.ID_LoaiPhong}, 'false', N'{room.GhiChu}', 'true')");
         }
     }
 }
