@@ -23,11 +23,13 @@ namespace HotelManagement
     
         public int ID_PhieuThue { get; set; }
         public Nullable<System.DateTime> NgayBatDau { get; set; }
-    
+        public int Active { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietPhieuThue> ChiTietPhieuThues { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HoaDon> HoaDons { get; set; }
+
         public int TotalPrice { get; set; }
 
         //For Binding
@@ -37,5 +39,7 @@ namespace HotelManagement
         public string Price_Per_Day_For_Binding { get; set; }
         public string Total_Price_For_Binding { get; set; }
         public int SoPhong_For_Binding { get; set; }
+        public string TenNhanVienLapPhieu { get; set; }
+        public string Status { get; set; }
     }
 }

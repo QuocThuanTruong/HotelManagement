@@ -8,7 +8,8 @@
        mc:Ignorable="d" 
        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       d:DesignHeight="718" d:DesignWidth="1116"
-      Title="RoomManagementPage">
+      Title="RoomManagementPage"
+      Loaded="Page_Loaded">
 
     <Grid>
 
@@ -123,35 +124,35 @@
                             </Grid.ColumnDefinitions>
 
 
-                            <TextBlock Text="ID"
+                            <TextBlock Text="{Binding ID_PhieuThue}"
                                            Grid.Column="1"
                                              HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                     Foreground="{DynamicResource MyBlack}"
                                 Style="{StaticResource GilroyRegular15}"/>
 
-                            <TextBlock Text="Phòng"
+                            <TextBlock Text="{Binding SoPhong_For_Binding}"
                                            Grid.Column="3"
                                              HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                     Foreground="{DynamicResource MyBlack}"
                                 Style="{StaticResource GilroyRegular15}"/>
 
-                            <TextBlock Text="01/01/1998 23:59:59.996"
+                            <TextBlock Text="{Binding NgayBatDau}"
                                            Grid.Column="5"
                                             HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                     Foreground="{DynamicResource MyBlack}"
                                 Style="{StaticResource GilroyRegular15}"/>
 
-                            <TextBlock Text="Quoc Thuan Truong"
+                            <TextBlock Text="{Binding TenNhanVienLapPhieu}"
                                            Grid.Column="7"
                                             HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                     Foreground="{DynamicResource MyBlack}"
                                 Style="{StaticResource GilroyRegular15}"/>
 
-                            <TextBlock Text="Đã thanh toán"
+                            <TextBlock Text="{Binding Status}"
                                            Grid.Column="9"
                                             HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
@@ -165,6 +166,7 @@
                                 <!--xaif chieue binding tag thoi bro :v-->
                                 <Button Name="editButton"
                                         Click="editButton_Click"
+                                        Tag="{Binding ID_PhieuThue}"
                                             Width="35"
                                             Background="{DynamicResource MyBlue}"
                                             Foreground="#1b3896"
@@ -181,6 +183,7 @@
                                 </Button>
 
                                 <Button Name="deleteButton"
+                                         Tag="{Binding ID_PhieuThue}"
                                             Margin="15, 0, 0, 0"
                                             Width="35"
                                             Background="#d92027"
@@ -201,11 +204,6 @@
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-
-                <Grid></Grid>
-                <Grid></Grid>
-                <Grid></Grid>
-                <Grid></Grid>
             </ListView>
 
 

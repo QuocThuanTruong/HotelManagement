@@ -116,7 +116,7 @@ namespace HotelManagement.Pages
 			//notiMessageSnackbar.MessageQueue.Enqueue($"Thanh toán thành công", "OK", () => { BackPageEvent?.Invoke(backPage) });
 
 			_databaseUtilities.updateEmptyRoom(_idRoom);
-			_databaseUtilities.updateRentalBillDetail(_idRentBill);
+			_databaseUtilities.updateRentalBill(_idRentBill);
 
 			BackPageEvent?.Invoke(backPage);
 		}

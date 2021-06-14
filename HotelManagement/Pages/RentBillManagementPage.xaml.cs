@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HotelManagement.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,11 @@ namespace HotelManagement.Pages
 	{
 		public delegate void EditRentBill(int id);
 		public event EditRentBill EditRentBillEvent;
+
+		private DatabaseUtilities _databaseUtilities = DatabaseUtilities.GetDatabaseInstance();
+		private ApplicationUtilities _applicationUtilities = ApplicationUtilities.GetAppInstance();
+
+		public List<PhieuThue> rentedBills;
 		public RentBillManagementPage()
 		{
 			InitializeComponent();
@@ -31,5 +37,12 @@ namespace HotelManagement.Pages
 		{
 			EditRentBillEvent?.Invoke(1);
 		}
-	}
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+			rentedBills = _databaseUtilities.getAllRentedBill();
+
+			roomRevenueList.ItemsSource = rentedBills;
+		}
+    }
 }

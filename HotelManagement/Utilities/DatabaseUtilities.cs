@@ -319,6 +319,13 @@ namespace HotelManagement.Utilities
                 .ExecuteSqlCommand($"UPDATE ChiTietPhieuThue Set Active = 'false' WHERE ID_PhieuThue = {IdRentBill}");
         }
 
+        public void updateRentalBill(int IdRentBill)
+        {
+            _databaseHotelManagement
+                .Database
+                .ExecuteSqlCommand($"UPDATE PhieuThue Set Active = 'false' WHERE ID_PhieuThue = {IdRentBill}");
+        }
+
         public void updateRoom(Phong room)
         {
             _databaseHotelManagement
@@ -338,6 +345,41 @@ namespace HotelManagement.Utilities
             _databaseHotelManagement
                 .Database
                 .ExecuteSqlCommand($"INSERT INTO Phong VALUES({room.SoPhong}, {room.ID_LoaiPhong}, 'false', N'{room.GhiChu}', 'true')");
+        }
+
+        public List<PhieuThue> getAllRentedBill()
+        {
+            var result = _databaseHotelManagement
+                .Database
+                .SqlQuery<PhieuThue>($"SELECT * FROM PhieuThue Where Active <> 0")
+                .ToList();
+
+            for (int i = 0; i < result.Count; ++i)
+            {
+                ChiTietPhieuThue rentBillDetail = _databaseHotelManagement
+                    .Database
+                    .SqlQuery<ChiTietPhieuThue>($"SELECT DISTINCT * FROM ChiTietPhieuThue WHERE ID_PhieuThue = {result[i].ID_PhieuThue}")
+                    .First();
+
+                result[i].TenNhanVienLapPhieu = _databaseHotelManagement
+                    .Database
+                    .SqlQuery<string>($"SELECT HoTen FROM NhanVien WHERE ID_NhanVien = {rentBillDetail.ID_NhanVien}")
+                    .Single();
+
+                if (result[i].Active == 1)
+                {
+                    result[i].Status = "Chưa thanh toán";
+                } 
+                else if(result[i].Active == 2)
+                {
+                    result[i].Status = "Đã thanh toán";
+                }
+
+                result[i].SoPhong_For_Binding = rentBillDetail.SoPhong;
+            }
+
+  
+            return result;
         }
     }
 }
