@@ -28,5 +28,14 @@ namespace HotelManagement
         public virtual ICollection<ChiTietPhieuThue> ChiTietPhieuThues { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HoaDon> HoaDons { get; set; }
+        public int TotalPrice { get; set; }
+
+        //For Binding
+        public int Total_Customer_For_Binding { get; set; }
+        public int Total_Day_For_Binding { get; set; }
+        public double Ratio_For_Binding { get; set; }
+        public string Price_Per_Day_For_Binding { get; set; }
+        public string Total_Price_For_Binding { get; set; }
+        public int SoPhong_For_Binding { get; set; }
     }
 }

@@ -90,24 +90,6 @@ namespace HotelManagement.Pages
 			var index = comboboxRoomList.SelectedIndex;
 			currentRoom = _rooms[index];
 			loadRoom();
-
-			if (customers.Count < currentRoom.SLKhachToiDa)
-			{
-				addCustomerButton.Visibility = Visibility.Visible;
-			} 
-
-			if (customers.Count == currentRoom.SLKhachToiDa)
-            {
-				addCustomerButton.Visibility = Visibility.Hidden;
-			}
-
-			if (customers.Count > currentRoom.SLKhachToiDa)
-			{
-				addCustomerButton.Visibility = Visibility.Hidden;
-
-				//notiMessageSnackbar.MessageQueue.Enqueue($"Số lượng khách đã vượt quá số lượng tối đa của phòng", "OK", () => { });
-			}
-
 		}
 
         private void addCustomerButton_Click(object sender, RoutedEventArgs e)
@@ -151,11 +133,6 @@ namespace HotelManagement.Pages
 
 				customerListView.ItemsSource = null;
 				customerListView.ItemsSource = customers;
-
-				if (customers.Count == currentRoom.SLKhachToiDa)
-                {
-					addCustomerButton.Visibility = Visibility.Hidden;
-				}
 			}
 		}
 
@@ -174,19 +151,10 @@ namespace HotelManagement.Pages
 
 			customerListView.ItemsSource = null;
 			customerListView.ItemsSource = customers;
-
-			addCustomerButton.Visibility = Visibility.Visible;
 		}
 
 		private void finishButton_Click(object sender, RoutedEventArgs e)
 		{
-			if (customers.Count > currentRoom.SLKhachToiDa)
-			{
-				//notiMessageSnackbar.MessageQueue.Enqueue($"Số lượng khách đã vượt quá số lượng tối đa của phòng", "OK", () => { });
-
-				return;
-			}
-
 			if (customers.Count == 0)
 			{
 				//notiMessageSnackbar.MessageQueue.Enqueue($"Không có khách hàng", "OK", () => { });
@@ -221,6 +189,8 @@ namespace HotelManagement.Pages
 			}
 
 			//notiMessageSnackbar.MessageQueue.Enqueue($"Thêm thành công phiếu thuê", "OK", () => { BackPageEvent?.Invoke(backPage) });
+
+			_databaseUtilities.updateRentedRoom(currentRoom.SoPhong);
 
 			BackPageEvent?.Invoke(backPage);
 		}

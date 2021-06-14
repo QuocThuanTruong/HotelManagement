@@ -95,6 +95,7 @@
     <Compile Include="func_GetCustomerInRoom_Result.cs">
       <DependentUpon>HotelManagementModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Global.cs" />
     <Compile Include="HoaDon.cs">
       <DependentUpon>HotelManagementModel.tt</DependentUpon>
     </Compile>

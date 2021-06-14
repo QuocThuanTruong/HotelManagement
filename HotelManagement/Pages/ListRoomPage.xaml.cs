@@ -182,12 +182,20 @@ namespace HotelManagement.Pages
 
 		private void roomListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			CreateRentBillEvent?.Invoke(((Phong)roomListView.SelectedItem).SoPhong);
+			Phong selectedRoom = (Phong)roomListView.SelectedItem;
+
+			if (selectedRoom.TinhTrang == true)
+            {
+				CreateInvoiceEvent?.Invoke(selectedRoom.SoPhong);
+			} 
+			else
+            {
+				CreateRentBillEvent?.Invoke(selectedRoom.SoPhong);
+			}
+
 			//Doi sang da thue BadageRented
 			//Doi text nut thanh THANH TOÁN rentButtonText
 			//Sau khi tạo phieu thue thi binding them ID phieu thue vo luon item do, de lat bam THANH TOAN cho de query
-
-			//CreateInvoiceEvent?.Invoke(1);
 		}
 
         private void statusComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
