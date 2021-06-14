@@ -192,7 +192,7 @@
                                             Style="{StaticResource StepButton}"
                                             materialDesign:ButtonAssist.CornerRadius="6"
                                             Height="35"  
-                   
+                                    Click="deleteButton_Click"
                                             materialDesign:ShadowAssist.ShadowDepth="Depth0">
                                     <Image Width="16"
                                                Height="16"

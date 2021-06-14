@@ -41,5 +41,6 @@ namespace HotelManagement
         public int SoPhong_For_Binding { get; set; }
         public string TenNhanVienLapPhieu { get; set; }
         public string Status { get; set; }
+        public int ID_NhanVien { get; set; }
     }
 }

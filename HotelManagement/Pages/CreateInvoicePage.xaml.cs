@@ -89,7 +89,14 @@ namespace HotelManagement.Pages
 			source.Add(currentRentBill);
 			roomRevenueList.ItemsSource = source;
 
+
 			surcharge = Convert.ToInt32(currentRentBill.TotalPrice * (currentRentBill.Total_Customer_For_Binding - selectedRoom.SLKhachToiDa) * 0.25);
+
+			if (surcharge < 0)
+            {
+				surcharge = 0;
+			}
+
 			resultPrice = surcharge + currentRentBill.TotalPrice;
 
 			surchargeTextBlock.Text = _applicationUtilities.getMoneyForBinding(surcharge);
@@ -116,7 +123,7 @@ namespace HotelManagement.Pages
 			//notiMessageSnackbar.MessageQueue.Enqueue($"Thanh toán thành công", "OK", () => { BackPageEvent?.Invoke(backPage) });
 
 			_databaseUtilities.updateEmptyRoom(_idRoom);
-			_databaseUtilities.updateRentalBill(_idRentBill);
+			_databaseUtilities.finishRentalBill(_idRentBill);
 
 			BackPageEvent?.Invoke(backPage);
 		}

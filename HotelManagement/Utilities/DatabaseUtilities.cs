@@ -205,23 +205,64 @@ namespace HotelManagement.Utilities
 
         public void addNewCustomer(KhachHang customer)
         {
-            _databaseHotelManagement
+            var exists = _databaseHotelManagement
                 .Database
-                .ExecuteSqlCommand($"INSERT [dbo].[KhachHang] ([ID_KhachHang], [HoTen], [CMND], [DiaChi], [ID_LoaiKhach]) VALUES ({customer.ID_KhachHang}, N'{customer.HoTen}', N'{customer.CMND}', N'{customer.DiaChi}', {customer.ID_LoaiKhach})");
+                .SqlQuery<KhachHang>($"SELECT * FROM KhachHang WHERE ID_KhachHang = {customer.ID_KhachHang}")
+                .FirstOrDefault();
+
+            if (exists == null)
+            {
+                _databaseHotelManagement
+                    .Database
+                    .ExecuteSqlCommand($"INSERT [dbo].[KhachHang] ([ID_KhachHang], [HoTen], [CMND], [DiaChi], [ID_LoaiKhach]) VALUES ({customer.ID_KhachHang}, N'{customer.HoTen}', N'{customer.CMND}', N'{customer.DiaChi}', {customer.ID_LoaiKhach})");
+            }
+
         }
 
         public void addNewRental(PhieuThue newRental)
         {
             _databaseHotelManagement
                 .Database
-                .ExecuteSqlCommand($"INSERT[dbo].[PhieuThue]([ID_PhieuThue], [NgayBatDau]) VALUES({newRental.ID_PhieuThue}, CAST(N'{newRental.NgayBatDau}' AS DateTime))");
+                .ExecuteSqlCommand($"INSERT[dbo].[PhieuThue]([ID_PhieuThue], [NgayBatDau], [Active]) VALUES({newRental.ID_PhieuThue}, CAST(N'{newRental.NgayBatDau}' AS DateTime), 1)");
         }
 
         public void addNewRentalDetail(ChiTietPhieuThue newRentalDetail)
         {
-            _databaseHotelManagement
-                .Database
-                .ExecuteSqlCommand($"INSERT [dbo].[ChiTietPhieuThue] ([ID_KhachHang], [ID_PhieuThue], [SoPhong], [ID_NhanVien], [Active]) VALUES ({newRentalDetail.ID_KhachHang}, {newRentalDetail.ID_PhieuThue}, {newRentalDetail.SoPhong}, {newRentalDetail.ID_NhanVien}, 1)");
+            var exists = _databaseHotelManagement
+                           .Database
+                           .SqlQuery<ChiTietPhieuThue>($"SELECT * FROM ChiTietPhieuThue WHERE ID_KhachHang = {newRentalDetail.ID_KhachHang} AND ID_PhieuThue = {newRentalDetail.ID_PhieuThue}")
+                           .FirstOrDefault();
+
+            if (exists == null)
+            {
+                _databaseHotelManagement
+                    .Database
+                    .ExecuteSqlCommand($"INSERT [dbo].[ChiTietPhieuThue] ([ID_KhachHang], [ID_PhieuThue], [SoPhong], [ID_NhanVien], [Active]) VALUES ({newRentalDetail.ID_KhachHang}, {newRentalDetail.ID_PhieuThue}, {newRentalDetail.SoPhong}, {newRentalDetail.ID_NhanVien}, 1)");
+            }
+            else 
+            {
+                if (exists.Active == false)
+                {
+                    _databaseHotelManagement
+                        .Database
+                        .ExecuteSqlCommand($"UPDATE ChiTietPhieuThue Set Active = 'true' WHERE ID_PhieuThue = {newRentalDetail.ID_PhieuThue} AND ID_KhachHang = {newRentalDetail.ID_KhachHang}");
+                }
+            }
+        }
+
+        public void deleteCustomerInRentBillDetail(ChiTietPhieuThue rentalDetail)
+        {
+            var exists = _databaseHotelManagement
+                           .Database
+                           .SqlQuery<ChiTietPhieuThue>($"SELECT * FROM ChiTietPhieuThue WHERE ID_KhachHang = {rentalDetail.ID_KhachHang} AND ID_PhieuThue = {rentalDetail.ID_PhieuThue}")
+                           .FirstOrDefault();
+
+            if (exists != null)
+            {
+                _databaseHotelManagement
+                   .Database
+                   .ExecuteSqlCommand($"UPDATE ChiTietPhieuThue Set Active = 'false' WHERE ID_PhieuThue = {rentalDetail.ID_PhieuThue} AND ID_KhachHang = {rentalDetail.ID_KhachHang}"); ;
+            }
         }
 
         public void updateRentedRoom(int IdRoom)
@@ -240,10 +281,25 @@ namespace HotelManagement.Utilities
 
         public int getCurrentRentBillIdBelongToRoom(int IdRoom)
         {
-            var result = _databaseHotelManagement
+            var rentBills = _databaseHotelManagement
                 .Database
-                .SqlQuery<int>($"SELECT ID_PhieuThue FROM ChiTietPhieuThue WHERE Active = 'true' AND SoPhong = {IdRoom}")
-                .First();
+                .SqlQuery<int>($"SELECT ID_PhieuThue FROM PhieuThue WHERE Active = 1")
+                .ToList();
+
+            int result = -1;
+
+            foreach (var r in rentBills)
+            {
+                result = _databaseHotelManagement
+                    .Database
+                    .SqlQuery<int>($"Select ID_PhieuThue FROM ChiTietPhieuThue WHERE SoPhong = {IdRoom} AND ID_PhieuThue = {r}")
+                    .FirstOrDefault();
+
+                if (result != 0)
+                {
+                    return result;
+                }
+            }
 
             return result;
         }
@@ -255,6 +311,32 @@ namespace HotelManagement.Utilities
                .SqlQuery<PhieuThue>($"SELECT * FROM PhieuThue WHERE ID_PhieuThue = {IdRentBill}")
                .Single();
 
+            ChiTietPhieuThue rentBillDetail = _databaseHotelManagement
+                    .Database
+                    .SqlQuery<ChiTietPhieuThue>($"SELECT DISTINCT * FROM ChiTietPhieuThue WHERE ID_PhieuThue = {result.ID_PhieuThue}")
+                    .First();
+
+            result.TenNhanVienLapPhieu = _databaseHotelManagement
+                .Database
+                .SqlQuery<string>($"SELECT HoTen FROM NhanVien WHERE ID_NhanVien = {rentBillDetail.ID_NhanVien}")
+                .Single();
+
+            result.ID_NhanVien = _databaseHotelManagement
+               .Database
+               .SqlQuery<int>($"SELECT ID_NhanVien FROM NhanVien WHERE ID_NhanVien = {rentBillDetail.ID_NhanVien}")
+               .Single();
+
+            if (result.Active == 1)
+            {
+                result.Status = "Chưa thanh toán";
+            }
+            else if (result.Active == 2)
+            {
+                result.Status = "Đã thanh toán";
+            }
+
+            result.SoPhong_For_Binding = rentBillDetail.SoPhong;
+
             return result;
         }
 
@@ -262,16 +344,23 @@ namespace HotelManagement.Utilities
         {
             var rentBillDetail = _databaseHotelManagement
                 .Database
-                .SqlQuery<ChiTietPhieuThue>($"SELECT * FROM ChiTietPhieuThue WHERE ID_PhieuThue = {IdRentBill}")
+                .SqlQuery<ChiTietPhieuThue>($"SELECT * FROM ChiTietPhieuThue WHERE ID_PhieuThue = {IdRentBill} AND Active = 'true'")
                 .ToList();
 
             List<KhachHang> result = new List<KhachHang>();
 
+            int STT = 1;
             foreach (var detail in rentBillDetail)
             {
                 KhachHang customer = _databaseHotelManagement
                     .Database
                     .SqlQuery<KhachHang>($"SELECT * FROM KhachHang WHERE ID_KhachHang = {detail.ID_KhachHang}")
+                    .Single();
+
+                customer.STT_For_Binding = STT++;
+                customer.TenLoaiKhach = _databaseHotelManagement
+                    .Database
+                    .SqlQuery<string>($"SELECT TenLoaiKhach From LoaiKhach WHERE ID_LoaiKhach = {customer.ID_LoaiKhach}")
                     .Single();
 
                 result.Add(customer);
@@ -312,18 +401,27 @@ namespace HotelManagement.Utilities
                 .ExecuteSqlCommand($"INSERT [dbo].[HoaDon] ([ID_HoaDon], [ID_PhieuThue], [ID_NhanVien], [NgayTraPhong], [TongTien], [Active]) VALUES ({newInvoice.ID_HoaDon}, {newInvoice.ID_PhieuThue}, {newInvoice.ID_NhanVien}, CAST(N'{newInvoice.NgayTraPhong}' AS DateTime), {newInvoice.TongTien}, 1)");
         }
 
-        public void updateRentalBillDetail(int IdRentBill)
+        public void updateRentalBillDetail(int IdRentBill, bool active)
         {
+            string sActive = active ? "true" : "false";
+
             _databaseHotelManagement
                 .Database
-                .ExecuteSqlCommand($"UPDATE ChiTietPhieuThue Set Active = 'false' WHERE ID_PhieuThue = {IdRentBill}");
+                .ExecuteSqlCommand($"UPDATE ChiTietPhieuThue Set Active = '{sActive}' WHERE ID_PhieuThue = {IdRentBill}");
         }
 
-        public void updateRentalBill(int IdRentBill)
+        public void finishRentalBill(int IdRentalBill)
         {
             _databaseHotelManagement
                 .Database
-                .ExecuteSqlCommand($"UPDATE PhieuThue Set Active = 'false' WHERE ID_PhieuThue = {IdRentBill}");
+                .ExecuteSqlCommand($"UPDATE PhieuThue Set Active = 2 WHERE ID_PhieuThue = {IdRentalBill}");
+        }
+
+        public void updateRentalBill(PhieuThue rentBill)
+        {
+            _databaseHotelManagement
+                .Database
+                .ExecuteSqlCommand($"UPDATE PhieuThue Set Active = {rentBill.Active}, NgayBatDau = CAST(N'{rentBill.NgayBatDau}' AS DateTime WHERE ID_PhieuThue = {rentBill.ID_PhieuThue}");
         }
 
         public void updateRoom(Phong room)
@@ -356,30 +454,18 @@ namespace HotelManagement.Utilities
 
             for (int i = 0; i < result.Count; ++i)
             {
-                ChiTietPhieuThue rentBillDetail = _databaseHotelManagement
-                    .Database
-                    .SqlQuery<ChiTietPhieuThue>($"SELECT DISTINCT * FROM ChiTietPhieuThue WHERE ID_PhieuThue = {result[i].ID_PhieuThue}")
-                    .First();
-
-                result[i].TenNhanVienLapPhieu = _databaseHotelManagement
-                    .Database
-                    .SqlQuery<string>($"SELECT HoTen FROM NhanVien WHERE ID_NhanVien = {rentBillDetail.ID_NhanVien}")
-                    .Single();
-
-                if (result[i].Active == 1)
-                {
-                    result[i].Status = "Chưa thanh toán";
-                } 
-                else if(result[i].Active == 2)
-                {
-                    result[i].Status = "Đã thanh toán";
-                }
-
-                result[i].SoPhong_For_Binding = rentBillDetail.SoPhong;
+                result[i] = getRentBillById(result[i].ID_PhieuThue);
             }
-
   
             return result;
         }
+
+        public void deleteRentalBill(int IdRetalBill)
+        {
+            _databaseHotelManagement
+                .Database
+                .ExecuteSqlCommand($"UPDATE PhieuThue Set Active = 0 WHERE ID_PhieuThue = {IdRetalBill}");
+        }
+        
     }
 }

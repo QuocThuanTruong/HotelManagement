@@ -227,7 +227,7 @@ namespace HotelManagement
 
 		private void RentBill_EditRentBillEvent(int id)
 		{
-			CreateRentBillPage createRentBill = new CreateRentBillPage(id, rentBillPageButton);
+			CreateRentBillPage createRentBill = new CreateRentBillPage(id, true, rentBillPageButton);
 			createRentBill.BackPageEvent += All_BackPageEvent;
 			pageNavigation.NavigationService.Navigate(createRentBill);
 			clearDrawerButton();
@@ -243,7 +243,7 @@ namespace HotelManagement
 
 		private void ListRoom_CreateRentBillEvent(int id)
 		{
-			CreateRentBillPage createRentBill = new CreateRentBillPage(id, roomPageButton);
+			CreateRentBillPage createRentBill = new CreateRentBillPage(id, false, roomPageButton);
 			createRentBill.BackPageEvent += All_BackPageEvent;
 			pageNavigation.NavigationService.Navigate(createRentBill);
 			clearDrawerButton();
