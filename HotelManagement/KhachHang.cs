@@ -11,7 +11,7 @@ namespace HotelManagement
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class KhachHang
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,13 +19,13 @@ namespace HotelManagement
         {
             this.ChiTietPhieuThues = new HashSet<ChiTietPhieuThue>();
         }
-    
+
         public int ID_KhachHang { get; set; }
         public string HoTen { get; set; }
         public string CMND { get; set; }
         public string DiaChi { get; set; }
         public int ID_LoaiKhach { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietPhieuThue> ChiTietPhieuThues { get; set; }
         public virtual LoaiKhach LoaiKhach { get; set; }

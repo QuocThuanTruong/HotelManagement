@@ -13,7 +13,7 @@ namespace HotelManagement
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class Phong
     {
         public Phong()

@@ -11,7 +11,7 @@ namespace HotelManagement
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class LoaiPhong
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,7 +20,7 @@ namespace HotelManagement
             this.Phongs = new HashSet<Phong>();
         }
 
-        public LoaiPhong(int ID, string TenLoaiPhong) 
+        public LoaiPhong(int ID, string TenLoaiPhong)
         {
             this.ID_LoaiPhong = ID;
             this.TenLoaiPhong = TenLoaiPhong;
@@ -33,7 +33,7 @@ namespace HotelManagement
         public Nullable<double> DonGia { get; set; }
         public Nullable<int> SLKhachToiDa { get; set; }
         public Nullable<bool> Active { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Phong> Phongs { get; set; }
 

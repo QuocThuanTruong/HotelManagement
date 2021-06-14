@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="HotelManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="HotelManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CauHinh">
           <Key>
             <PropertyRef Name="ID" />
@@ -83,6 +83,7 @@
           </Key>
           <Property Name="ID_PhieuThue" Type="int" Nullable="false" />
           <Property Name="NgayBatDau" Type="datetime" />
+          <Property Name="Active" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Phong">
           <Key>
@@ -278,8 +279,7 @@
             <End Role="Phong" EntitySet="Phong" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="HotelManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -388,6 +388,7 @@
           <Property Name="NgayBatDau" Type="DateTime" Precision="3" />
           <NavigationProperty Name="ChiTietPhieuThues" Relationship="Self.FK_ChiTietPhieuThue_PhieuThue" FromRole="PhieuThue" ToRole="ChiTietPhieuThue" />
           <NavigationProperty Name="HoaDons" Relationship="Self.FK_HoaDon_PhieuThue" FromRole="PhieuThue" ToRole="HoaDon" />
+          <Property Name="Active" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Phong">
           <Key>
@@ -541,7 +542,7 @@
           </AssociationSet>
           <FunctionImport Name="func_getAllRoom" IsComposable="true" ReturnType="Collection(HotelManagementModel.func_getAllRoom_Result)" />
           <FunctionImport Name="func_GetCustomerInRoom" IsComposable="true" ReturnType="Collection(HotelManagementModel.func_GetCustomerInRoom_Result)">
-            <Parameter Name="ID_PhieuThue" Mode="In" Type="Int32" />
+          <Parameter Name="ID_PhieuThue" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
       </Schema>
@@ -631,6 +632,7 @@
           <EntitySetMapping Name="PhieuThues">
             <EntityTypeMapping TypeName="HotelManagementModel.PhieuThue">
               <MappingFragment StoreEntitySet="PhieuThue">
+                <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="ID_PhieuThue" ColumnName="ID_PhieuThue" />
                 <ScalarProperty Name="NgayBatDau" ColumnName="NgayBatDau" />
               </MappingFragment>

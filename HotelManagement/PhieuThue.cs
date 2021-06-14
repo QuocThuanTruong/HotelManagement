@@ -11,7 +11,7 @@ namespace HotelManagement
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class PhieuThue
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,7 +20,7 @@ namespace HotelManagement
             this.ChiTietPhieuThues = new HashSet<ChiTietPhieuThue>();
             this.HoaDons = new HashSet<HoaDon>();
         }
-    
+
         public int ID_PhieuThue { get; set; }
         public Nullable<System.DateTime> NgayBatDau { get; set; }
         public int Active { get; set; }
