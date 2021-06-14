@@ -89,7 +89,6 @@ namespace HotelManagement.Pages
 			source.Add(currentRentBill);
 			roomRevenueList.ItemsSource = source;
 
-
 			surcharge = Convert.ToInt32(currentRentBill.TotalPrice * (currentRentBill.Total_Customer_For_Binding - selectedRoom.SLKhachToiDa) * 0.25);
 
 			if (surcharge < 0)
@@ -115,8 +114,10 @@ namespace HotelManagement.Pages
 			newInvoice.ID_HoaDon = _databaseUtilities.getMaxIdInvoice() + 1;
 			newInvoice.ID_PhieuThue = currentRentBill.ID_PhieuThue;
 			newInvoice.ID_NhanVien = Global.staticCurrentEmployee.ID_NhanVien;
+			newInvoice.ID_KhachHang = currentCustomers[customerNameComboBox.SelectedIndex].ID_KhachHang;
 			newInvoice.NgayTraPhong = DateTime.Now;
 			newInvoice.TongTien = resultPrice;
+
 
 			_databaseUtilities.addNewInvoice(newInvoice);
 

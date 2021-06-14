@@ -17,11 +17,19 @@ namespace HotelManagement
         public int ID_HoaDon { get; set; }
         public int ID_PhieuThue { get; set; }
         public int ID_NhanVien { get; set; }
+        public int ID_KhachHang { get; set; }
         public Nullable<System.DateTime> NgayTraPhong { get; set; }
         public Nullable<double> TongTien { get; set; }
         public Nullable<bool> Active { get; set; }
     
         public virtual NhanVien NhanVien { get; set; }
         public virtual PhieuThue PhieuThue { get; set; }
+
+        //For Binding
+        public string TenKH_For_Binding { get; set; }
+        public string NumDayRent_For_Binding { get; set; }
+        public string DonGia_For_Binding { get; set; }
+        public string TotalPrice_For_Binding { get; set; }
+        public string HoTenNV_For_Binding { get; set; }
     }
 }

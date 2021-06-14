@@ -398,7 +398,7 @@ namespace HotelManagement.Utilities
         {
             _databaseHotelManagement
                 .Database
-                .ExecuteSqlCommand($"INSERT [dbo].[HoaDon] ([ID_HoaDon], [ID_PhieuThue], [ID_NhanVien], [NgayTraPhong], [TongTien], [Active]) VALUES ({newInvoice.ID_HoaDon}, {newInvoice.ID_PhieuThue}, {newInvoice.ID_NhanVien}, CAST(N'{newInvoice.NgayTraPhong}' AS DateTime), {newInvoice.TongTien}, 1)");
+                .ExecuteSqlCommand($"INSERT [dbo].[HoaDon] ([ID_HoaDon], [ID_PhieuThue], [ID_NhanVien], [ID_KhachHang], [NgayTraPhong], [TongTien], [Active]) VALUES ({newInvoice.ID_HoaDon}, {newInvoice.ID_PhieuThue}, {newInvoice.ID_NhanVien}, {newInvoice.ID_KhachHang}, CAST(N'{newInvoice.NgayTraPhong}' AS DateTime), {newInvoice.TongTien}, 1)");
         }
 
         public void updateRentalBillDetail(int IdRentBill, bool active)
@@ -466,6 +466,54 @@ namespace HotelManagement.Utilities
                 .Database
                 .ExecuteSqlCommand($"UPDATE PhieuThue Set Active = 0 WHERE ID_PhieuThue = {IdRetalBill}");
         }
+
+        public HoaDon getInvoiceById(int IdInvoice)
+        {
+            var result = _databaseHotelManagement
+                .Database
+                .SqlQuery<HoaDon>($"SELECT * FROM HoaDon WHERE ID_HoaDon = {IdInvoice}")
+                .Single();
+
+            result.HoTenNV_For_Binding = _databaseHotelManagement
+                .Database
+                .SqlQuery<string>($"SELECT HoTen FROM NhanVien WHERE ID_NhanVien = {result.ID_NhanVien}")
+                .Single();
+
+            result.TenKH_For_Binding = _databaseHotelManagement
+                .Database
+                .SqlQuery<string>($"SELECT HoTen FROM KhachHang WHERE ID_KhachHang = {result.ID_KhachHang}")
+                .Single();
+
+            result.TotalPrice_For_Binding = _applicationUtilities.getMoneyForBinding(Convert.ToInt32(result.TongTien));
+
+            PhieuThue rentBill = getRentBillById(result.ID_PhieuThue);
+            DateTime start = rentBill.NgayBatDau ?? DateTime.Now;
+            DateTime end = result.NgayTraPhong ?? DateTime.Now;
+
+            result.NumDayRent_For_Binding = end.Subtract(start).TotalDays.ToString() + " ngày";
+
+
+            Phong room = getRoomById(rentBill.SoPhong_For_Binding);
+
+            result.DonGia_For_Binding = room.DonGiaPerDay_For_Binding;
+
+            return result;
+        }
         
+        public List<HoaDon> getAllInvoice()
+        {
+            var result = _databaseHotelManagement
+                .Database
+                .SqlQuery<HoaDon>($"SELECT * FROM HoaDon")
+                .ToList();
+
+            for (int i = 0; i < result.Count; ++i)
+            {
+                result[i] = getInvoiceById(result[i].ID_HoaDon);
+            }
+
+
+            return result;
+        }
     }
 }
