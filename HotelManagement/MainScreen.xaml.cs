@@ -214,7 +214,7 @@ namespace HotelManagement
 
 		private void InvoiceManagement_ViewInvoiceEvent(int id)
 		{
-			CreateInvoicePage createInvoicePage = new CreateInvoicePage(id, invoicePageButton);
+			CreateInvoicePage createInvoicePage = new CreateInvoicePage(id, true, invoicePageButton);
 			createInvoicePage.BackPageEvent += All_BackPageEvent;
 			pageNavigation.NavigationService.Navigate(createInvoicePage);
 			clearDrawerButton();
@@ -235,7 +235,7 @@ namespace HotelManagement
 
 		private void ListRoom_CreateInvoiceEvent(int id)
 		{
-			CreateInvoicePage createInvoicePage = new CreateInvoicePage(id, roomPageButton);
+			CreateInvoicePage createInvoicePage = new CreateInvoicePage(id, false, roomPageButton);
 			createInvoicePage.BackPageEvent += All_BackPageEvent;
 			pageNavigation.NavigationService.Navigate(createInvoicePage);
 			clearDrawerButton();

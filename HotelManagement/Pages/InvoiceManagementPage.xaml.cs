@@ -44,7 +44,9 @@ namespace HotelManagement.Pages
 
 		private void viewButton_Click(object sender, RoutedEventArgs e)
 		{
-			ViewInvoiceEvent?.Invoke(1);
+			int idInvoice = Convert.ToInt32(((Button)sender).Tag);
+
+			ViewInvoiceEvent?.Invoke(idInvoice);
 		}
 
     }

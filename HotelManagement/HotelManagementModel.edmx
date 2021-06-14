@@ -33,6 +33,7 @@
           <Property Name="ID_HoaDon" Type="int" Nullable="false" />
           <Property Name="ID_PhieuThue" Type="int" Nullable="false" />
           <Property Name="ID_NhanVien" Type="int" Nullable="false" />
+          <Property Name="ID_KhachHang" Type="int" Nullable="false" />
           <Property Name="NgayTraPhong" Type="datetime" />
           <Property Name="TongTien" Type="float" />
           <Property Name="Active" Type="bit" />
@@ -333,6 +334,7 @@
           <Property Name="Active" Type="Boolean" />
           <NavigationProperty Name="NhanVien" Relationship="Self.FK_HoaDon_NhanVien" FromRole="HoaDon" ToRole="NhanVien" />
           <NavigationProperty Name="PhieuThue" Relationship="Self.FK_HoaDon_PhieuThue" FromRole="HoaDon" ToRole="PhieuThue" />
+          <Property Name="ID_KhachHang" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="KhachHang">
           <Key>
@@ -576,6 +578,7 @@
           <EntitySetMapping Name="HoaDons">
             <EntityTypeMapping TypeName="HotelManagementModel.HoaDon">
               <MappingFragment StoreEntitySet="HoaDon">
+                <ScalarProperty Name="ID_KhachHang" ColumnName="ID_KhachHang" />
                 <ScalarProperty Name="ID_HoaDon" ColumnName="ID_HoaDon" />
                 <ScalarProperty Name="ID_PhieuThue" ColumnName="ID_PhieuThue" />
                 <ScalarProperty Name="ID_NhanVien" ColumnName="ID_NhanVien" />

@@ -490,12 +490,16 @@ namespace HotelManagement.Utilities
             DateTime start = rentBill.NgayBatDau ?? DateTime.Now;
             DateTime end = result.NgayTraPhong ?? DateTime.Now;
 
-            result.NumDayRent_For_Binding = end.Subtract(start).TotalDays.ToString() + " ngày";
+            result.NumDayRent_For_Binding = Convert.ToInt32(end.Subtract(start).TotalDays);
 
 
             Phong room = getRoomById(rentBill.SoPhong_For_Binding);
 
             result.DonGia_For_Binding = room.DonGiaPerDay_For_Binding;
+            result.DonGia = Convert.ToInt32(room.DonGia ?? 0);
+
+            result.SoPhong = room.SoPhong;
+            result.Room = room;
 
             return result;
         }

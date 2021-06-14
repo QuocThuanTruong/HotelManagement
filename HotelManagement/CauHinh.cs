@@ -11,7 +11,7 @@ namespace HotelManagement
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class CauHinh
     {
         public int ID { get; set; }

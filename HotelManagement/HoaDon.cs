@@ -11,7 +11,7 @@ namespace HotelManagement
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class HoaDon
     {
         public int ID_HoaDon { get; set; }
@@ -21,15 +21,19 @@ namespace HotelManagement
         public Nullable<System.DateTime> NgayTraPhong { get; set; }
         public Nullable<double> TongTien { get; set; }
         public Nullable<bool> Active { get; set; }
-    
+
         public virtual NhanVien NhanVien { get; set; }
         public virtual PhieuThue PhieuThue { get; set; }
 
         //For Binding
         public string TenKH_For_Binding { get; set; }
-        public string NumDayRent_For_Binding { get; set; }
+        public int NumDayRent_For_Binding { get; set; }
         public string DonGia_For_Binding { get; set; }
         public string TotalPrice_For_Binding { get; set; }
         public string HoTenNV_For_Binding { get; set; }
+        public int DonGia { get; set; }
+        public int SoPhong { get; set; }
+
+        public Phong Room { get; set; }
     }
 }

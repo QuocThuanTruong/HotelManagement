@@ -180,6 +180,7 @@
                                             Orientation="Horizontal"
                                             VerticalAlignment="Center">
                                 <Button Name="viewButton"
+                                        Tag="{Binding ID_HoaDon}"
                                         Click="viewButton_Click"
                                             Width="35"
                                             Background="{DynamicResource MyBlue}"
