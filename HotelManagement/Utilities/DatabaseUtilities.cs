@@ -174,7 +174,7 @@ namespace HotelManagement.Utilities
         {
             var result = _databaseHotelManagement
                 .Database
-                .SqlQuery<LoaiKhach>("Select * from dbo.LoaiKhach")
+                .SqlQuery<LoaiKhach>("Select * from dbo.LoaiKhach where Active = 'true'")
                 .ToList();
 
             return result;
@@ -552,6 +552,37 @@ namespace HotelManagement.Utilities
             var result = _databaseHotelManagement
               .Database
               .SqlQuery<int>($"select max(ID_LoaiPhong) from LoaiPhong")
+              .Single();
+
+            return result;
+        }
+
+        public void updateCustomerCategory(LoaiKhach customerCategory)
+        {
+            _databaseHotelManagement
+                .Database
+                .ExecuteSqlCommand($"UPDATE LoaiKhach Set TenLoaiKhach = N'{customerCategory.TenLoaiKhach}', HeSo = {customerCategory.HeSo} WHERE ID_LoaiKhach = {customerCategory.ID_LoaiKhach}");
+        }
+
+        public void deleteCustomerCategory(LoaiKhach customerCategory)
+        {
+            _databaseHotelManagement
+                  .Database
+                  .ExecuteSqlCommand($"UPDATE LoaiKhach Set Active = 'false' WHERE ID_LoaiKhach = {customerCategory.ID_LoaiKhach}");
+        }
+
+        public void addNewCustomerCategory(LoaiKhach customerCategory)
+        {
+            _databaseHotelManagement
+                  .Database
+                  .ExecuteSqlCommand($"INSERT [dbo].[LoaiKhach] ([ID_LoaiKhach], [TenLoaiKhach], [HeSo], [Active]) VALUES ({customerCategory.ID_LoaiKhach}, N'{customerCategory.TenLoaiKhach}', {customerCategory.HeSo}, 1)");
+        }
+
+        public int getMaxIdCustomerCategory()
+        {
+            var result = _databaseHotelManagement
+              .Database
+              .SqlQuery<int>($"select max(ID_LoaiKhach) from LoaiKhach")
               .Single();
 
             return result;
