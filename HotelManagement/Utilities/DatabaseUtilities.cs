@@ -158,8 +158,14 @@ namespace HotelManagement.Utilities
         {
             var result = _databaseHotelManagement
                 .Database
-                .SqlQuery<LoaiPhong>("Select * from dbo.LoaiPhong")
+                .SqlQuery<LoaiPhong>("Select * from dbo.LoaiPhong where Active = 'true'")
                 .ToList();
+
+            for (int i = 0; i < result.Count; ++i)
+            {
+                result[i].DonGia_For_Binding = _applicationUtilities.getMoneyForBinding(Convert.ToInt32(result[i].DonGia ?? 0)) + "/ngày";
+                result[i].SLKhachToiDa_For_Binding = result[i].SLKhachToiDa.ToString() + " người";
+            }
 
             return result;
         }
@@ -516,6 +522,37 @@ namespace HotelManagement.Utilities
                 result[i] = getInvoiceById(result[i].ID_HoaDon);
             }
 
+
+            return result;
+        }
+
+        public void updateRoomCategory(LoaiPhong roomCategory)
+        {
+            _databaseHotelManagement
+                .Database
+                .ExecuteSqlCommand($"UPDATE LoaiPhong Set TenLoaiPhong = N'{roomCategory.TenLoaiPhong}', SLKhachToiDa = {roomCategory.SLKhachToiDa}, DonGia = {roomCategory.DonGia} WHERE ID_LoaiPhong = {roomCategory.ID_LoaiPhong}");
+        }
+
+        public void deleteRoomCategory(LoaiPhong roomCategory)
+        {
+            _databaseHotelManagement
+                  .Database
+                  .ExecuteSqlCommand($"UPDATE LoaiPhong Set Active = 'false' WHERE ID_LoaiPhong = {roomCategory.ID_LoaiPhong}");
+        }
+
+        public void addNewRoomCategory(LoaiPhong roomCategory)
+        {
+            _databaseHotelManagement
+                  .Database
+                  .ExecuteSqlCommand($"INSERT [dbo].[LoaiPhong] ([ID_LoaiPhong], [TenLoaiPhong], [DonGia], [SLKhachToiDa], [Active]) VALUES ({roomCategory.ID_LoaiPhong}, N'{roomCategory.TenLoaiPhong}', {roomCategory.DonGia}, {roomCategory.SLKhachToiDa}, 1)");
+        }
+
+        public int getMaxIdRoomCategory()
+        {
+            var result = _databaseHotelManagement
+              .Database
+              .SqlQuery<int>($"select max(ID_LoaiPhong) from LoaiPhong")
+              .Single();
 
             return result;
         }
