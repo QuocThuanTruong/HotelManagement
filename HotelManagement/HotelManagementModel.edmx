@@ -1,0 +1,702 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="HotelManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CauHinh">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="TenThuocTinh" Type="varchar" MaxLength="20" />
+          <Property Name="KieuDuLieu" Type="varchar" MaxLength="20" />
+          <Property Name="GiaTri" Type="varchar" MaxLength="20" />
+          <Property Name="DieuKien" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="ChiTietPhieuThue">
+          <Key>
+            <PropertyRef Name="ID_KhachHang" />
+            <PropertyRef Name="ID_PhieuThue" />
+          </Key>
+          <Property Name="ID_KhachHang" Type="int" Nullable="false" />
+          <Property Name="ID_PhieuThue" Type="int" Nullable="false" />
+          <Property Name="SoPhong" Type="int" Nullable="false" />
+          <Property Name="ID_NhanVien" Type="int" Nullable="false" />
+          <Property Name="Active" Type="bit" />
+        </EntityType>
+        <EntityType Name="HoaDon">
+          <Key>
+            <PropertyRef Name="ID_HoaDon" />
+          </Key>
+          <Property Name="ID_HoaDon" Type="int" Nullable="false" />
+          <Property Name="ID_PhieuThue" Type="int" Nullable="false" />
+          <Property Name="ID_NhanVien" Type="int" Nullable="false" />
+          <Property Name="ID_KhachHang" Type="int" Nullable="false" />
+          <Property Name="NgayTraPhong" Type="datetime" />
+          <Property Name="TongTien" Type="float" />
+          <Property Name="Active" Type="bit" />
+        </EntityType>
+        <EntityType Name="KhachHang">
+          <Key>
+            <PropertyRef Name="ID_KhachHang" />
+          </Key>
+          <Property Name="ID_KhachHang" Type="int" Nullable="false" />
+          <Property Name="HoTen" Type="nvarchar" MaxLength="50" />
+          <Property Name="CMND" Type="varchar" MaxLength="15" />
+          <Property Name="DiaChi" Type="nvarchar" MaxLength="100" />
+          <Property Name="ID_LoaiKhach" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LoaiKhach">
+          <Key>
+            <PropertyRef Name="ID_LoaiKhach" />
+          </Key>
+          <Property Name="ID_LoaiKhach" Type="int" Nullable="false" />
+          <Property Name="TenLoaiKhach" Type="nvarchar" MaxLength="50" />
+          <Property Name="HeSo" Type="float" />
+          <Property Name="Active" Type="bit" />
+        </EntityType>
+        <EntityType Name="LoaiPhong">
+          <Key>
+            <PropertyRef Name="ID_LoaiPhong" />
+          </Key>
+          <Property Name="ID_LoaiPhong" Type="int" Nullable="false" />
+          <Property Name="TenLoaiPhong" Type="nvarchar" MaxLength="50" />
+          <Property Name="DonGia" Type="float" />
+          <Property Name="SLKhachToiDa" Type="int" />
+          <Property Name="Active" Type="bit" />
+        </EntityType>
+        <EntityType Name="NhanVien">
+          <Key>
+            <PropertyRef Name="ID_NhanVien" />
+          </Key>
+          <Property Name="ID_NhanVien" Type="int" Nullable="false" />
+          <Property Name="HoTen" Type="nvarchar" MaxLength="50" />
+          <Property Name="CMND" Type="varchar" MaxLength="15" />
+          <Property Name="LoaiNhanVien" Type="bit" />
+          <Property Name="Username" Type="varchar" MaxLength="20" />
+          <Property Name="Password" Type="varchar" MaxLength="20" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PhieuThue">
+          <Key>
+            <PropertyRef Name="ID_PhieuThue" />
+          </Key>
+          <Property Name="ID_PhieuThue" Type="int" Nullable="false" />
+          <Property Name="NgayBatDau" Type="datetime" />
+          <Property Name="Active" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Phong">
+          <Key>
+            <PropertyRef Name="SoPhong" />
+          </Key>
+          <Property Name="SoPhong" Type="int" Nullable="false" />
+          <Property Name="ID_LoaiPhong" Type="int" />
+          <Property Name="TinhTrang" Type="bit" />
+          <Property Name="GhiChu" Type="nvarchar" MaxLength="100" />
+          <Property Name="Active" Type="bit" />
+        </EntityType>
+        <Association Name="FK_ChiTietPhieuThue_KhachHang">
+          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="1" />
+          <End Role="ChiTietPhieuThue" Type="Self.ChiTietPhieuThue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KhachHang">
+              <PropertyRef Name="ID_KhachHang" />
+            </Principal>
+            <Dependent Role="ChiTietPhieuThue">
+              <PropertyRef Name="ID_KhachHang" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChiTietPhieuThue_NhanVien">
+          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="1" />
+          <End Role="ChiTietPhieuThue" Type="Self.ChiTietPhieuThue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhanVien">
+              <PropertyRef Name="ID_NhanVien" />
+            </Principal>
+            <Dependent Role="ChiTietPhieuThue">
+              <PropertyRef Name="ID_NhanVien" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChiTietPhieuThue_PhieuThue">
+          <End Role="PhieuThue" Type="Self.PhieuThue" Multiplicity="1" />
+          <End Role="ChiTietPhieuThue" Type="Self.ChiTietPhieuThue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PhieuThue">
+              <PropertyRef Name="ID_PhieuThue" />
+            </Principal>
+            <Dependent Role="ChiTietPhieuThue">
+              <PropertyRef Name="ID_PhieuThue" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChiTietPhieuThue_Phong">
+          <End Role="Phong" Type="Self.Phong" Multiplicity="1" />
+          <End Role="ChiTietPhieuThue" Type="Self.ChiTietPhieuThue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Phong">
+              <PropertyRef Name="SoPhong" />
+            </Principal>
+            <Dependent Role="ChiTietPhieuThue">
+              <PropertyRef Name="SoPhong" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HoaDon_NhanVien">
+          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="1" />
+          <End Role="HoaDon" Type="Self.HoaDon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhanVien">
+              <PropertyRef Name="ID_NhanVien" />
+            </Principal>
+            <Dependent Role="HoaDon">
+              <PropertyRef Name="ID_NhanVien" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HoaDon_PhieuThue">
+          <End Role="PhieuThue" Type="Self.PhieuThue" Multiplicity="1" />
+          <End Role="HoaDon" Type="Self.HoaDon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PhieuThue">
+              <PropertyRef Name="ID_PhieuThue" />
+            </Principal>
+            <Dependent Role="HoaDon">
+              <PropertyRef Name="ID_PhieuThue" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KhachHang_LoaiKhach">
+          <End Role="LoaiKhach" Type="Self.LoaiKhach" Multiplicity="1" />
+          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoaiKhach">
+              <PropertyRef Name="ID_LoaiKhach" />
+            </Principal>
+            <Dependent Role="KhachHang">
+              <PropertyRef Name="ID_LoaiKhach" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Phong_LoaiPhong">
+          <End Role="LoaiPhong" Type="Self.LoaiPhong" Multiplicity="0..1" />
+          <End Role="Phong" Type="Self.Phong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoaiPhong">
+              <PropertyRef Name="ID_LoaiPhong" />
+            </Principal>
+            <Dependent Role="Phong">
+              <PropertyRef Name="ID_LoaiPhong" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="func_AuthenticateUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="username" Type="varchar" Mode="In" />
+          <Parameter Name="password" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="func_getAllRoom" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="SoPhong" Type="int" Nullable="false" />
+                <Property Name="ID_LoaiPhong" Type="int" />
+                <Property Name="TinhTrang" Type="bit" />
+                <Property Name="GhiChu" Type="nvarchar" MaxLength="100" />
+                <Property Name="TenLoaiPhong" Type="nvarchar" MaxLength="50" />
+                <Property Name="DonGia" Type="float" />
+                <Property Name="SLKhachToiDa" Type="int" />
+                <Property Name="Active" Type="bit" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="func_GetCheckin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="func_GetCheckout" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="func_GetCustomerInRoom" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID_PhieuThue" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="HoTen" Type="nvarchar" MaxLength="50" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="func_GetNumEmpty" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="func_GetNumRenting" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="func_GetRentBillFactor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="ID_PhieuThue" Type="int" Mode="In" />
+        </Function>
+        <Function Name="func_GetRevenueByRoomCat" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="roomCat" Type="int" Mode="In" />
+          <Parameter Name="month" Type="int" Mode="In" />
+        </Function>
+        <Function Name="func_GetRoomDensity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="room" Type="int" Mode="In" />
+          <Parameter Name="month" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="HotelManagementModelStoreContainer">
+          <EntitySet Name="CauHinh" EntityType="Self.CauHinh" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChiTietPhieuThue" EntityType="Self.ChiTietPhieuThue" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HoaDon" EntityType="Self.HoaDon" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KhachHang" EntityType="Self.KhachHang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoaiKhach" EntityType="Self.LoaiKhach" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoaiPhong" EntityType="Self.LoaiPhong" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NhanVien" EntityType="Self.NhanVien" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PhieuThue" EntityType="Self.PhieuThue" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Phong" EntityType="Self.Phong" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ChiTietPhieuThue_KhachHang" Association="Self.FK_ChiTietPhieuThue_KhachHang">
+            <End Role="KhachHang" EntitySet="KhachHang" />
+            <End Role="ChiTietPhieuThue" EntitySet="ChiTietPhieuThue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChiTietPhieuThue_NhanVien" Association="Self.FK_ChiTietPhieuThue_NhanVien">
+            <End Role="NhanVien" EntitySet="NhanVien" />
+            <End Role="ChiTietPhieuThue" EntitySet="ChiTietPhieuThue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChiTietPhieuThue_PhieuThue" Association="Self.FK_ChiTietPhieuThue_PhieuThue">
+            <End Role="PhieuThue" EntitySet="PhieuThue" />
+            <End Role="ChiTietPhieuThue" EntitySet="ChiTietPhieuThue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChiTietPhieuThue_Phong" Association="Self.FK_ChiTietPhieuThue_Phong">
+            <End Role="Phong" EntitySet="Phong" />
+            <End Role="ChiTietPhieuThue" EntitySet="ChiTietPhieuThue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HoaDon_NhanVien" Association="Self.FK_HoaDon_NhanVien">
+            <End Role="NhanVien" EntitySet="NhanVien" />
+            <End Role="HoaDon" EntitySet="HoaDon" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HoaDon_PhieuThue" Association="Self.FK_HoaDon_PhieuThue">
+            <End Role="PhieuThue" EntitySet="PhieuThue" />
+            <End Role="HoaDon" EntitySet="HoaDon" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KhachHang_LoaiKhach" Association="Self.FK_KhachHang_LoaiKhach">
+            <End Role="LoaiKhach" EntitySet="LoaiKhach" />
+            <End Role="KhachHang" EntitySet="KhachHang" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Phong_LoaiPhong" Association="Self.FK_Phong_LoaiPhong">
+            <End Role="LoaiPhong" EntitySet="LoaiPhong" />
+            <End Role="Phong" EntitySet="Phong" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HotelManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <ComplexType Name="func_getAllRoom_Result">
+          <Property Name="SoPhong" Type="Int32" Nullable="false" />
+          <Property Name="ID_LoaiPhong" Type="Int32" />
+          <Property Name="TinhTrang" Type="Boolean" />
+          <Property Name="GhiChu" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TenLoaiPhong" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DonGia" Type="Double" />
+          <Property Name="SLKhachToiDa" Type="Int32" />
+          <Property Name="Active" Type="Boolean" />
+        </ComplexType>
+        <ComplexType Name="func_GetCustomerInRoom_Result">
+          <Property Name="HoTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </ComplexType>
+        <EntityType Name="CauHinh">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="TenThuocTinh" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="KieuDuLieu" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="GiaTri" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DieuKien" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ChiTietPhieuThue">
+          <Key>
+            <PropertyRef Name="ID_KhachHang" />
+            <PropertyRef Name="ID_PhieuThue" />
+          </Key>
+          <Property Name="ID_KhachHang" Type="Int32" Nullable="false" />
+          <Property Name="ID_PhieuThue" Type="Int32" Nullable="false" />
+          <Property Name="SoPhong" Type="Int32" Nullable="false" />
+          <Property Name="ID_NhanVien" Type="Int32" Nullable="false" />
+          <Property Name="Active" Type="Boolean" />
+          <NavigationProperty Name="KhachHang" Relationship="Self.FK_ChiTietPhieuThue_KhachHang" FromRole="ChiTietPhieuThue" ToRole="KhachHang" />
+          <NavigationProperty Name="NhanVien" Relationship="Self.FK_ChiTietPhieuThue_NhanVien" FromRole="ChiTietPhieuThue" ToRole="NhanVien" />
+          <NavigationProperty Name="PhieuThue" Relationship="Self.FK_ChiTietPhieuThue_PhieuThue" FromRole="ChiTietPhieuThue" ToRole="PhieuThue" />
+          <NavigationProperty Name="Phong" Relationship="Self.FK_ChiTietPhieuThue_Phong" FromRole="ChiTietPhieuThue" ToRole="Phong" />
+        </EntityType>
+        <EntityType Name="HoaDon">
+          <Key>
+            <PropertyRef Name="ID_HoaDon" />
+          </Key>
+          <Property Name="ID_HoaDon" Type="Int32" Nullable="false" />
+          <Property Name="ID_PhieuThue" Type="Int32" Nullable="false" />
+          <Property Name="ID_NhanVien" Type="Int32" Nullable="false" />
+          <Property Name="NgayTraPhong" Type="DateTime" Precision="3" />
+          <Property Name="TongTien" Type="Double" />
+          <Property Name="Active" Type="Boolean" />
+          <NavigationProperty Name="NhanVien" Relationship="Self.FK_HoaDon_NhanVien" FromRole="HoaDon" ToRole="NhanVien" />
+          <NavigationProperty Name="PhieuThue" Relationship="Self.FK_HoaDon_PhieuThue" FromRole="HoaDon" ToRole="PhieuThue" />
+          <Property Name="ID_KhachHang" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="KhachHang">
+          <Key>
+            <PropertyRef Name="ID_KhachHang" />
+          </Key>
+          <Property Name="ID_KhachHang" Type="Int32" Nullable="false" />
+          <Property Name="HoTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CMND" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="DiaChi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ID_LoaiKhach" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ChiTietPhieuThues" Relationship="Self.FK_ChiTietPhieuThue_KhachHang" FromRole="KhachHang" ToRole="ChiTietPhieuThue" />
+          <NavigationProperty Name="LoaiKhach" Relationship="Self.FK_KhachHang_LoaiKhach" FromRole="KhachHang" ToRole="LoaiKhach" />
+        </EntityType>
+        <EntityType Name="LoaiKhach">
+          <Key>
+            <PropertyRef Name="ID_LoaiKhach" />
+          </Key>
+          <Property Name="ID_LoaiKhach" Type="Int32" Nullable="false" />
+          <Property Name="TenLoaiKhach" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HeSo" Type="Double" />
+          <Property Name="Active" Type="Boolean" />
+          <NavigationProperty Name="KhachHangs" Relationship="Self.FK_KhachHang_LoaiKhach" FromRole="LoaiKhach" ToRole="KhachHang" />
+        </EntityType>
+        <EntityType Name="LoaiPhong">
+          <Key>
+            <PropertyRef Name="ID_LoaiPhong" />
+          </Key>
+          <Property Name="ID_LoaiPhong" Type="Int32" Nullable="false" />
+          <Property Name="TenLoaiPhong" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DonGia" Type="Double" />
+          <Property Name="SLKhachToiDa" Type="Int32" />
+          <Property Name="Active" Type="Boolean" />
+          <NavigationProperty Name="Phongs" Relationship="Self.FK_Phong_LoaiPhong" FromRole="LoaiPhong" ToRole="Phong" />
+        </EntityType>
+        <EntityType Name="NhanVien">
+          <Key>
+            <PropertyRef Name="ID_NhanVien" />
+          </Key>
+          <Property Name="ID_NhanVien" Type="Int32" Nullable="false" />
+          <Property Name="HoTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CMND" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="LoaiNhanVien" Type="Boolean" />
+          <Property Name="Username" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ChiTietPhieuThues" Relationship="Self.FK_ChiTietPhieuThue_NhanVien" FromRole="NhanVien" ToRole="ChiTietPhieuThue" />
+          <NavigationProperty Name="HoaDons" Relationship="Self.FK_HoaDon_NhanVien" FromRole="NhanVien" ToRole="HoaDon" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PhieuThue">
+          <Key>
+            <PropertyRef Name="ID_PhieuThue" />
+          </Key>
+          <Property Name="ID_PhieuThue" Type="Int32" Nullable="false" />
+          <Property Name="NgayBatDau" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ChiTietPhieuThues" Relationship="Self.FK_ChiTietPhieuThue_PhieuThue" FromRole="PhieuThue" ToRole="ChiTietPhieuThue" />
+          <NavigationProperty Name="HoaDons" Relationship="Self.FK_HoaDon_PhieuThue" FromRole="PhieuThue" ToRole="HoaDon" />
+          <Property Name="Active" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Phong">
+          <Key>
+            <PropertyRef Name="SoPhong" />
+          </Key>
+          <Property Name="SoPhong" Type="Int32" Nullable="false" />
+          <Property Name="ID_LoaiPhong" Type="Int32" />
+          <Property Name="TinhTrang" Type="Boolean" />
+          <Property Name="GhiChu" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" />
+          <NavigationProperty Name="ChiTietPhieuThues" Relationship="Self.FK_ChiTietPhieuThue_Phong" FromRole="Phong" ToRole="ChiTietPhieuThue" />
+          <NavigationProperty Name="LoaiPhong" Relationship="Self.FK_Phong_LoaiPhong" FromRole="Phong" ToRole="LoaiPhong" />
+        </EntityType>
+        <Association Name="FK_ChiTietPhieuThue_KhachHang">
+          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="1" />
+          <End Role="ChiTietPhieuThue" Type="Self.ChiTietPhieuThue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KhachHang">
+              <PropertyRef Name="ID_KhachHang" />
+            </Principal>
+            <Dependent Role="ChiTietPhieuThue">
+              <PropertyRef Name="ID_KhachHang" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChiTietPhieuThue_NhanVien">
+          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="1" />
+          <End Role="ChiTietPhieuThue" Type="Self.ChiTietPhieuThue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhanVien">
+              <PropertyRef Name="ID_NhanVien" />
+            </Principal>
+            <Dependent Role="ChiTietPhieuThue">
+              <PropertyRef Name="ID_NhanVien" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChiTietPhieuThue_PhieuThue">
+          <End Role="PhieuThue" Type="Self.PhieuThue" Multiplicity="1" />
+          <End Role="ChiTietPhieuThue" Type="Self.ChiTietPhieuThue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PhieuThue">
+              <PropertyRef Name="ID_PhieuThue" />
+            </Principal>
+            <Dependent Role="ChiTietPhieuThue">
+              <PropertyRef Name="ID_PhieuThue" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChiTietPhieuThue_Phong">
+          <End Role="Phong" Type="Self.Phong" Multiplicity="1" />
+          <End Role="ChiTietPhieuThue" Type="Self.ChiTietPhieuThue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Phong">
+              <PropertyRef Name="SoPhong" />
+            </Principal>
+            <Dependent Role="ChiTietPhieuThue">
+              <PropertyRef Name="SoPhong" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HoaDon_NhanVien">
+          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="1" />
+          <End Role="HoaDon" Type="Self.HoaDon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhanVien">
+              <PropertyRef Name="ID_NhanVien" />
+            </Principal>
+            <Dependent Role="HoaDon">
+              <PropertyRef Name="ID_NhanVien" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HoaDon_PhieuThue">
+          <End Role="PhieuThue" Type="Self.PhieuThue" Multiplicity="1" />
+          <End Role="HoaDon" Type="Self.HoaDon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PhieuThue">
+              <PropertyRef Name="ID_PhieuThue" />
+            </Principal>
+            <Dependent Role="HoaDon">
+              <PropertyRef Name="ID_PhieuThue" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KhachHang_LoaiKhach">
+          <End Role="LoaiKhach" Type="Self.LoaiKhach" Multiplicity="1" />
+          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoaiKhach">
+              <PropertyRef Name="ID_LoaiKhach" />
+            </Principal>
+            <Dependent Role="KhachHang">
+              <PropertyRef Name="ID_LoaiKhach" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Phong_LoaiPhong">
+          <End Role="LoaiPhong" Type="Self.LoaiPhong" Multiplicity="0..1" />
+          <End Role="Phong" Type="Self.Phong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoaiPhong">
+              <PropertyRef Name="ID_LoaiPhong" />
+            </Principal>
+            <Dependent Role="Phong">
+              <PropertyRef Name="ID_LoaiPhong" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HotelManagementEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CauHinhs" EntityType="Self.CauHinh" />
+          <EntitySet Name="ChiTietPhieuThues" EntityType="Self.ChiTietPhieuThue" />
+          <EntitySet Name="HoaDons" EntityType="Self.HoaDon" />
+          <EntitySet Name="KhachHangs" EntityType="Self.KhachHang" />
+          <EntitySet Name="LoaiKhaches" EntityType="Self.LoaiKhach" />
+          <EntitySet Name="LoaiPhongs" EntityType="Self.LoaiPhong" />
+          <EntitySet Name="NhanViens" EntityType="Self.NhanVien" />
+          <EntitySet Name="PhieuThues" EntityType="Self.PhieuThue" />
+          <EntitySet Name="Phongs" EntityType="Self.Phong" />
+          <AssociationSet Name="FK_ChiTietPhieuThue_KhachHang" Association="Self.FK_ChiTietPhieuThue_KhachHang">
+            <End Role="KhachHang" EntitySet="KhachHangs" />
+            <End Role="ChiTietPhieuThue" EntitySet="ChiTietPhieuThues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChiTietPhieuThue_NhanVien" Association="Self.FK_ChiTietPhieuThue_NhanVien">
+            <End Role="NhanVien" EntitySet="NhanViens" />
+            <End Role="ChiTietPhieuThue" EntitySet="ChiTietPhieuThues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChiTietPhieuThue_PhieuThue" Association="Self.FK_ChiTietPhieuThue_PhieuThue">
+            <End Role="PhieuThue" EntitySet="PhieuThues" />
+            <End Role="ChiTietPhieuThue" EntitySet="ChiTietPhieuThues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChiTietPhieuThue_Phong" Association="Self.FK_ChiTietPhieuThue_Phong">
+            <End Role="Phong" EntitySet="Phongs" />
+            <End Role="ChiTietPhieuThue" EntitySet="ChiTietPhieuThues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HoaDon_NhanVien" Association="Self.FK_HoaDon_NhanVien">
+            <End Role="NhanVien" EntitySet="NhanViens" />
+            <End Role="HoaDon" EntitySet="HoaDons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HoaDon_PhieuThue" Association="Self.FK_HoaDon_PhieuThue">
+            <End Role="PhieuThue" EntitySet="PhieuThues" />
+            <End Role="HoaDon" EntitySet="HoaDons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KhachHang_LoaiKhach" Association="Self.FK_KhachHang_LoaiKhach">
+            <End Role="LoaiKhach" EntitySet="LoaiKhaches" />
+            <End Role="KhachHang" EntitySet="KhachHangs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Phong_LoaiPhong" Association="Self.FK_Phong_LoaiPhong">
+            <End Role="LoaiPhong" EntitySet="LoaiPhongs" />
+            <End Role="Phong" EntitySet="Phongs" />
+          </AssociationSet>
+          <FunctionImport Name="func_getAllRoom" IsComposable="true" ReturnType="Collection(HotelManagementModel.func_getAllRoom_Result)" />
+          <FunctionImport Name="func_GetCustomerInRoom" IsComposable="true" ReturnType="Collection(HotelManagementModel.func_GetCustomerInRoom_Result)">
+          <Parameter Name="ID_PhieuThue" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HotelManagementModelStoreContainer" CdmEntityContainer="HotelManagementEntities">
+          <EntitySetMapping Name="CauHinhs">
+            <EntityTypeMapping TypeName="HotelManagementModel.CauHinh">
+              <MappingFragment StoreEntitySet="CauHinh">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TenThuocTinh" ColumnName="TenThuocTinh" />
+                <ScalarProperty Name="KieuDuLieu" ColumnName="KieuDuLieu" />
+                <ScalarProperty Name="GiaTri" ColumnName="GiaTri" />
+                <ScalarProperty Name="DieuKien" ColumnName="DieuKien" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChiTietPhieuThues">
+            <EntityTypeMapping TypeName="HotelManagementModel.ChiTietPhieuThue">
+              <MappingFragment StoreEntitySet="ChiTietPhieuThue">
+                <ScalarProperty Name="ID_KhachHang" ColumnName="ID_KhachHang" />
+                <ScalarProperty Name="ID_PhieuThue" ColumnName="ID_PhieuThue" />
+                <ScalarProperty Name="SoPhong" ColumnName="SoPhong" />
+                <ScalarProperty Name="ID_NhanVien" ColumnName="ID_NhanVien" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HoaDons">
+            <EntityTypeMapping TypeName="HotelManagementModel.HoaDon">
+              <MappingFragment StoreEntitySet="HoaDon">
+                <ScalarProperty Name="ID_KhachHang" ColumnName="ID_KhachHang" />
+                <ScalarProperty Name="ID_HoaDon" ColumnName="ID_HoaDon" />
+                <ScalarProperty Name="ID_PhieuThue" ColumnName="ID_PhieuThue" />
+                <ScalarProperty Name="ID_NhanVien" ColumnName="ID_NhanVien" />
+                <ScalarProperty Name="NgayTraPhong" ColumnName="NgayTraPhong" />
+                <ScalarProperty Name="TongTien" ColumnName="TongTien" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KhachHangs">
+            <EntityTypeMapping TypeName="HotelManagementModel.KhachHang">
+              <MappingFragment StoreEntitySet="KhachHang">
+                <ScalarProperty Name="ID_KhachHang" ColumnName="ID_KhachHang" />
+                <ScalarProperty Name="HoTen" ColumnName="HoTen" />
+                <ScalarProperty Name="CMND" ColumnName="CMND" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="ID_LoaiKhach" ColumnName="ID_LoaiKhach" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoaiKhaches">
+            <EntityTypeMapping TypeName="HotelManagementModel.LoaiKhach">
+              <MappingFragment StoreEntitySet="LoaiKhach">
+                <ScalarProperty Name="ID_LoaiKhach" ColumnName="ID_LoaiKhach" />
+                <ScalarProperty Name="TenLoaiKhach" ColumnName="TenLoaiKhach" />
+                <ScalarProperty Name="HeSo" ColumnName="HeSo" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoaiPhongs">
+            <EntityTypeMapping TypeName="HotelManagementModel.LoaiPhong">
+              <MappingFragment StoreEntitySet="LoaiPhong">
+                <ScalarProperty Name="ID_LoaiPhong" ColumnName="ID_LoaiPhong" />
+                <ScalarProperty Name="TenLoaiPhong" ColumnName="TenLoaiPhong" />
+                <ScalarProperty Name="DonGia" ColumnName="DonGia" />
+                <ScalarProperty Name="SLKhachToiDa" ColumnName="SLKhachToiDa" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NhanViens">
+            <EntityTypeMapping TypeName="HotelManagementModel.NhanVien">
+              <MappingFragment StoreEntitySet="NhanVien">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ID_NhanVien" ColumnName="ID_NhanVien" />
+                <ScalarProperty Name="HoTen" ColumnName="HoTen" />
+                <ScalarProperty Name="CMND" ColumnName="CMND" />
+                <ScalarProperty Name="LoaiNhanVien" ColumnName="LoaiNhanVien" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PhieuThues">
+            <EntityTypeMapping TypeName="HotelManagementModel.PhieuThue">
+              <MappingFragment StoreEntitySet="PhieuThue">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ID_PhieuThue" ColumnName="ID_PhieuThue" />
+                <ScalarProperty Name="NgayBatDau" ColumnName="NgayBatDau" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Phongs">
+            <EntityTypeMapping TypeName="HotelManagementModel.Phong">
+              <MappingFragment StoreEntitySet="Phong">
+                <ScalarProperty Name="SoPhong" ColumnName="SoPhong" />
+                <ScalarProperty Name="ID_LoaiPhong" ColumnName="ID_LoaiPhong" />
+                <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
+                <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionName="HotelManagementModel.Store.func_getAllRoom" FunctionImportName="func_getAllRoom">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="HotelManagementModel.func_getAllRoom_Result">
+                <ScalarProperty Name="SoPhong" ColumnName="SoPhong" />
+                <ScalarProperty Name="ID_LoaiPhong" ColumnName="ID_LoaiPhong" />
+                <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
+                <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+                <ScalarProperty Name="TenLoaiPhong" ColumnName="TenLoaiPhong" />
+                <ScalarProperty Name="DonGia" ColumnName="DonGia" />
+                <ScalarProperty Name="SLKhachToiDa" ColumnName="SLKhachToiDa" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="HotelManagementModel.Store.func_GetCustomerInRoom" FunctionImportName="func_GetCustomerInRoom">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="HotelManagementModel.func_GetCustomerInRoom_Result">
+                <ScalarProperty Name="HoTen" ColumnName="HoTen" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

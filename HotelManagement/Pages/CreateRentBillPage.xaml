@@ -8,7 +8,8 @@
       Background="White"
        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       d:DesignHeight="718" d:DesignWidth="1116"
-      Title="CreateRentBillPage">
+      Title="CreateRentBillPage"
+      Loaded="Page_Loaded">
 
     <Grid>
 
@@ -27,7 +28,7 @@
                            Name="reportTitleTextBlock"
                            Style="{StaticResource UTMBebas36}"/>
         </StackPanel>
-        
+
         <Grid Grid.Row="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1.5*"/>
@@ -36,9 +37,6 @@
                 <RowDefinition Height="1.5*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
-
-            
-            
 
             <StackPanel Grid.Row="1" HorizontalAlignment="Center">
 
@@ -88,7 +86,7 @@
                                             BorderThickness="1"
                                             CornerRadius="4"/>
 
-                            <ComboBox Name="startProvinceRouteComboBox"
+                            <ComboBox Name="comboboxRoomList"
                                         HorizontalAlignment="Left"
                                         Style="{StaticResource AddRecipeComboBox}"
                                         ItemContainerStyle="{StaticResource SearchBoxComboBoxItem}"
@@ -100,18 +98,15 @@
                                               Width="96"
                                         materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
                                         Margin="12, 2, 0, 2"
-                                        OverridesDefaultStyle="True">
+                                        OverridesDefaultStyle="True"
+                                      SelectionChanged="comboboxRoomList_SelectionChanged">
 
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="Số phòng"/>
+                                        <TextBlock Text="{Binding ID_For_Binding}"/>
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
-                                <TextBlock/>
-                                <TextBlock/>
                             </ComboBox>
-
-                        
                         </Grid>
 
                     </StackPanel>
@@ -128,34 +123,11 @@
                                     Grid.Column="1"
                                     Grid.Row="1">
 
-
-                            <Border Height="34"
-                                            BorderBrush="Black"
-                                            BorderThickness="1"
-                                            CornerRadius="4"/>
-
-                            <ComboBox Name="roomCatComboBox"
-                                        HorizontalAlignment="Left"
-                                        Style="{StaticResource AddRecipeComboBox}"
-                                        ItemContainerStyle="{StaticResource SearchBoxComboBoxItem}"
-                                        Height="30"
-                                        SelectedIndex="0"
-                                        HorizontalContentAlignment="Left"
-                                        BorderBrush="{DynamicResource MyBlack}"
-                                        BorderThickness="0"
-                                              Width="96"
-                                        materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
-                                        Margin="12, 2, 0, 2"
-                                        OverridesDefaultStyle="True">
-
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="Đơn"/>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                                <TextBlock/>
-                                <TextBlock/>
-                            </ComboBox>
+                            <TextBlock x:Name="roomCategoryTextBlock"
+                                       Foreground="{DynamicResource MyLightGray4}"
+                                       Style="{StaticResource GilroyMedium17}"
+                                       Margin="0, 6, 0, 0"
+                                       Text="1.000.000 đ"/>
 
 
                         </Grid>
@@ -215,12 +187,12 @@
                         </Grid>
 
                     </StackPanel>
-                    
 
-                    
+
+
                 </StackPanel>
 
-  
+
                 <TextBlock Text="Thông tin khách hàng"
                                    Style="{StaticResource Bebas21}"/>
 
@@ -272,16 +244,10 @@
 
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="Loại khách"/>
+                                    <TextBlock Text="{Binding TenLoaiKhach}"/>
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
-
-                            <!--xóa này-->
-                            <TextBlock />
-                            <TextBlock/>
-
                         </ComboBox>
-
                     </Grid>
 
                     <TextBox Name="customerIDTextBox"
@@ -294,8 +260,8 @@
                                      Grid.Row="1"
                                         />
 
-             
-                        <TextBox Name="customerAddrTextBox"
+
+                    <TextBox Name="customerAddrTextBox"
                                      Padding="5, 5, 0, 5"
                                      Width="200"
                                      Margin="12, 8, 2 ,0"
@@ -304,17 +270,17 @@
                                      Grid.Column="1"
                                      Grid.Row="1"/>
 
- 
+
 
                     <Button Name="addCustomerButton"
-                                   
-                                    Margin="10,8,0,0"
-                                    VerticalAlignment="Center"
-                                    Width="34"
-                                    Style="{StaticResource StepButton}"
-                                    materialDesign:ButtonAssist.CornerRadius="17"
-                                    Height="34"                        
-                                    materialDesign:ShadowAssist.ShadowDepth="Depth0" >
+                            Margin="10,8,0,0"
+                            VerticalAlignment="Center"
+                            Width="34"
+                            Style="{StaticResource StepButton}"
+                            materialDesign:ButtonAssist.CornerRadius="17"
+                            Height="34"                        
+                            materialDesign:ShadowAssist.ShadowDepth="Depth0" 
+                            Click="addCustomerButton_Click">
 
                         <Image 
                                         Width="16"
@@ -330,7 +296,7 @@
             <StackPanel  Grid.Row="2">
 
                 <TextBlock x:Name="maxCustomerTextBlock"
-                           Text="Số lượng khách tối đa: 3 khách"
+                           Text=""
                            Width="766"
                            Margin="0, 5, 0, 10"
                            Foreground="{DynamicResource MyLightGray4}"
@@ -341,6 +307,10 @@
                   Visibility="Visible"
               
                   Width="766">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="95*"/>
+                        <ColumnDefinition Width="288*"/>
+                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="46*"/>
                         <RowDefinition Height="350*"/>
@@ -350,7 +320,7 @@
                                      Opacity="0.62"
                                      Grid.Row="0"
                                              materialDesign:ShadowAssist.ShadowDepth="Depth0"
-                                             UniformCornerRadius="5">
+                                             UniformCornerRadius="5" Grid.ColumnSpan="2">
 
                         <Grid Height="40">
                             <Grid.ColumnDefinitions>
@@ -396,12 +366,11 @@
 
                     </materialDesign:Card>
 
-                    <ListView Name="roomRevenueList"
-                  Grid.Column="1"
-                  Grid.Row="1"
-                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                  Margin="0, 8, 0, 0"
-                  ItemContainerStyle="{StaticResource SiteHoverListBox}">
+                    <ListView Name="customerListView"
+                            Grid.Row="1"
+                            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                            Margin="0, 8, 0, 0"
+                            ItemContainerStyle="{StaticResource SiteHoverListBox}" Grid.ColumnSpan="2">
 
                         <ListView.ItemTemplate>
                             <DataTemplate>
@@ -421,35 +390,35 @@
                                     </Grid.ColumnDefinitions>
 
                                     <!-- binding-->
-                                    <TextBlock Text="1"
-                                           Grid.Column="1"
-                                           HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                    Foreground="{DynamicResource MyBlack}"
-                                Style="{StaticResource GilroyRegular15}"/>
+                                    <TextBlock Text="{Binding STT_For_Binding}"
+                                               Grid.Column="1"
+                                               HorizontalAlignment="Left"
+                                               VerticalAlignment="Center"
+                                               Foreground="{DynamicResource MyBlack}"
+                                               Style="{StaticResource GilroyRegular15}"/>
 
-                                    <TextBlock Text="Quoc Thuan Truong"
+                                    <TextBlock Text="{Binding HoTen}"
                                            Grid.Column="3"
                                             HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                     Foreground="{DynamicResource MyBlack}"
                                 Style="{StaticResource GilroyRegular15}"/>
 
-                                    <TextBlock Text="Nước ngoài"
+                                    <TextBlock Text="{Binding TenLoaiKhach}"
                                            Grid.Column="5"
                                           HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                     Foreground="{DynamicResource MyBlack}"
                                 Style="{StaticResource GilroyRegular15}"/>
 
-                                    <TextBlock Text="1234567899"
+                                    <TextBlock Text="{Binding CMND}"
                                            Grid.Column="7"
                                            HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                     Foreground="{DynamicResource MyBlack}"
                                 Style="{StaticResource GilroyRegular15}"/>
 
-                                    <TextBlock Text="KTX hiện đại nhất ĐNA"
+                                    <TextBlock Text="{Binding DiaChi}"
                                            Grid.Column="9"
                                            HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
@@ -457,14 +426,14 @@
                                 Style="{StaticResource GilroyRegular15}"/>
 
                                     <Button Name="deleteMemberButton"
-                                              
-                                                Margin="0, 0, 8, 0"
-                                                Tag="{Binding Member_Index}"
-                                                HorizontalAlignment="Right"
-                                                Style="{StaticResource DeleteJourneyButton}"
-                                                Grid.Column="10"
-                                                Width="17"
-                                                Height="17">
+                                            Margin="0, 0, 8, 0"
+                                            Tag="{Binding STT_For_Binding}"
+                                            HorizontalAlignment="Right"
+                                            Style="{StaticResource DeleteJourneyButton}"
+                                            Grid.Column="10"
+                                            Width="17"
+                                            Height="17"
+                                            Click="deleteMemberButton_Click">
 
                                         <Image Width="11"
                                                    Height="11"
@@ -474,24 +443,17 @@
                                                    Source="{StaticResource IconWhiteTrash}"/>
 
                                     </Button>
-
                                 </Grid>
                             </DataTemplate>
                         </ListView.ItemTemplate>
-
-                        <Grid></Grid>
-                        <Grid></Grid>
-                        <Grid></Grid>
-                        <Grid></Grid>
                     </ListView>
-
 
                     <materialDesign:ColorZone Mode="Custom"
                                   VerticalAlignment="Bottom"
                                   Padding="0, 20, 4, 0"
                                   HorizontalAlignment="Right"
                                   Grid.Column="1"
-                                  Grid.Row="3">
+                                  Grid.Row="1">
 
                         <materialDesign:ColorZone.Effect>
                             <DropShadowEffect BlurRadius="10" 
@@ -505,7 +467,7 @@
                     </materialDesign:ColorZone>
                 </Grid>
             </StackPanel>
-            
+
 
             <!--button-->
 
@@ -565,7 +527,8 @@
                         Style="{StaticResource StepButton}"
                         materialDesign:ButtonAssist.CornerRadius="18"
                         Height="35"                        
-                        materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                        materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                            Click="finishButton_Click">
                         <Grid Width="180">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="0.8*"/>

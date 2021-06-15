@@ -8,7 +8,8 @@
       mc:Ignorable="d" 
       d:DesignHeight="718" d:DesignWidth="1116"
       Background="White"
-      Title="RevenueReportPage">
+      Title="RevenueReportPage"
+      Loaded="Page_Loaded">
 
     <Grid>
 
@@ -102,11 +103,11 @@
                 </materialDesign:Card>
 
                 <ListView Name="roomRevenueList"
-                  Grid.Column="1"
-                  Grid.Row="1"
-                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                  Margin="0, 8, 0, 0"
-                  ItemContainerStyle="{StaticResource SiteHoverListBox}">
+                          Grid.Column="1"
+                          Grid.Row="1"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                          Margin="0, 8, 0, 0"
+                          ItemContainerStyle="{StaticResource SiteHoverListBox}">
 
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -130,7 +131,7 @@
                                 Margin="0, 0, 0, 0"
                                 Grid.Column="1"
                                 HorizontalAlignment="Left"
-                                Text="1"
+                                Text="{Binding ID_LoaiPhong}"
                                 VerticalAlignment="Center"
                                     Foreground="{DynamicResource MyBlack}"
                                 Style="{StaticResource GilroyRegular15}"/>
@@ -139,7 +140,7 @@
                                 <TextBlock 
                                 Grid.Column="3"
                                 HorizontalAlignment="Left"
-                                Text="Phòng đơn"
+                                Text="{Binding TenLoaiPhong}"
                                 VerticalAlignment="Center"
                                     Foreground="{DynamicResource MyBlack}"
                                 Style="{StaticResource GilroyRegular15}"/>
@@ -148,7 +149,7 @@
                                 <TextBlock 
                                 Grid.Column="5"
                                 HorizontalAlignment="Left"
-                                Text="9.000.000 đ"
+                                Text="{Binding Revenue_For_Binding}"
                                 VerticalAlignment="Center"
                                     Foreground="{DynamicResource MyBlack}"
                                 Style="{StaticResource GilroyRegular15}"/>
@@ -159,17 +160,12 @@
                                     Margin="8, 0,0, 0"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Text="30%"
+                                Text="{Binding Percent_For_Binding}"
                                     Foreground="{DynamicResource MyBlack}"
                                 Style="{StaticResource GilroyRegular15}"/>
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
-
-                    <Grid></Grid>
-                    <Grid></Grid>
-                    <Grid></Grid>
-                    <Grid></Grid>
                 </ListView>
 
 
@@ -247,11 +243,11 @@
                 </materialDesign:Card>
 
                 <ListView Name="roomDensityList"
-                  Grid.Column="1"
-                  Grid.Row="1"
-                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                  Margin="0, 8, 0, 0"
-                  ItemContainerStyle="{StaticResource SiteHoverListBox}">
+                          Grid.Column="1"
+                          Grid.Row="1"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                          Margin="0, 8, 0, 0"
+                          ItemContainerStyle="{StaticResource SiteHoverListBox}">
 
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -275,7 +271,7 @@
                                 Margin="0, 0, 0, 0"
                                 Grid.Column="1"
                                 HorizontalAlignment="Left"
-                                Text="1"
+                                Text="{Binding STT_For_Binding}"
                                 VerticalAlignment="Center"
                                     Foreground="{DynamicResource MyBlack}"
                                 Style="{StaticResource GilroyRegular15}"/>
@@ -284,7 +280,7 @@
                                 <TextBlock 
                                 Grid.Column="3"
                                 HorizontalAlignment="Left"
-                                Text="P.301"
+                                Text="{Binding ID_For_Binding}"
                                 VerticalAlignment="Center"
                                     Foreground="{DynamicResource MyBlack}"
                                 Style="{StaticResource GilroyRegular15}"/>
@@ -293,7 +289,7 @@
                                 <TextBlock 
                                 Grid.Column="5"
                                 HorizontalAlignment="Left"
-                                Text="30 ngày"
+                                Text="{Binding Density_For_Binding}"
                                 VerticalAlignment="Center"
                                     Foreground="{DynamicResource MyBlack}"
                                 Style="{StaticResource GilroyRegular15}"/>
@@ -304,17 +300,12 @@
                                     Margin="8, 0,0, 0"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Text="30%"
+                                Text="{Binding Percent_For_Binding}"
                                     Foreground="{DynamicResource MyBlack}"
                                 Style="{StaticResource GilroyRegular15}"/>
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
-
-                    <Grid></Grid>
-                    <Grid></Grid>
-                    <Grid></Grid>
-                    <Grid></Grid>
                 </ListView>
 
 

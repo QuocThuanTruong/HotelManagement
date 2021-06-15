@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HotelManagement.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,14 +23,31 @@ namespace HotelManagement.Pages
 	{
 		public delegate void ViewInvoice(int id);
 		public event ViewInvoice ViewInvoiceEvent;
+
+		private DatabaseUtilities _databaseUtilities = DatabaseUtilities.GetDatabaseInstance();
+		private ApplicationUtilities _applicationUtilities = ApplicationUtilities.GetAppInstance();
+
+
+		public List<HoaDon> invoices;
+
 		public InvoiceManagementPage()
 		{
 			InitializeComponent();
 		}
 
+		private void Page_Loaded(object sender, RoutedEventArgs e)
+		{
+			invoices = _databaseUtilities.getAllInvoice();
+
+			invoiceList.ItemsSource = invoices;
+		}
+
 		private void viewButton_Click(object sender, RoutedEventArgs e)
 		{
-			ViewInvoiceEvent?.Invoke(1);
+			int idInvoice = Convert.ToInt32(((Button)sender).Tag);
+
+			ViewInvoiceEvent?.Invoke(idInvoice);
 		}
-	}
+
+    }
 }

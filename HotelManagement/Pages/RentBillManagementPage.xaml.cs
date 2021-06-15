@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HotelManagement.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,11 @@ namespace HotelManagement.Pages
 	{
 		public delegate void EditRentBill(int id);
 		public event EditRentBill EditRentBillEvent;
+
+		private DatabaseUtilities _databaseUtilities = DatabaseUtilities.GetDatabaseInstance();
+		private ApplicationUtilities _applicationUtilities = ApplicationUtilities.GetAppInstance();
+
+		public List<PhieuThue> rentedBills;
 		public RentBillManagementPage()
 		{
 			InitializeComponent();
@@ -29,7 +35,36 @@ namespace HotelManagement.Pages
 
 		private void editButton_Click(object sender, RoutedEventArgs e)
 		{
-			EditRentBillEvent?.Invoke(1);
+			int idRental = Convert.ToInt32(((Button)sender).Tag);
+
+			EditRentBillEvent?.Invoke(idRental);
 		}
-	}
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+			rentedBills = _databaseUtilities.getAllRentedBill();
+
+			roomRevenueList.ItemsSource = rentedBills;
+		}
+
+        private void deleteButton_Click(object sender, RoutedEventArgs e)
+        {
+			int idRental = Convert.ToInt32(((Button)sender).Tag);
+
+			_databaseUtilities.deleteRentalBill(idRental);
+
+			var deleteRentBill = (from r in rentedBills
+									where r.ID_PhieuThue == idRental
+									select r).First();
+
+			_databaseUtilities.updateEmptyRoom(deleteRentBill.SoPhong_For_Binding);
+
+			rentedBills = (from r in rentedBills
+						   where r.ID_PhieuThue != idRental
+						   select r).ToList();
+
+			roomRevenueList.ItemsSource = null;
+			roomRevenueList.ItemsSource = rentedBills;
+		}
+    }
 }

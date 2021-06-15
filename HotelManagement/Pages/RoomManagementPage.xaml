@@ -8,7 +8,8 @@
       Background="White"
        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       d:DesignHeight="718" d:DesignWidth="1116"
-      Title="RoomManagementPage">
+      Title="RoomManagementPage"
+      Loaded="Page_Loaded">
 
     <Grid>
 
@@ -49,7 +50,7 @@
                                                  UniformCornerRadius="5">
                     </materialDesign:Card>
 
-                    <TextBox Name="roomNameTextBox"
+                    <TextBox Name="roomIdTextBox"
                                      Width="180"
                                      Margin="12, 7, 2 ,0"
                               Padding="5, 5, 0, 5"
@@ -86,37 +87,12 @@
 
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="Loại phòng"/>
+                                    <TextBlock Text="{Binding TenLoaiPhong}"/>
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
-
-                            <!--xóa này-->
-                            <TextBlock />
-                            <TextBlock/>
-
                         </ComboBox>
 
                     </Grid>
-
-
-                    <Grid>
-                        <TextBox Name="roomPriceTextBox"
-                                    Padding="5, 5, 60, 5"
-                                    Width="180"
-                                    Margin="12, 8, 2 ,0"
-                                    Style="{StaticResource AddRecipePageTextBox}"
-                                    materialDesign:HintAssist.Hint="Đơn giá"
-                                    Grid.Column="1"
-                                    Grid.Row="1"
-                                          />
-
-                        <TextBlock Text="đ/ngày"
-                                    Margin="0, 9, 12, 0"
-                                    VerticalAlignment="Center"
-                                    HorizontalAlignment="Right"
-                                    Style="{StaticResource GilroyRegular135}"/>
-                    </Grid>
-
 
                     <TextBox Name="noteTextBox"
                                      Padding="5, 5, 0, 5"
@@ -216,7 +192,7 @@
 
                 </materialDesign:Card>
 
-                <ListView Name="roomRevenueList"
+                <ListView Name="roomList"
                   Grid.Column="1"
                   Grid.Row="1"
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -242,35 +218,35 @@
                                     <ColumnDefinition Width="0.07*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock Text="STT"
+                                <TextBlock Text="{Binding STT_For_Binding}"
                                            Grid.Column="1"
                                              HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                     Foreground="{DynamicResource MyBlack}"
                                 Style="{StaticResource GilroyRegular15}"/>
 
-                                <TextBlock Text="Phòng"
+                                <TextBlock Text="{Binding ID_For_Binding}"
                                            Grid.Column="3"
                                              HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                     Foreground="{DynamicResource MyBlack}"
                                 Style="{StaticResource GilroyRegular15}"/>
 
-                                <TextBlock Text="Loại phòng"
+                                <TextBlock Text="{Binding TenLoaiPhong}"
                                            Grid.Column="5"
                                             HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                     Foreground="{DynamicResource MyBlack}"
                                 Style="{StaticResource GilroyRegular15}"/>
 
-                                <TextBlock Text="1.000.000 đ/ngày"
+                                <TextBlock Text="{Binding DonGiaPerDay_For_Binding}"
                                            Grid.Column="7"
                                             HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                     Foreground="{DynamicResource MyBlack}"
                                 Style="{StaticResource GilroyRegular15}"/>
 
-                                <TextBlock Text="Ghi chú"
+                                <TextBlock Text="{Binding GhiChu}"
                                            Grid.Column="9"
                                             HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
@@ -282,6 +258,7 @@
                                             Orientation="Horizontal"
                                             VerticalAlignment="Center">
                                     <Button Name="editButton"
+                                            Tag="{Binding STT_For_Binding}"
                                             Click="editButton_Click"
                                             Width="35"
                                             Background="{DynamicResource MyBlue}"
@@ -300,6 +277,7 @@
 
                                     <Button Name="deleteButton"
                                             Margin="15, 0, 0, 0"
+                                            Tag="{Binding STT_For_Binding}"
                                             Width="35"
                                             Background="#d92027"
                                             Foreground="#f42f3d"
@@ -307,7 +285,7 @@
                                             Style="{StaticResource StepButton}"
                                             materialDesign:ButtonAssist.CornerRadius="6"
                                             Height="35"  
-                   
+                                            Click="deleteButton_Click"
                                             materialDesign:ShadowAssist.ShadowDepth="Depth0">
                                         <Image Width="16"
                                                Height="16"
@@ -319,11 +297,6 @@
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
-
-                    <Grid></Grid>
-                    <Grid></Grid>
-                    <Grid></Grid>
-                    <Grid></Grid>
                 </ListView>
 
 

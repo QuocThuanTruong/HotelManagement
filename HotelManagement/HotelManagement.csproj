@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -37,6 +38,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
       <HintPath>..\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
     </Reference>
@@ -50,7 +57,10 @@
       <HintPath>..\packages\MaterialDesignThemes.4.1.0\lib\net452\MaterialDesignThemes.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -73,6 +83,57 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="CauHinh.cs">
+      <DependentUpon>HotelManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ChiTietPhieuThue.cs">
+      <DependentUpon>HotelManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="func_getAllRoom_Result.cs">
+      <DependentUpon>HotelManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="func_GetCustomerInRoom_Result.cs">
+      <DependentUpon>HotelManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Global.cs" />
+    <Compile Include="HoaDon.cs">
+      <DependentUpon>HotelManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HotelManagementModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HotelManagementModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HotelManagementModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HotelManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HotelManagementModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HotelManagementModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="KhachHang.cs">
+      <DependentUpon>HotelManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LoaiKhach.cs">
+      <DependentUpon>HotelManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LoaiPhong.cs">
+      <DependentUpon>HotelManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NhanVien.cs">
+      <DependentUpon>HotelManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PhieuThue.cs">
+      <DependentUpon>HotelManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Phong.cs">
+      <DependentUpon>HotelManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\AppUtilities.cs" />
+    <Compile Include="Utilities\DatabaseUtilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converters\AbsolutePathConverter.cs" />
@@ -145,6 +206,16 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Content Include="HotelManagementModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>HotelManagementModel.edmx</DependentUpon>
+      <LastGenOutput>HotelManagementModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="HotelManagementModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>HotelManagementModel.edmx</DependentUpon>
+      <LastGenOutput>HotelManagementModel.cs</LastGenOutput>
+    </Content>
     <Resource Include="Assets\Images\ic-purple-config.png" />
     <Resource Include="Assets\Images\ic-purple-customer.png" />
     <Resource Include="Assets\Images\ic-purple-setting.png" />
@@ -181,6 +252,13 @@
     </Content>
     <Resource Include="Assets\Fonts\HelveticaNeue-Bold.otf" />
     <Resource Include="Assets\Fonts\Bebas Neue Pro Regular.otf" />
+    <EntityDeploy Include="HotelManagementModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>HotelManagementModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="HotelManagementModel.edmx.diagram">
+      <DependentUpon>HotelManagementModel.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -190,7 +268,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <ItemGroup>
     <Page Include="CustomViews\DashboardButton.xaml">
       <SubType>Designer</SubType>
@@ -404,5 +484,8 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\MaterialDesignThemes.4.1.0\build\MaterialDesignThemes.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MaterialDesignThemes.4.1.0\build\MaterialDesignThemes.targets'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
   </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
 </Project>

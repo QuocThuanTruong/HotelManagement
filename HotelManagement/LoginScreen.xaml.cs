@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HotelManagement.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,10 @@ namespace HotelManagement
 	/// </summary>
 	public partial class LoginScreen : Window
 	{
+
+		private DatabaseUtilities _databaseUtilities = DatabaseUtilities.GetDatabaseInstance();
+		private ApplicationUtilities _applicationUtilities = ApplicationUtilities.GetAppInstance();
+
 		public LoginScreen()
 		{
 			InitializeComponent();
@@ -36,17 +41,54 @@ namespace HotelManagement
 
 		private void loginButton_Click(object sender, RoutedEventArgs e)
 		{
-			//get username and password
-			//compare
-			//get role
-			//role = 0 - nhân viên, 1 - quản lí
-			int role = 1;
-			LoginScreen loginScreen = this;
+            //get username and password
+            //compare
+            //get role
+            //role = 0 - nhân viên, 1 - quản lí
 
-			MainScreen mainScreen = new MainScreen(role);
-			mainScreen.Show();
-			loginScreen.Close();
+            if (userNameTextBox.Text.Length == 0)
+            {
+                //notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống tên đăng nhập", "OK", () => { });
 
-		}
+                return;
+            }
+
+            if (passwordTextBox.Text.Length == 0)
+            {
+                //notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống mật khẩu", "OK", () => { });
+
+                return;
+            }
+
+            Global.staticCurrentEmployee = _databaseUtilities.checkLogin(userNameTextBox.Text, passwordTextBox.Text);
+
+            if (Global.staticCurrentEmployee != null)
+            {
+                LoginScreen loginScreen = this;
+
+                int role = 1;
+
+                if (Global.staticCurrentEmployee.LoaiNhanVien == true)
+                {
+                    role = 1;
+                }
+                else
+                {
+                    role = 0;
+                }
+
+                MainScreen mainScreen = new MainScreen(role);
+                mainScreen.Show();
+                loginScreen.Close();
+            }
+
+            //notiMessageSnackbar.MessageQueue.Enqueue($"Sai tên đăng nhập hoặc mật khẩu", "OK", () => { });
+
+           /* LoginScreen loginScreen = this;
+            int role = 1;
+            MainScreen mainScreen = new MainScreen(role);
+            mainScreen.Show();
+            loginScreen.Close();*/
+        }
 	}
 }

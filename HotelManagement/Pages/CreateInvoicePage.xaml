@@ -8,7 +8,8 @@
        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
        mc:Ignorable="d" 
       d:DesignHeight="718" d:DesignWidth="1116"
-      Title="CreateRentBillPage">
+      Title="CreateRentBillPage"
+      Loaded="Page_Loaded">
 
     <Grid>
 
@@ -113,7 +114,6 @@
                                             CornerRadius="4"/>
 
                             <ComboBox Name="customerNameComboBox"
-
                                         HorizontalAlignment="Left"
                                         Style="{StaticResource AddRecipeComboBox}"
                                         ItemContainerStyle="{StaticResource SearchBoxComboBoxItem}"
@@ -129,14 +129,9 @@
 
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="Quoc Thuan Truong"/>
+                                        <TextBlock Text="{Binding HoTen}"/>
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
-
-                                <TextBlock/>
-                                <TextBlock/>
-                                <TextBlock/>
-
                             </ComboBox>
 
                         </Grid>
@@ -268,42 +263,42 @@
                                     Foreground="{DynamicResource MyBlack}"
                                 Style="{StaticResource GilroyRegular15}"/>
 
-                                    <TextBlock Text="999"
+                                    <TextBlock Text="{Binding SoPhong_For_Binding}"
                                            Grid.Column="3"
                                             HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                     Foreground="{DynamicResource MyBlack}"
                                 Style="{StaticResource GilroyRegular15}"/>
 
-                                    <TextBlock Text="3 người"
+                                    <TextBlock Text="{Binding Total_Customer_For_Binding}"
                                            Grid.Column="5"
                                           HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                     Foreground="{DynamicResource MyBlack}"
                                 Style="{StaticResource GilroyRegular15}"/>
 
-                                    <TextBlock Text="30 ngày"
+                                    <TextBlock Text="{Binding Total_Day_For_Binding}"
                                            Grid.Column="7"
                                            HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                     Foreground="{DynamicResource MyBlack}"
                                 Style="{StaticResource GilroyRegular15}"/>
 
-                                    <TextBlock Text="1.5"
+                                    <TextBlock Text="{Binding Ratio_For_Binding}"
                                            Grid.Column="9"
                                            HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                     Foreground="{DynamicResource MyBlack}"
                                 Style="{StaticResource GilroyRegular15}"/>
 
-                                    <TextBlock Text="1.000.000 đ/ngày"
+                                    <TextBlock Text="{Binding Price_Per_Day_For_Binding}"
                                            Grid.Column="11"
                                            HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                     Foreground="{DynamicResource MyBlack}"
                                 Style="{StaticResource GilroyRegular15}"/>
 
-                                    <TextBlock Text="99.000.000 đ"
+                                    <TextBlock Text="{Binding Total_Price_For_Binding}"
                                            Grid.Column="13"
                                            HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
@@ -315,11 +310,6 @@
                                 </Grid>
                             </DataTemplate>
                         </ListView.ItemTemplate>
-
-                        <!--xóa này-->
-                        <Grid></Grid>
-
-
                     </ListView>
 
 
@@ -359,7 +349,7 @@
                            Style="{StaticResource GilroySemiBold18}"/>
 
                         <!--binding-->
-                        <TextBlock 
+                        <TextBlock Name="surchargeTextBlock"
                            Text="25.000 đ"
                            Margin="20, 5, 0, 0"
                             HorizontalAlignment="Left"
@@ -379,7 +369,7 @@
                             <ColumnDefinition Width="2*"/>
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock 
+                        <TextBlock
                            Text="Tổng tiền:"
                            Margin="0, 5, 0, 10"
                             HorizontalAlignment="Right"
@@ -387,7 +377,7 @@
                            Style="{StaticResource GilroySemiBold18}"/>
 
                         <!--binding-->
-                        <TextBlock 
+                        <TextBlock  Name="resultPriceTextBlock"
                            Text="9.000.000 đ"
                            Margin="20, 5, 0, 10"
                             HorizontalAlignment="Left"
@@ -458,7 +448,8 @@
                         Style="{StaticResource StepButton}"
                         materialDesign:ButtonAssist.CornerRadius="18"
                         Height="35"                        
-                        materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                        materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                            Click="finishButton_Click">
                         <Grid Width="180">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="0.8*"/>

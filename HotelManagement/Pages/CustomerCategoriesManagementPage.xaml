@@ -8,7 +8,8 @@
       Background="White"
        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       d:DesignHeight="718" d:DesignWidth="1116"
-      Title="CreateRentBillPage">
+      Title="CreateRentBillPage"
+      Loaded="Page_Loaded">
 
     <Grid>
 
@@ -16,7 +17,6 @@
             <RowDefinition Height="50*"/>
             <RowDefinition Height="668*"/>
         </Grid.RowDefinitions>
-
 
         <StackPanel HorizontalAlignment="Center"
                     Grid.RowSpan="2">
@@ -80,7 +80,7 @@
 
 
                     <Button Name="addCustomerButton"
-                                   
+                                   Click="addCustomerButton_Click"
                                     Margin="10,8,0,0"
                                     VerticalAlignment="Center"
                                     Width="34"
@@ -89,7 +89,7 @@
                                     Height="34"                        
                                     materialDesign:ShadowAssist.ShadowDepth="Depth0" >
 
-                        <Image 
+                        <Image x:Name="iconAddCustomerCategory"
                                         Width="16"
                                         Height="16"
                                         RenderOptions.BitmapScalingMode="HighQuality"
@@ -156,7 +156,7 @@
 
                     </materialDesign:Card>
 
-                    <ListView Name="roomRevenueList"
+                    <ListView Name="customerCategoryList"
                   Grid.Column="1"
                   Grid.Row="1"
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -179,21 +179,21 @@
                                     </Grid.ColumnDefinitions>
 
 
-                                    <TextBlock Text="ID"
+                                    <TextBlock Text="{Binding ID_LoaiKhach}"
                                            Grid.Column="1"
                                              HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                     Foreground="{DynamicResource MyBlack}"
                                 Style="{StaticResource GilroyRegular15}"/>
 
-                                    <TextBlock Text="Nội địa"
+                                    <TextBlock Text="{Binding TenLoaiKhach}"
                                            Grid.Column="3"
                                              HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                     Foreground="{DynamicResource MyBlack}"
                                 Style="{StaticResource GilroyRegular15}"/>
 
-                                    <TextBlock Text="1.0"
+                                    <TextBlock Text="{Binding HeSo}"
                                            Grid.Column="5"
                                             HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
@@ -210,6 +210,8 @@
                                         và icon nút thêm đổi từ dấu cộng thành IconWhiteUpdate -->
 
                                         <Button Name="editButton"
+                                                Click="editButton_Click"
+                                                Tag="{Binding ID_LoaiKhach}"
                                             Width="35"
                                             Background="{DynamicResource MyBlue}"
                                             Foreground="#1b3896"
@@ -226,6 +228,8 @@
                                         </Button>
 
                                         <Button Name="deleteButton"
+                                                Click="deleteButton_Click"
+                                                 Tag="{Binding ID_LoaiKhach}"
                                             Margin="15, 0, 0, 0"
                                             Width="35"
                                             Background="#d92027"
@@ -246,11 +250,6 @@
                                 </Grid>
                             </DataTemplate>
                         </ListView.ItemTemplate>
-
-                        <Grid></Grid>
-                        <Grid></Grid>
-                        <Grid></Grid>
-                        <Grid></Grid>
                     </ListView>
 
 
