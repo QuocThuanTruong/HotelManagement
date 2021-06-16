@@ -216,15 +216,33 @@
       <DependentUpon>HotelManagementModel.edmx</DependentUpon>
       <LastGenOutput>HotelManagementModel.cs</LastGenOutput>
     </Content>
-    <Resource Include="Assets\Images\ic-purple-config.png" />
-    <Resource Include="Assets\Images\ic-purple-customer.png" />
-    <Resource Include="Assets\Images\ic-purple-setting.png" />
-    <Resource Include="Assets\Images\ic-purple_employee.png" />
-    <Resource Include="Assets\Images\ic-white-config.png" />
-    <Resource Include="Assets\Images\ic-white-customer.png" />
-    <Resource Include="Assets\Images\ic-white-employee.png" />
-    <Resource Include="Assets\Images\ic-white-setting.png" />
-    <Resource Include="Assets\Images\hotel_bg.png" />
+    <Content Include="Assets\Images\ic-purple-config.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\ic-purple-customer.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\ic-purple-setting.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\ic-purple_employee.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\ic-white-config.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\ic-white-customer.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\ic-white-employee.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\ic-white-setting.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\hotel_bg.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Images\ic-white-update.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

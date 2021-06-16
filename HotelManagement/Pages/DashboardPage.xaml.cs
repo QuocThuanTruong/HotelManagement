@@ -121,7 +121,7 @@ namespace HotelManagement.Pages
 				revenueByTypeCollection.Add(new PieSeries
 				{
 					Title = category.TenLoaiPhong,
-					Values = new ChartValues<double> { decimal.ToDouble(_databaseUtilities.getRevenueByRoomCategory(category.ID_LoaiPhong, month)) }
+					Values = new ChartValues<double> { decimal.ToDouble((decimal)_databaseUtilities.getRevenueByRoomCategory(category.ID_LoaiPhong, month)) }
 				});
 			}
 

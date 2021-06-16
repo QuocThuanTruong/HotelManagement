@@ -82,7 +82,7 @@ namespace HotelManagement.Pages
 			var roomCategories = _databaseUtilities.getAllRoomCategory();
 			double total = 0;
 
-			List<int> revenues = new List<int>();
+			List<double> revenues = new List<double>();
 
 			for (int i = 0; i < roomCategories.Count; ++i)
 			{
@@ -91,7 +91,7 @@ namespace HotelManagement.Pages
 
 				total += revenues[i];
 
-				roomCategories[i].Revenue_For_Binding = _applicationUtilities.getMoneyForBinding(revenues[i]);
+				roomCategories[i].Revenue_For_Binding = _applicationUtilities.getMoneyForBinding((int)revenues[i]);
 			}
 
 			double temp = 0;

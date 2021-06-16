@@ -15,7 +15,8 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="50*"/>
-            <RowDefinition Height="668*"/>
+            <RowDefinition Height="628*"/>
+            <RowDefinition Height="40*"/>
         </Grid.RowDefinitions>
 
 
@@ -128,10 +129,10 @@
             
             <Grid x:Name="revenueListContainer"
                   Margin="50, 20, 50, 50"
-                  
+                  Height="510"
                   Visibility="Visible">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="46*"/>
+                    <RowDefinition Height="62*"/>
                     <RowDefinition Height="630*"/>
                 </Grid.RowDefinitions>
 
@@ -192,8 +193,8 @@
 
                 </materialDesign:Card>
 
+      
                 <ListView Name="roomList"
-                  Grid.Column="1"
                   Grid.Row="1"
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                   Margin="0, 8, 0, 0"
@@ -300,23 +301,7 @@
                 </ListView>
 
 
-                <materialDesign:ColorZone Mode="Custom"
-                                  VerticalAlignment="Bottom"
-                                  Padding="0, 20, 4, 0"
-                                  HorizontalAlignment="Right"
-                                  Grid.Column="1"
-                                  Grid.Row="3">
-
-                    <materialDesign:ColorZone.Effect>
-                        <DropShadowEffect BlurRadius="10" 
-                                          ShadowDepth="1" 
-                                          Color="#ffbc00" 
-                                          Opacity="0.4" 
-                                          RenderingBias="Performance" />
-                    </materialDesign:ColorZone.Effect>
-
-
-                </materialDesign:ColorZone>
+                
             </Grid>
         </StackPanel>
 

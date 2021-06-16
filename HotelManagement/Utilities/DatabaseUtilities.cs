@@ -182,13 +182,23 @@ namespace HotelManagement.Utilities
 
         public int getRevenueByRoomCategory(int loaiPhong, int month)
         {
-            var result = _databaseHotelManagement
+            int result = 0;
+
+            try
+			{
+                result = _databaseHotelManagement
               .Database
               .SqlQuery<int>($"select [dbo].[func_GetRevenueByRoomCat]({loaiPhong}, {month})")
               .Single();
+            }
+			catch
+			{
+               
+			}
+			
 
-            return result;
-        }
+			return result;
+		}
 
         public int getMaxIdCustomer()
         {
