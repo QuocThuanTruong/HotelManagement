@@ -139,6 +139,7 @@ namespace HotelManagement.Pages
         {
 			roomCategoryTextBlock.Text = currentRoom.TenLoaiPhong;
 			roomPriceTextBlock.Text = currentRoom.DonGia_For_Binding;
+
 			maxCustomerTextBlock.Text = $"Số lượng khách tối đa: {currentRoom.SLKhachToiDa} người";
 		}
 

@@ -686,7 +686,7 @@ namespace HotelManagement.Utilities
         {
             _databaseHotelManagement
                   .Database
-                  .ExecuteSqlCommand($"UPDATE CauHinh Set GiaTri = N'{config.GiaTri}', DieuKien = N'{config.DieuKien}' WHERE ID = {config.ID}");
+                  .ExecuteSqlCommand($"UPDATE CauHinh Set GiaTri = N'{config.GiaTri}', DieuKien = N'>={config.DieuKien}' WHERE ID = {config.ID}");
         }
     }
 }

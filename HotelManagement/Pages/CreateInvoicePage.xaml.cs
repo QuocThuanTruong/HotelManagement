@@ -76,7 +76,9 @@ namespace HotelManagement.Pages
 				reciptionistTextBlock.Text = Global.staticCurrentEmployee.HoTen;
 
 				checkoutDateTextBlock.Text = DateTime.Now.ToString("dd/MM/yyyy");
-				maxCustomerTextBlock.Text = $"Phòng {selectedRoom.SLKhachToiDa + 1} khách trở lên phụ thu 25% 1 người";
+
+				CauHinh config = _databaseUtilities.getConfig();
+				maxCustomerTextBlock.Text = $"Phòng {config.DieuKien.Substring(2)} khách trở lên phụ thu {Convert.ToDouble(config.GiaTri) * 100}% 1 người";
 
 				_idRentBill = _databaseUtilities.getCurrentRentBillIdBelongToRoom(_idRoom);
 
@@ -89,6 +91,9 @@ namespace HotelManagement.Pages
 				currentRentBill.SoPhong_For_Binding = selectedRoom.SoPhong;
 				currentRentBill.Total_Customer_For_Binding = currentCustomers.Count;
 				currentRentBill.Total_Day_For_Binding = Convert.ToInt32((DateTime.Now - currentRentBill.NgayBatDau).Value.TotalDays);
+
+				currentRentBill.Total_Day_For_Binding = currentRentBill.Total_Day_For_Binding == 0 ? 1 : currentRentBill.Total_Day_For_Binding;
+
 				currentRentBill.Ratio_For_Binding = 1;
 
 				foreach (var customer in currentCustomers)
@@ -100,14 +105,14 @@ namespace HotelManagement.Pages
 				}
 
 				currentRentBill.Price_Per_Day_For_Binding = selectedRoom.DonGia_For_Binding;
-				currentRentBill.TotalPrice = Convert.ToInt32((selectedRoom.DonGia ?? 0) * currentRentBill.Ratio_For_Binding);
+				currentRentBill.TotalPrice = Convert.ToInt32((selectedRoom.DonGia ?? 0) * currentRentBill.Ratio_For_Binding) * currentRentBill.Total_Day_For_Binding;
 				currentRentBill.Total_Price_For_Binding = _applicationUtilities.getMoneyForBinding(currentRentBill.TotalPrice);
 
 				List<PhieuThue> source = new List<PhieuThue>();
 				source.Add(currentRentBill);
 				roomRevenueList.ItemsSource = source;
 
-				surcharge = Convert.ToInt32(currentRentBill.TotalPrice * (currentRentBill.Total_Customer_For_Binding - selectedRoom.SLKhachToiDa) * 0.25);
+				surcharge = Convert.ToInt32(currentRentBill.TotalPrice * (currentRentBill.Total_Customer_For_Binding - Convert.ToInt32(config.DieuKien.Substring(2)) + 1) * Convert.ToDouble(config.GiaTri));
 
 				if (surcharge < 0)
 				{
@@ -121,7 +126,7 @@ namespace HotelManagement.Pages
 			} 
 			else
             {
-				
+				CauHinh config = _databaseUtilities.getConfig();
 				invoice = _databaseUtilities.getInvoiceById(_idInvoice);
 
 				reciptionistTextBlock.Text = invoice.HoTenNV_For_Binding;
@@ -157,14 +162,14 @@ namespace HotelManagement.Pages
 				}
 
 				currentRentBill.Price_Per_Day_For_Binding = invoice.DonGia_For_Binding;
-				currentRentBill.TotalPrice = Convert.ToInt32(invoice.DonGia * currentRentBill.Ratio_For_Binding);
+				currentRentBill.TotalPrice = Convert.ToInt32(invoice.DonGia * currentRentBill.Ratio_For_Binding) * currentRentBill.Total_Day_For_Binding;
 				currentRentBill.Total_Price_For_Binding = _applicationUtilities.getMoneyForBinding(currentRentBill.TotalPrice);
 
 				List<PhieuThue> source = new List<PhieuThue>();
 				source.Add(currentRentBill);
 				roomRevenueList.ItemsSource = source;
 
-				surcharge = Convert.ToInt32(currentRentBill.TotalPrice * (currentRentBill.Total_Customer_For_Binding - invoice.Room.SLKhachToiDa) * 0.25);
+				surcharge = Convert.ToInt32(currentRentBill.TotalPrice * (currentRentBill.Total_Customer_For_Binding - Convert.ToInt32(config.DieuKien.Substring(2)) + 1) * Convert.ToDouble(config.GiaTri));
 
 				if (surcharge < 0)
 				{
