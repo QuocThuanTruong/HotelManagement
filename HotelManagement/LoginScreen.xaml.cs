@@ -23,10 +23,12 @@ namespace HotelManagement
 
 		private DatabaseUtilities _databaseUtilities = DatabaseUtilities.GetDatabaseInstance();
 		private ApplicationUtilities _applicationUtilities = ApplicationUtilities.GetAppInstance();
+        private bool _showPassword = false;
 
 		public LoginScreen()
 		{
 			InitializeComponent();
+            userNameTextBox.Focus();
 		}
 
 		private void closeWindowButton_Click(object sender, RoutedEventArgs e)
@@ -53,14 +55,14 @@ namespace HotelManagement
                 return;
             }
 
-            if (passwordTextBox.Text.Length == 0)
+            if (passwordTextBox.Password.Length == 0)
             {
                 //notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống mật khẩu", "OK", () => { });
-
+                
                 return;
             }
 
-            Global.staticCurrentEmployee = _databaseUtilities.checkLogin(userNameTextBox.Text, passwordTextBox.Text);
+            Global.staticCurrentEmployee = _databaseUtilities.checkLogin(userNameTextBox.Text, passwordTextBox.Password);
 
             if (Global.staticCurrentEmployee != null)
             {
@@ -89,6 +91,29 @@ namespace HotelManagement
             MainScreen mainScreen = new MainScreen(role);
             mainScreen.Show();
             loginScreen.Close();*/
+        }
+
+		private void btnShowPassword_Click(object sender, RoutedEventArgs e)
+		{
+            if (_showPassword == false)
+			{
+                showPasswordImage.Source = (ImageSource)FindResource("IconPurpleEyeOff");
+                _showPassword = true;
+                showPasswordTextBox.Text = passwordTextBox.Password;
+                passwordTextBox.Visibility = Visibility.Collapsed;
+                showPasswordTextBox.Visibility = Visibility.Visible;
+                showPasswordTextBox.Focus();
+            } 
+            else
+			{
+                showPasswordImage.Source = (ImageSource)FindResource("IconPurpleEye");
+                _showPassword = false;
+                passwordTextBox.Password = showPasswordTextBox.Text;
+                showPasswordTextBox.Visibility = Visibility.Collapsed;
+                passwordTextBox.Visibility = Visibility.Visible;
+                passwordTextBox.Focus();
+            }
+           
         }
 	}
 }

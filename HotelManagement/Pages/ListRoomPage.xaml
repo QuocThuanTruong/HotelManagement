@@ -434,6 +434,7 @@
                   ItemContainerStyle="{StaticResource NonHoverListBoxItem}"
                   SelectionMode="Single"
                   ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                  ScrollViewer.VerticalScrollBarVisibility="Hidden"
                   HorizontalAlignment="Left"
                   Margin="0, 50, 0, 150"
                   Grid.Column="1"
@@ -443,7 +444,8 @@
 
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <UniformGrid Columns="3"/>
+                    <UniformGrid Columns="3"
+                                  VerticalAlignment="Top"/>
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
 
@@ -453,7 +455,7 @@
                     <Grid Name="recipeCardContainer"
                           Tag="{Binding ID_Cake}"
                           Width="295"
-                          Margin="0, 0, 30, 0"
+                          Margin="0, 0, 30, 20"
                           Height="195">
 
                         <Border Width="230"
