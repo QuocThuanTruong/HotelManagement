@@ -34,14 +34,18 @@ namespace HotelManagement.Pages
         {
 			currentConfig = _databaseUtilities.getConfig();
 
-			subMoneyRateTextBox.Text = currentConfig.GiaTri;
-			numberCustomerTextBox.Text = currentConfig.DieuKien;
+			double value = Convert.ToDouble(currentConfig.GiaTri);
+
+			subMoneyRateTextBox.Text = (value * 100).ToString();
+			numberCustomerTextBox.Text = currentConfig.DieuKien.Substring(2);
 		}
 
         private void updateButton_Click(object sender, RoutedEventArgs e)
         {
 			currentConfig.DieuKien = numberCustomerTextBox.Text;
-			currentConfig.GiaTri = subMoneyRateTextBox.Text;
+
+			double value = Convert.ToDouble(subMoneyRateTextBox.Text);
+			currentConfig.GiaTri = (value / 100).ToString();
 
 			_databaseUtilities.updateConfig(currentConfig);
 
