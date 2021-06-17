@@ -181,10 +181,8 @@ namespace HotelManagement.Pages
 				surchargeTextBlock.Text = _applicationUtilities.getMoneyForBinding(surcharge);
 				resultPriceTextBlock.Text = _applicationUtilities.getMoneyForBinding(resultPrice);
 
-				if (Global.staticCurrentEmployee.LoaiNhanVien == true)
-                {
-					finishButton.Visibility = Visibility.Collapsed;
-				}
+				finishButton.Visibility = Visibility.Collapsed;
+				
 			}
 
 		}
