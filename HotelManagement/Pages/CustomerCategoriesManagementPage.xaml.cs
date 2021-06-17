@@ -84,13 +84,13 @@ namespace HotelManagement.Pages
 
 				if (selectedCustomerCategory.TenLoaiKhach.Length <= 0)
 				{
-					//notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống tên loại phòng", "OK", () => { });
+					notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống tên loại phòng", "OK", () => { });
 					return;
 				}
 
 				if (customerAddrTextBox.Text.Length <= 0)
 				{
-					//notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống đơn giá", "OK", () => { });
+					notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống đơn giá", "OK", () => { });
 					return;
 				}
 				selectedCustomerCategory.HeSo = Convert.ToDouble(customerAddrTextBox.Text);
@@ -116,13 +116,13 @@ namespace HotelManagement.Pages
 
 				if (newCustomerCategory.TenLoaiKhach.Length <= 0)
 				{
-					//notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống tên loại phòng", "OK", () => { });
+					notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống tên loại phòng", "OK", () => { });
 					return;
 				}
 
 				if (customercatTextBox.Text.Length <= 0)
 				{
-					//notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống đơn giá", "OK", () => { });
+					notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống đơn giá", "OK", () => { });
 					return;
 				}
 				newCustomerCategory.HeSo = Convert.ToDouble(customerAddrTextBox.Text);

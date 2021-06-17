@@ -205,15 +205,12 @@ namespace HotelManagement.Pages
 			newInvoice.NgayTraPhong = DateTime.Now;
 			newInvoice.TongTien = resultPrice;
 
-
 			_databaseUtilities.addNewInvoice(newInvoice);
-
-			//notiMessageSnackbar.MessageQueue.Enqueue($"Thanh toán thành công", "OK", () => { BackPageEvent?.Invoke(backPage) });
 
 			_databaseUtilities.updateEmptyRoom(_idRoom);
 			_databaseUtilities.finishRentalBill(_idRentBill);
 
-			BackPageEvent?.Invoke(backPage);
+			notiMessageSnackbar.MessageQueue.Enqueue($"Thanh toán thành công", "OK", () => { BackPageEvent?.Invoke(backPage); });
 		}
 
         private void customerNameComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

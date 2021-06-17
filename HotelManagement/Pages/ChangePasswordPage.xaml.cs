@@ -38,21 +38,21 @@ namespace HotelManagement.Pages
 			if (oldPassword != Global.staticCurrentEmployee.Password)
             {
 
-				//notiMessageSnackbar.MessageQueue.Enqueue($"Mật khẩu không chính xác", "OK", () => { });
+				notiMessageSnackbar.MessageQueue.Enqueue($"Mật khẩu không chính xác", "OK", () => { });
 
 				return;
             }
 
 			if (newPassword.Length == 0)
             {
-				//notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống mật khẩu mớp", "OK", () => { });
+				notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống mật khẩu mớp", "OK", () => { });
 
 				return;
 			}
 
 			if (newPassword != retypePassword)
 			{
-				//notiMessageSnackbar.MessageQueue.Enqueue($"Mật khẩu mới và lặp lại không chính xác", "OK", () => { });
+				notiMessageSnackbar.MessageQueue.Enqueue($"Mật khẩu mới và lặp lại mật khẩu không chính xác", "OK", () => { });
 
 				return;
 			}
