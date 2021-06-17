@@ -115,5 +115,40 @@ namespace HotelManagement
             }
            
         }
+
+		private void showPasswordTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+		{
+            if (passwordTextBox.Password.Length > 0 || showPasswordTextBox.Text.Length > 0)
+			{
+                btnShowPassword.Visibility = Visibility.Visible;
+			} else
+			{
+                btnShowPassword.Visibility = Visibility.Collapsed;
+            }
+		}
+
+		private void showPasswordTextBox_GotFocus(object sender, RoutedEventArgs e)
+		{
+            if (passwordTextBox.Password.Length > 0 || showPasswordTextBox.Text.Length > 0)
+            {
+                btnShowPassword.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                btnShowPassword.Visibility = Visibility.Collapsed;
+            }
+        }
+
+		private void showPasswordTextBox_LostFocus(object sender, RoutedEventArgs e)
+		{
+            if (passwordTextBox.Password.Length > 0 || showPasswordTextBox.Text.Length > 0)
+            {
+                btnShowPassword.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                btnShowPassword.Visibility = Visibility.Collapsed;
+            }
+        }
 	}
 }
