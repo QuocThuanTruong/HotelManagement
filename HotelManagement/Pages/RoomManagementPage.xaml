@@ -15,8 +15,7 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="50*"/>
-            <RowDefinition Height="628*"/>
-            <RowDefinition Height="40*"/>
+            <RowDefinition Height="668*"/>
         </Grid.RowDefinitions>
 
 
@@ -197,7 +196,7 @@
                 <ListView Name="roomList"
                   Grid.Row="1"
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                  Margin="0, 8, 0, 0"
+                  Margin="0, 8, 0, 50"
                   ItemContainerStyle="{StaticResource SiteHoverListBox}">
 
                     <ListView.ItemTemplate>
@@ -304,6 +303,18 @@
                 
             </Grid>
         </StackPanel>
+
+        <!-- Post mesage to notification to user here -->
+        <materialDesign:Snackbar Name="notiMessageSnackbar"
+                                 HorizontalAlignment="Center"
+                                 MessageQueue="{materialDesign:MessageQueue}"
+                                 Margin="24, 0, 0, 15"
+                                 MaxWidth="1000"
+                                 IsActive="True"
+                                 Grid.Column="1"
+                                 Grid.Row="2"
+                                 Grid.RowSpan="2">
+        </materialDesign:Snackbar>
 
     </Grid>
 </Page>
