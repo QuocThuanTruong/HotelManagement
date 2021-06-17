@@ -158,21 +158,21 @@ namespace HotelManagement.Pages
 			customer.HoTen = customerNameTextBox.Text;
 			if (customer.HoTen.Length <= 0)
 			{
-				//notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống tên kháhc hàng", "OK", () => { });
+				notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống tên khách hàng", "OK", () => { });
 				return;
 			}
 
 			customer.CMND = customerIDTextBox.Text;
 			if (customer.CMND.Length <= 0)
 			{
-				//notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống CMND của khách hàng", "OK", () => { });
+				notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống CMND của khách hàng", "OK", () => { });
 				return;
 			}
 
 			customer.DiaChi = customerAddrTextBox.Text;
 			if (customer.DiaChi.Length <= 0)
 			{
-				//notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống địa chỉ của khách hàng", "OK", () => { });
+				notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống địa chỉ của khách hàng", "OK", () => { });
 				return;
 			}
 
@@ -221,14 +221,14 @@ namespace HotelManagement.Pages
             {
 				if (customers.Count == 0)
 				{
-					//notiMessageSnackbar.MessageQueue.Enqueue($"Không có khách hàng", "OK", () => { });
+					notiMessageSnackbar.MessageQueue.Enqueue($"Không có khách hàng", "OK", () => { });
 
 					return;
 				}
 
 				if (!bookingDatePicker.SelectedDate.HasValue)
 				{
-					//notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống ngày bắt đầu thuê", "OK", () => { });
+					notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống ngày bắt đầu thuê", "OK", () => { });
 					return;
 				}
 
@@ -252,11 +252,9 @@ namespace HotelManagement.Pages
 					_databaseUtilities.addNewRentalDetail(newRentalDetail);
 				}
 
-				//notiMessageSnackbar.MessageQueue.Enqueue($"Thêm thành công phiếu thuê", "OK", () => { BackPageEvent?.Invoke(backPage) });
-
 				_databaseUtilities.updateRentedRoom(currentRoom.SoPhong);
 
-				BackPageEvent?.Invoke(backPage);
+				notiMessageSnackbar.MessageQueue.Enqueue($"Thêm thành công phiếu thuê", "OK", () => { BackPageEvent?.Invoke(backPage); });
 			}
 			else
             {
@@ -282,14 +280,11 @@ namespace HotelManagement.Pages
 					_databaseUtilities.deleteCustomerInRentBillDetail(rentalDetail);
 				}
 
-				//notiMessageSnackbar.MessageQueue.Enqueue($"Thêm thành công phiếu thuê", "OK", () => { BackPageEvent?.Invoke(backPage) });
-
 				if (currentRentBill.SoPhong_For_Binding != currentRoom.SoPhong)
-                {
+				{
 					_databaseUtilities.updateRentedRoom(currentRoom.SoPhong);
 					_databaseUtilities.updateEmptyRoom(currentRentBill.SoPhong_For_Binding);
 				}
-
 
 				BackPageEvent?.Invoke(backPage);
 			}

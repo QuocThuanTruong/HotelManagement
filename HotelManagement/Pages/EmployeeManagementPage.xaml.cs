@@ -84,21 +84,21 @@ namespace HotelManagement.Pages
 				selectedEmployee.HoTen = nameTextBox.Text;
 				if (selectedEmployee.HoTen.Length <= 0)
 				{
-					//notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống tên nhân viên", "OK", () => { });
+					notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống tên nhân viên", "OK", () => { });
 					return;
 				}
 
 				selectedEmployee.CMND = CMNDTextBox.Text;
 				if (selectedEmployee.CMND.Length <= 0)
 				{
-					//notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống tên nhân viên", "OK", () => { });
+					notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống CMND nhân viên", "OK", () => { });
 					return;
 				}
 
 				selectedEmployee.Username = usernameTextBox.Text;
 				if (selectedEmployee.Username.Length <= 0)
 				{
-					//notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống tên nhân viên", "OK", () => { });
+					notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống tên đăng nhập của nhân viên", "OK", () => { });
 					return;
 				}
 
@@ -133,28 +133,28 @@ namespace HotelManagement.Pages
 				newEmployee.HoTen = nameTextBox.Text;
 				if (newEmployee.HoTen.Length <= 0)
 				{
-					//notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống tên nhân viên", "OK", () => { });
+					notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống tên nhân viên", "OK", () => { });
 					return;
 				}
 
 				newEmployee.CMND = CMNDTextBox.Text;
 				if (newEmployee.CMND.Length <= 0)
 				{
-					//notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống tên nhân viên", "OK", () => { });
+					notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống CMND nhân viên", "OK", () => { });
 					return;
 				}
 
 				newEmployee.Username = usernameTextBox.Text;
 				if (newEmployee.Username.Length <= 0)
 				{
-					//notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống tên nhân viên", "OK", () => { });
+					notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống tên đăng nhập của nhân viên", "OK", () => { });
 					return;
 				}
 
 				newEmployee.Password = passwordTextBox.Text;
 				if (newEmployee.Username.Length <= 0)
 				{
-					//notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống tên nhân viên", "OK", () => { });
+					notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống mật khẩu của nhân viên", "OK", () => { });
 					return;
 				}
 

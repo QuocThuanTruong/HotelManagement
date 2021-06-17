@@ -83,20 +83,20 @@ namespace HotelManagement.Pages
 
 				if (selectedRoomCategory.TenLoaiPhong.Length <= 0)
 				{
-					//notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống tên loại phòng", "OK", () => { });
+					notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống tên loại phòng", "OK", () => { });
 					return;
 				}
 
 				if (memberReceiptMoneyTextBox.Text.Length <= 0)
 				{
-					//notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống đơn giá", "OK", () => { });
+					notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống đơn giá", "OK", () => { });
 					return;
 				}
 				selectedRoomCategory.DonGia = Convert.ToInt32(memberReceiptMoneyTextBox.Text);
 
 				if (maxNumOfCustomerTextBox.Text.Length <= 0)
 				{
-					//notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống SL khách tối đa", "OK", () => { });
+					notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống SL khách tối đa", "OK", () => { });
 					return;
 				}
 				selectedRoomCategory.SLKhachToiDa = Convert.ToInt32(maxNumOfCustomerTextBox.Text);
