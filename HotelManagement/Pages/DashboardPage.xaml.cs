@@ -37,6 +37,13 @@ namespace HotelManagement.Pages
 			loadDashboard();
 		}
 
+		private void Page_Loaded(object sender, RoutedEventArgs e)
+		{
+			int currentMonth = DateTime.Now.Month;
+
+			monthCombobox.SelectedIndex = currentMonth - 1;
+		}
+
 		private void yearCombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 
@@ -121,13 +128,13 @@ namespace HotelManagement.Pages
 				revenueByTypeCollection.Add(new PieSeries
 				{
 					Title = category.TenLoaiPhong,
-					Values = new ChartValues<double> { decimal.ToDouble((decimal)_databaseUtilities.getRevenueByRoomCategory(category.ID_LoaiPhong, month)) }
+					Values = new ChartValues<double> { decimal.ToDouble(_databaseUtilities.getRevenueByRoomCategory(category.ID_LoaiPhong, month) ?? 0) }
 				});
 			}
 
 			revenueByCategoryChart.Series = revenueByTypeCollection;
 		}
 
-		
-	}
+       
+    }
 }

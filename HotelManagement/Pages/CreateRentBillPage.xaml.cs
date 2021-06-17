@@ -83,6 +83,7 @@ namespace HotelManagement.Pages
 
 			if (!_isEdited)
             {
+				bookingDatePicker.SelectedDate = DateTime.Now;
 				customers = new List<KhachHang>();
 
 				var currentIndex = 0;

@@ -537,7 +537,7 @@
                                 HorizontalAlignment="Center"
                                Style="{StaticResource GilroyMedium15}"
                                Foreground="White"
-                               Text="THUÊ NGAY"/>
+                               Text="{Binding Status_For_Binding}"/>
                         </Button>
 
 

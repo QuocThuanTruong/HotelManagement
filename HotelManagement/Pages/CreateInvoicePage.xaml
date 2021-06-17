@@ -125,7 +125,8 @@
                                               Width="176"
                                         materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
                                         Margin="12, 2, 0, 2"
-                                        OverridesDefaultStyle="True">
+                                        OverridesDefaultStyle="True"
+                                      SelectionChanged="customerNameComboBox_SelectionChanged">
 
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>

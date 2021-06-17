@@ -28,6 +28,7 @@ namespace HotelManagement.Pages
 		private int _idInvoice;
 		private Button backPage;
 		private int _idRentBill;
+		private int _customerSelectedIndex = 0;
 
 		public HoaDon invoice;
 		public Phong selectedRoom;
@@ -120,6 +121,7 @@ namespace HotelManagement.Pages
 			} 
 			else
             {
+				
 				invoice = _databaseUtilities.getInvoiceById(_idInvoice);
 
 				reciptionistTextBlock.Text = invoice.HoTenNV_For_Binding;
@@ -129,17 +131,15 @@ namespace HotelManagement.Pages
 
 				customerNameComboBox.ItemsSource = currentCustomers;
 
-				int selectedIndex = 0;
-
-				for (; selectedIndex < currentCustomers.Count; ++selectedIndex)
+				for (; _customerSelectedIndex < currentCustomers.Count; ++_customerSelectedIndex)
                 {
-					if (currentCustomers[selectedIndex].ID_KhachHang == invoice.ID_KhachHang)
+					if (currentCustomers[_customerSelectedIndex].ID_KhachHang == invoice.ID_KhachHang)
                     {
 						break;
                     }
                 }
 
-				customerNameComboBox.SelectedIndex = selectedIndex;
+				customerNameComboBox.SelectedIndex = _customerSelectedIndex;
 
 				currentRentBill = _databaseUtilities.getRentBillById(invoice.ID_PhieuThue);
 
@@ -175,6 +175,11 @@ namespace HotelManagement.Pages
 
 				surchargeTextBlock.Text = _applicationUtilities.getMoneyForBinding(surcharge);
 				resultPriceTextBlock.Text = _applicationUtilities.getMoneyForBinding(resultPrice);
+
+				if (Global.staticCurrentEmployee.LoaiNhanVien == true)
+                {
+					finishButton.Visibility = Visibility.Collapsed;
+				}
 			}
 
 		}
@@ -205,5 +210,16 @@ namespace HotelManagement.Pages
 
 			BackPageEvent?.Invoke(backPage);
 		}
+
+        private void customerNameComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+			if (this.IsLoaded)
+            {
+				if (_isView)
+                {
+					customerNameComboBox.SelectedIndex = _customerSelectedIndex;
+                }
+            }
+        }
     }
 }

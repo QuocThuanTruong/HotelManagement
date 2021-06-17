@@ -8,7 +8,8 @@
       Background="White"
        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       d:DesignHeight="718" d:DesignWidth="1116"
-      Title="CreateRentBillPage">
+      Title="CreateRentBillPage"
+      Loaded="Page_Loaded">
 
     <Grid>
 
@@ -126,7 +127,8 @@
                         Style="{StaticResource StepButton}"
                         materialDesign:ButtonAssist.CornerRadius="18"
                         Height="35"  
-                        materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                        materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                        Click="updateButton_Click">
                     <Grid Width="150">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*"/>

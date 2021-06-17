@@ -87,7 +87,7 @@ namespace HotelManagement.Pages
 			for (int i = 0; i < roomCategories.Count; ++i)
 			{
 				var category = roomCategories[i];
-				revenues.Add(_databaseUtilities.getRevenueByRoomCategory(category.ID_LoaiPhong, _month));
+				revenues.Add(_databaseUtilities.getRevenueByRoomCategory(category.ID_LoaiPhong, _month) ?? 0);
 
 				total += revenues[i];
 
