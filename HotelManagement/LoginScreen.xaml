@@ -123,6 +123,9 @@
 
                     <Grid>
                         <PasswordBox Name="passwordTextBox"
+                                  PreviewTextInput="showPasswordTextBox_PreviewTextInput"
+                                      GotFocus="showPasswordTextBox_GotFocus"
+                                 LostFocus="showPasswordTextBox_LostFocus"
                                     Padding="5, 5, 50, 5"
                                     Width="250"
                                     Margin="0, 8, 2 ,0"
@@ -144,6 +147,9 @@
                                           />
 
                         <TextBox Name="showPasswordTextBox"
+                          PreviewTextInput="showPasswordTextBox_PreviewTextInput"
+                                 GotFocus="showPasswordTextBox_GotFocus"
+                                 LostFocus="showPasswordTextBox_LostFocus"
                                     Padding="5, 5, 5, 5"
                                     Width="250"
                                     Margin="0, 8, 2 ,0"
@@ -158,6 +164,7 @@
 
                         <Button x:Name="btnShowPassword"
                                 Click="btnShowPassword_Click"
+                                Visibility="Collapsed"
                                 Width="32"
                                 Height="32"
                                  Margin="0, 8, 2 ,0"
@@ -165,6 +172,7 @@
                                 Style="{StaticResource WindowOptionsButton}"
                                 >
                             <Image x:Name="showPasswordImage"
+                                   
                                    Width="18"
                                    Height="18"
                                    Source="{StaticResource IconPurpleEye}"/>

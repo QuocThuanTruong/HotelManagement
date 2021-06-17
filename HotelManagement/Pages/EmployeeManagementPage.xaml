@@ -399,6 +399,18 @@
             </materialDesign:ColorZone>
 
         </Grid>
+        
+        <!-- Post mesage to notification to user here -->
+        <materialDesign:Snackbar Name="notiMessageSnackbar"
+                                 HorizontalAlignment="Center"
+                                 MessageQueue="{materialDesign:MessageQueue}"
+                                 Margin="24, 0, 0, 15"
+                                 MaxWidth="1000"
+                                 IsActive="False"
+                                 Grid.Column="1"
+                                 Grid.Row="2"
+                                 Grid.RowSpan="2">
+        </materialDesign:Snackbar>
 
     </Grid>
 </Page>
