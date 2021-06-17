@@ -51,5 +51,7 @@
     <ImageSource x:Key="IconWhiteEmployee">pack://application:,,,/Assets/Images/ic-white-employee.png</ImageSource>
     <ImageSource x:Key="IconWhiteSetting">pack://application:,,,/Assets/Images/ic-white-setting.png</ImageSource>
     <ImageSource x:Key="HotelBg">pack://application:,,,/Assets/Images/hotel_bg.png</ImageSource>
+    <ImageSource x:Key="IconPurpleEyeOff">pack://application:,,,/Assets/Images/icon-purple-eye-off.png</ImageSource>
+    <ImageSource x:Key="IconPurpleEye">pack://application:,,,/Assets/Images/icon-purple-eye.png</ImageSource>
 
 </ResourceDictionary>
