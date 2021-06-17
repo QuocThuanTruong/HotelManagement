@@ -106,10 +106,12 @@ namespace HotelManagement.Utilities
                 if (result[i].TinhTrang == true)
                 {
                     uri = (string)_absolutePathConverter.Convert("Assets/Images/badage-rented.png", null, null, null);
+                    result[i].Status_For_Binding = "THANH TOÁN";
                 }
                 else
                 {
                     uri = (string)_absolutePathConverter.Convert("Assets/Images/badage-empty.png", null, null, null);
+                    result[i].Status_For_Binding = "THUÊ NGAY";
                 }
 
                 BitmapImage bitmap = new BitmapImage();
@@ -180,23 +182,14 @@ namespace HotelManagement.Utilities
             return result;
         }
 
-        public int getRevenueByRoomCategory(int loaiPhong, int month)
+        public Nullable<int> getRevenueByRoomCategory(int loaiPhong, int month)
         {
-            int result = 0;
-
-            try
-			{
-                result = _databaseHotelManagement
+      
+            var result = _databaseHotelManagement
               .Database
-              .SqlQuery<int>($"select [dbo].[func_GetRevenueByRoomCat]({loaiPhong}, {month})")
-              .Single();
-            }
-			catch
-			{
-               
-			}
-			
-
+              .SqlQuery<Nullable<int>>($"select [dbo].[func_GetRevenueByRoomCat]({loaiPhong}, {month})")
+              .FirstOrDefault();
+   
 			return result;
 		}
 
@@ -665,6 +658,35 @@ namespace HotelManagement.Utilities
             _databaseHotelManagement
                  .Database
                  .ExecuteSqlCommand($"UPDATE NhanVien Set Password = N'{newPassword}' WHERE ID_NhanVien = {Global.staticCurrentEmployee.ID_NhanVien}");
+        }
+
+        public int getMaxIdConfig()
+        {
+            var result = _databaseHotelManagement
+              .Database
+              .SqlQuery<int>($"select max(ID) from CauHinh")
+              .Single();
+
+            return result;
+        }
+
+        public CauHinh getConfig()
+        {
+            int ID = getMaxIdConfig();
+
+            var result = _databaseHotelManagement
+                .Database
+                .SqlQuery<CauHinh>($"SELECT * FROM CauHinh WHERE ID = {ID}")
+                .Single();
+
+            return result;
+        }
+
+        public void updateConfig(CauHinh config)
+        {
+            _databaseHotelManagement
+                  .Database
+                  .ExecuteSqlCommand($"UPDATE CauHinh Set GiaTri = N'{config.GiaTri}', DieuKien = N'{config.DieuKien}' WHERE ID = {config.ID}");
         }
     }
 }

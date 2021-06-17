@@ -67,7 +67,7 @@ namespace HotelManagement
 
 			initVisibleButton();
 
-			greetingTextBox.Text = "Hello mother fuker!";
+			greetingTextBox.Text = $"Hello {Global.staticCurrentEmployee.HoTen}!";
 		}
 
 		private void initVisibleButton()

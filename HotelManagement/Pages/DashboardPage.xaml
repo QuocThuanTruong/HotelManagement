@@ -8,7 +8,8 @@
        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
       mc:Ignorable="d" 
       d:DesignHeight="718" d:DesignWidth="1116"
-      Title="DashboardPage">
+      Title="DashboardPage"
+      Loaded="Page_Loaded">
 
     <Grid>
 
