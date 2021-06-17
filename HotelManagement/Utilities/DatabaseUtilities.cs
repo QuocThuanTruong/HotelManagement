@@ -636,11 +636,12 @@ namespace HotelManagement.Utilities
 
         public void addNewEmployee(NhanVien employee)
         {
-            int role = (employee.LoaiNhanVien ?? false) ? 0 : 1;
+            int role = (employee.LoaiNhanVien ?? false) == false ? 0 : 1;
 
+            string query = $"INSERT [dbo].[NhanVien] ([ID_NhanVien], [HoTen], [CMND], [LoaiNhanVien], [Username], [Password], [Active]) VALUES ({employee.ID_NhanVien}, N'{employee.HoTen}', N'{employee.CMND}', {role}, N'{employee.Username}', N'{employee.Password}', 1)";
             _databaseHotelManagement
                   .Database
-                  .ExecuteSqlCommand($"INSERT [dbo].[NhanVien] ([ID_NhanVien], [HoTen], [CMND], [LoaiNhanVien], [Username], [Password], [Active]) VALUES ({employee.ID_NhanVien}, N'{employee.HoTen}', N'{employee.CMND}', {role}, N'{employee.Username}', N'{employee.Password}', 1)");
+                  .ExecuteSqlCommand(query);
         }
 
         public int getMaxIdEmployee()
