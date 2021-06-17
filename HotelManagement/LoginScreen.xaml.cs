@@ -1,8 +1,10 @@
-﻿using HotelManagement.Utilities;
+﻿using HotelManagement.CustomViews;
+using HotelManagement.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,8 +26,10 @@ namespace HotelManagement
 		private DatabaseUtilities _databaseUtilities = DatabaseUtilities.GetDatabaseInstance();
 		private ApplicationUtilities _applicationUtilities = ApplicationUtilities.GetAppInstance();
         private bool _showPassword = false;
+        LoadingDialog loadingDialog;
+        AlertDialog alertDialog;
 
-		public LoginScreen()
+        public LoginScreen()
 		{
 			InitializeComponent();
             userNameTextBox.Focus();
@@ -43,6 +47,9 @@ namespace HotelManagement
 
 		private void loginButton_Click(object sender, RoutedEventArgs e)
 		{
+            loadingDialog = new LoadingDialog();
+            loadingDialog.Show();
+			this.Closed += LoginScreen_Closed;
             //get username and password
             //compare
             //get role
@@ -52,14 +59,14 @@ namespace HotelManagement
             {
                 //notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống tên đăng nhập", "OK", () => { });
 
-                return;
+               
             }
 
             if (passwordTextBox.Password.Length == 0)
             {
                 //notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống mật khẩu", "OK", () => { });
                 
-                return;
+              
             }
 
             Global.staticCurrentEmployee = _databaseUtilities.checkLogin(userNameTextBox.Text, passwordTextBox.Password);
@@ -78,19 +85,32 @@ namespace HotelManagement
                 {
                     role = 0;
                 }
-
+               
                 MainScreen mainScreen = new MainScreen(role);
                 mainScreen.Show();
                 loginScreen.Close();
             }
+            else
+			{
+                loadingDialog.Close();
+                alertDialog = new AlertDialog("Tài khoản hoặc mật khẩu không đúng", false);
+                alertDialog.Show();
+			}
+        }
 
-            //notiMessageSnackbar.MessageQueue.Enqueue($"Sai tên đăng nhập hoặc mật khẩu", "OK", () => { });
+		private void LoginScreen_Closed(object sender, EventArgs e)
+		{
+            if (loadingDialog != null)
+            {
 
-           /* LoginScreen loginScreen = this;
-            int role = 1;
-            MainScreen mainScreen = new MainScreen(role);
-            mainScreen.Show();
-            loginScreen.Close();*/
+                loadingDialog.Close();
+            }
+
+            if (alertDialog != null)
+			{
+                alertDialog.Close();
+            }
+
         }
 
 		private void btnShowPassword_Click(object sender, RoutedEventArgs e)

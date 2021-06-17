@@ -53,5 +53,9 @@
     <ImageSource x:Key="HotelBg">pack://application:,,,/Assets/Images/hotel_bg.png</ImageSource>
     <ImageSource x:Key="IconPurpleEyeOff">pack://application:,,,/Assets/Images/icon-purple-eye-off.png</ImageSource>
     <ImageSource x:Key="IconPurpleEye">pack://application:,,,/Assets/Images/icon-purple-eye.png</ImageSource>
+    <ImageSource x:Key="LoadingGif">pack://application:,,,/Assets/Images/loading.gif</ImageSource>
+    <ImageSource x:Key="AlertGif">pack://application:,,,/Assets/Images/alert.gif</ImageSource>
+    <ImageSource x:Key="SuccessGif">pack://application:,,,/Assets/Images/success.gif</ImageSource>
+    <ImageSource x:Key="404Gif">pack://application:,,,/Assets/Images/404.gif</ImageSource>
 
 </ResourceDictionary>

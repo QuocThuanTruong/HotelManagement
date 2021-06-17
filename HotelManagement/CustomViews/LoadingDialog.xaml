@@ -1,0 +1,51 @@
+﻿<Window x:Class="HotelManagement.CustomViews.LoadingDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HotelManagement.CustomViews"
+        mc:Ignorable="d"
+         Background="Transparent"
+        AllowsTransparency="True"
+         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="LoadingDialog" Height="170"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
+        Width="250" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
+    <Grid x:Name="mainContainer"
+          Background="Transparent">
+
+
+        <Border x:Name="mainContainerBg"
+            Grid.ColumnSpan="3"
+            Grid.RowSpan="2"             
+            Width="240"
+            Height="160"
+            CornerRadius="20"
+            Background="White">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="5" 
+                                  ShadowDepth="1" 
+                                  Opacity="0.2" 
+                                  Color="#000000" 
+                                  Direction="3"/>
+            </Border.Effect>
+        </Border>
+
+        <Image gif:ImageBehavior.RepeatBehavior="100x"
+               Width="100"
+              Height="70"
+               Margin="0, 0, 0, 40"
+               gif:ImageBehavior.AnimationSpeedRatio="3"
+               gif:ImageBehavior.AnimatedSource="{StaticResource LoadingGif}" />
+
+        <TextBlock Text="Đang xử lí..."
+                  
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Bottom"
+                   Margin="0, 0, 0, 25"
+                               FontSize="20"
+                               Foreground="{DynamicResource MyPurpleGradient}"
+                                   Style="{StaticResource GilroySemiBold15}"/>
+
+    </Grid>
+</Window>

@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:HotelManagement.Pages"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+       xmlns:gif="http://wpfanimatedgif.codeplex.com"
        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
       mc:Ignorable="d" 
       d:DesignHeight="718" d:DesignWidth="1116"
@@ -317,6 +318,27 @@
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
 
+            <StackPanel Grid.Row="1"
+                        Name="notFoundContainer"
+                        Visibility="Collapsed"
+                        Grid.ColumnSpan="3"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center">
+
+                <Image gif:ImageBehavior.RepeatBehavior="100x"
+               x:Name="gifFailed"
+               Grid.RowSpan="2"
+               Width="400"
+              Height="250"
+               Margin="0, 0, 0, 20"
+               gif:ImageBehavior.AnimatedSource="{StaticResource 404Gif}" />
+                
+                <TextBlock Text="Không có dữ liệu"
+                        TextAlignment="Center"
+                           FontSize="24"
+                       Style="{StaticResource GilroySemiBold18}"/>
+            </StackPanel>
+
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1.2*"/>
@@ -325,6 +347,9 @@
                 
                 <TextBlock Text="Mật độ sử dụng phòng"
                        Style="{StaticResource GilroySemiBold20}"/>
+
+               
+                
 
                 <lvc:CartesianChart Name="roomDensityChart"
                                         Grid.Row="1">

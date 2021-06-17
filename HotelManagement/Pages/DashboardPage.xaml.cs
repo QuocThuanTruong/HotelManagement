@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using LiveCharts;
 using LiveCharts.Wpf;
 using System.Diagnostics;
+using HotelManagement.CustomViews;
 
 namespace HotelManagement.Pages
 {
@@ -30,10 +31,12 @@ namespace HotelManagement.Pages
 		private DatabaseUtilities _databaseUtilities = DatabaseUtilities.GetDatabaseInstance();
 		private static readonly string[] StaticListMonth = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
 		
+
 		public DashboardPage()
 		{
+			
 			InitializeComponent();
-
+			
 			
 		}
 
@@ -45,6 +48,7 @@ namespace HotelManagement.Pages
 			monthCombobox.SelectedIndex = currentMonth - 1;
 
 			loadDashboard();
+			
 		}
 
 		private void yearCombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -54,7 +58,9 @@ namespace HotelManagement.Pages
 
 		private void monthCombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
+			
 			loadDashboard();
+			
 		}
 
 		private void showReportButton_Click(object sender, RoutedEventArgs e)
@@ -66,28 +72,26 @@ namespace HotelManagement.Pages
 
 		private void loadDashboard()
         {
+			LoadingDialog loadingDialog = new LoadingDialog();
+			loadingDialog.Show();
+
 			loadStatistical();
 
-			if (!loadColumnChart())
+			if (!loadColumnChart() || !loadCircleChart())
 			{
+				notFoundContainer.Visibility = Visibility.Visible;
 				roomDensityChart.Visibility = Visibility.Collapsed;
-				//Hien textbox thong bao khong co du lieu
+				revenueByCategoryChart.Visibility = Visibility.Collapsed;
+				showReportButton.Visibility = Visibility.Collapsed;
 			} else
-            {
-				//An textbox thong bao khong co du lieu
+			{
+				notFoundContainer.Visibility = Visibility.Collapsed;
+				revenueByCategoryChart.Visibility = Visibility.Visible;
 				roomDensityChart.Visibility = Visibility.Visible;
+				showReportButton.Visibility = Visibility.Visible;
 			}
 
-			if (!loadCircleChart())
-			{
-				revenueByCategoryChart.Visibility = Visibility.Collapsed;
-				//Hien textbox thong bao khong co du lieu
-			}
-			else
-			{
-				//An textbox thong bao khong co du lieu
-				revenueByCategoryChart.Visibility = Visibility.Visible;
-			}
+			loadingDialog.Close();
 		}
 
 		private void loadStatistical()

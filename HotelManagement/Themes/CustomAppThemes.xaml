@@ -34,6 +34,16 @@
         <GradientStop Color="#586cff" Offset="1.0"/>
     </LinearGradientBrush>
 
+    <LinearGradientBrush x:Key="MyRedGradint">
+        <GradientStop Color="#f7631e" Offset="1.0"/>
+        <GradientStop Color="#d92027" Offset="0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="MyGreenGradient">
+        <GradientStop Color="#39b54a" Offset="1.0"/>
+        <GradientStop Color="#006837" Offset="0"/>
+    </LinearGradientBrush>
+
     <!-- Define Text Appearance-->
 
     <Style TargetType="TextBlock" x:Key="LinkTextBlock" BasedOn="{StaticResource DetailTextBlock}">
