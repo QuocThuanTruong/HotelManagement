@@ -6,19 +6,15 @@
       xmlns:local="clr-namespace:HotelManagement.Pages"
       mc:Ignorable="d" 
       Background="White"
-       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       d:DesignHeight="718" d:DesignWidth="1116"
       Title="RoomManagementPage"
       Loaded="Page_Loaded">
-
     <Grid>
-
         <Grid.RowDefinitions>
             <RowDefinition Height="50*"/>
             <RowDefinition Height="668*"/>
         </Grid.RowDefinitions>
-
-
 
         <StackPanel HorizontalAlignment="Center" 
                         Grid.RowSpan="2" 
@@ -310,7 +306,7 @@
                                  MessageQueue="{materialDesign:MessageQueue}"
                                  Margin="24, 0, 0, 15"
                                  MaxWidth="1000"
-                                 IsActive="True"
+                                 IsActive="False"
                                  Grid.Column="1"
                                  Grid.Row="2"
                                  Grid.RowSpan="2">
