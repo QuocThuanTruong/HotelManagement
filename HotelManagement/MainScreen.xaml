@@ -12,7 +12,7 @@
         Name="mainScreen"
         AllowsTransparency="True"
         Loaded="Window_Loaded"
-        Title="MainScreen" Height="768" Width="1366" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
+        Title="MainScreen" Height="778" Width="1376" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
     <Grid x:Name="mainContainer"
           Background="Transparent">
 
@@ -29,10 +29,18 @@
         <Border x:Name="mainContainerBg"
             Grid.ColumnSpan="3"
             Grid.RowSpan="2"
-            Width="{Binding ElementName=mainContainer, Path=ActualWidth}"
-            Height="{Binding ElementName=mainContainer, Path=ActualHeight}"
+            Width="1366"
+            Height="768"
             CornerRadius="30"
-            Background="White"/>
+            Background="White">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="5" 
+                                  ShadowDepth="1" 
+                                  Opacity="0.2" 
+                                  Color="#000000" 
+                                  Direction="3"/>
+            </Border.Effect>
+        </Border>
 
         <!-- Tool bar -->
         <Rectangle Grid.Column="1"
@@ -45,7 +53,7 @@
                     Orientation="Horizontal"
                     HorizontalAlignment="Right"
                     FlowDirection="RightToLeft"
-                    Margin="0, 0, 6, 0"
+                    Margin="0, 10, 12, 0"
                     Width="80"
                     Grid.Column="1"
                     Grid.Row="0">
@@ -91,6 +99,7 @@
             </Grid.RowDefinitions>
 
             <Border Grid.RowSpan="2"
+                    Height="768"
                     Background="{StaticResource MyPurpleGradient}"
                     CornerRadius="30, 30, 30, 30"/>
 
