@@ -310,7 +310,7 @@
                                  MessageQueue="{materialDesign:MessageQueue}"
                                  Margin="24, 0, 0, 15"
                                  MaxWidth="1000"
-                                 IsActive="True"
+                                 IsActive="False"
                                  Grid.Column="1"
                                  Grid.Row="2"
                                  Grid.RowSpan="2">
