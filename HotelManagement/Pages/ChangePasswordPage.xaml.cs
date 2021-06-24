@@ -31,9 +31,9 @@ namespace HotelManagement.Pages
 
         private void updateButton_Click(object sender, RoutedEventArgs e)
         {
-			string oldPassword = oldPwdTextBox.Text;
-			string newPassword = newPwdTextBox.Text;
-			string retypePassword = retypePwdTextBox.Text;
+			string oldPassword = oldPwdTextBox.Password;
+			string newPassword = newPwdTextBox.Password;
+			string retypePassword = retypePwdTextBox.Password;
 
 			if (oldPassword != Global.staticCurrentEmployee.Password)
             {
@@ -60,5 +60,25 @@ namespace HotelManagement.Pages
 			_databaseUtilities.updatePassword(newPassword);
 
 		}
-    }
+
+		private void oldPwdTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+		{
+
+		}
+
+		private void oldPwdTextBox_GotFocus(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void oldPwdTextBox_LostFocus(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void btnShowOldPassword_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+	}
 }

@@ -72,9 +72,6 @@ namespace HotelManagement.Pages
 
 		private void loadDashboard()
         {
-			LoadingDialog loadingDialog = new LoadingDialog();
-			loadingDialog.Show();
-
 			loadStatistical();
 
 			if (!loadColumnChart() || !loadCircleChart())
@@ -90,8 +87,6 @@ namespace HotelManagement.Pages
 				roomDensityChart.Visibility = Visibility.Visible;
 				showReportButton.Visibility = Visibility.Visible;
 			}
-
-			loadingDialog.Close();
 		}
 
 		private void loadStatistical()
