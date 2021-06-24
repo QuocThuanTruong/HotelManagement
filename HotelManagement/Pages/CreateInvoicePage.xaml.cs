@@ -96,13 +96,7 @@ namespace HotelManagement.Pages
 
 				currentRentBill.Ratio_For_Binding = 1;
 
-				foreach (var customer in currentCustomers)
-				{
-					if (customer.TenLoaiKhach == "Nước ngoài")
-					{
-						currentRentBill.Ratio_For_Binding = 1.5;
-					}
-				}
+				currentRentBill.Ratio_For_Binding = _databaseUtilities.getRentBillFactor(_idRentBill);
 
 				currentRentBill.Price_Per_Day_For_Binding = selectedRoom.DonGia_For_Binding;
 				currentRentBill.TotalPrice = Convert.ToInt32((selectedRoom.DonGia ?? 0) * currentRentBill.Ratio_For_Binding) * currentRentBill.Total_Day_For_Binding;
@@ -153,13 +147,7 @@ namespace HotelManagement.Pages
 				currentRentBill.Total_Day_For_Binding = Convert.ToInt32(invoice.NumDayRent_For_Binding);
 				currentRentBill.Ratio_For_Binding = 1;
 
-				foreach (var customer in currentCustomers)
-				{
-					if (customer.TenLoaiKhach == "Nước ngoài")
-					{
-						currentRentBill.Ratio_For_Binding = 1.5;
-					}
-				}
+				currentRentBill.Ratio_For_Binding = _databaseUtilities.getRentBillFactor(_idRentBill);
 
 				currentRentBill.Price_Per_Day_For_Binding = invoice.DonGia_For_Binding;
 				currentRentBill.TotalPrice = Convert.ToInt32(invoice.DonGia * currentRentBill.Ratio_For_Binding) * currentRentBill.Total_Day_For_Binding;
