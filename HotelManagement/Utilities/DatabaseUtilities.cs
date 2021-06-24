@@ -500,6 +500,7 @@ namespace HotelManagement.Utilities
             DateTime end = result.NgayTraPhong ?? DateTime.Now;
 
             result.NumDayRent_For_Binding = Convert.ToInt32(end.Subtract(start).TotalDays);
+            result.NumDayRent_For_Binding = result.NumDayRent_For_Binding == 0 ? 1 : result.NumDayRent_For_Binding;
 
 
             Phong room = getRoomById(rentBill.SoPhong_For_Binding);
@@ -688,6 +689,16 @@ namespace HotelManagement.Utilities
             _databaseHotelManagement
                   .Database
                   .ExecuteSqlCommand($"UPDATE CauHinh Set GiaTri = N'{config.GiaTri}', DieuKien = N'>={config.DieuKien}' WHERE ID = {config.ID}");
+        }
+
+        public double getRentBillFactor(int IDRenBill)
+        {
+            var result = _databaseHotelManagement
+                .Database
+                .SqlQuery<double>($"Select dbo.func_GetRentBillFactor({IDRenBill})")
+                .Single();
+
+            return result;
         }
     }
 }
