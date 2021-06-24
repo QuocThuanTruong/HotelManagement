@@ -114,12 +114,14 @@ AS
 GO
 --Lay he so cua phieu thue
 CREATE FUNCTION func_GetRentBillFactor(@ID_PhieuThue int)
-RETURNS int
+RETURNS float
 AS
 BEGIN
-	DECLARE @num int;
+	DECLARE @num float;
 	SET @num = (select MAX(HeSo) from dbo.KhachHang KH, dbo.ChiTietPhieuThue CT, DBO.LoaiKhach LK WHERE 
 				CT.ID_PhieuThue = @ID_PhieuThue and KH.ID_KhachHang = CT.ID_KhachHang AND LK.ID_LoaiKhach = KH.ID_LoaiKhach)
 	RETURN @num
 END
 GO
+
+Select dbo.func_GetRentBillFactor(18)
