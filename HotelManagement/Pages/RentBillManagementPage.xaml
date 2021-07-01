@@ -199,6 +199,26 @@
                                                RenderOptions.BitmapScalingMode="HighQuality"
                                                Source="{DynamicResource IconWhiteTrash}"/>
                                 </Button>
+
+                                <!--TODO: Tuan implement this-->
+                                <Button Name="viewButton"
+                                        Visibility="Collapsed"
+                                        Tag="{Binding ID_HoaDon}"
+                                        Click="viewButton_Click"
+                                            Width="35"
+                                            Background="{DynamicResource MyBlue}"
+                                            Foreground="#1b3896"
+                                            materialDesign:RippleAssist.Feedback="LightBlue"
+                                            Style="{StaticResource StepButton}"
+                                            materialDesign:ButtonAssist.CornerRadius="6"
+                                            Height="35"  
+                                         
+                                            materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                                    <Image Width="16"
+                                               Height="16"
+                                               RenderOptions.BitmapScalingMode="HighQuality"
+                                               Source="{DynamicResource IconWhiteEye}"/>
+                                </Button>
                             </StackPanel>
 
                         </Grid>
