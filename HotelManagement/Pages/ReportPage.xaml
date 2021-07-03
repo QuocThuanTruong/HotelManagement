@@ -414,6 +414,21 @@
                         </Grid>
 
                     </Button>
+
+
+                    <Button Name="exportExcelButton"
+                             Margin="46, 0, 0, 0"
+                        Width="176"
+                        Style="{StaticResource StepButton}"
+                        materialDesign:ButtonAssist.CornerRadius="18"
+                        Height="35"  
+                        materialDesign:ShadowAssist.ShadowDepth="Depth0">
+
+                        <TextBlock Text="EXPORT EXCEL"
+                           Style="{StaticResource GilroyMedium15}"/>
+
+                    </Button>
+                    
                 </StackPanel>
             </materialDesign:ColorZone>
 

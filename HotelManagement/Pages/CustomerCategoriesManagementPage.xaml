@@ -296,6 +296,38 @@
 
         </Grid>
 
+        <materialDesign:ColorZone Mode="Custom"
+                                  VerticalAlignment="Bottom"
+                                  Padding="0, 0, 4, 0"
+                                  Margin="0, 0, 0, 20"
+                                  HorizontalAlignment="Center"
+                                  Grid.Column="1"
+                                  Grid.Row="3"
+                                  Grid.ColumnSpan="3">
+
+            <materialDesign:ColorZone.Effect>
+                <DropShadowEffect BlurRadius="10" 
+                                          ShadowDepth="1" 
+                                          Color="#563add" 
+                                          Opacity="0.3" 
+                                          RenderingBias="Performance" />
+            </materialDesign:ColorZone.Effect>
+
+
+
+            <Button Name="importExcelButton"
+                        Width="176"
+                        Style="{StaticResource StepButton}"
+                        materialDesign:ButtonAssist.CornerRadius="18"
+                        Height="35"  
+                        materialDesign:ShadowAssist.ShadowDepth="Depth0">
+
+                <TextBlock Text="IMPORT EXCEL"
+                           Style="{StaticResource GilroyMedium15}"/>
+
+            </Button>
+        </materialDesign:ColorZone>
+
         <!-- Post mesage to notification to user here -->
         <materialDesign:Snackbar Name="notiMessageSnackbar"
                                  HorizontalAlignment="Center"
