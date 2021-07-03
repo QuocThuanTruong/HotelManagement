@@ -196,7 +196,8 @@
                 <TextBlock Text="Thông tin khách hàng"
                                    Style="{StaticResource Bebas21}"/>
 
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal" 
+                            Name="AddCustomerInformation">
 
                     <materialDesign:Card Background="{StaticResource MyPurpleGradient}"
                                                  Margin="2, 7, 0 ,0"

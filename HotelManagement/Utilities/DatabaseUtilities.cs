@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Media.Imaging;
 using HotelManagement.Converters;
+using BCrypt.Net;
 
 namespace HotelManagement.Utilities
 {
@@ -36,17 +38,23 @@ namespace HotelManagement.Utilities
         {
             NhanVien result = null;
 
-            int isExist = _databaseHotelManagement
+            int count = _databaseHotelManagement
                 .Database
-                .SqlQuery<int>($"SELECT dbo.func_AuthenticateUser('{username}' , '{password}')")
-                .Single();
+                .SqlQuery<int>($"SELECT COUNT(*) from NhanVien where Username = N'{username}'")
+                .FirstOrDefault();
 
-            if (isExist == 1)
+            if (count > 0)
             {
+                
                 result = _databaseHotelManagement
-                .Database
-                .SqlQuery<NhanVien>($"SELECT * FROM NhanVien Where Username = '{username}' AND Password = '{password}'")
-                .Single();
+                   .Database
+                   .SqlQuery<NhanVien>($"SELECT * from NhanVien where Username = N'{username}'")
+                   .FirstOrDefault();
+
+                if (BCrypt.Net.BCrypt.Verify(password, result.Password) == false)
+                {
+                    result = null;
+                }
             }
 
             return result;
@@ -605,7 +613,7 @@ namespace HotelManagement.Utilities
 
             for (int i = 0; i < result.Count; ++i)
             {
-                for (int j = 0; j < result[i].Password.Length; ++j)
+                for (int j = 0; j < 6; ++j)
                 {
                     result[i].HidenPassword += "*";
                 }

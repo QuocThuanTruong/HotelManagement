@@ -128,10 +128,7 @@ namespace HotelManagement.Pages
 					addCustomerButton.Visibility = Visibility.Collapsed;
 					comboboxRoomList.IsEnabled = false;
 					bookingDatePicker.IsEnabled = false;
-					customerTypeComboBox.IsEnabled = false;
-					customerNameTextBox.IsEnabled = false;
-					customerAddrTextBox.IsEnabled = false;
-					customerIDTextBox.IsEnabled = false;
+					AddCustomerInformation.Visibility = Visibility.Collapsed;
 
 					for (int i = 0; i < customers.Count; ++i)
                     {

@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BCrypt.Net;
 
 namespace HotelManagement.Pages
 {
@@ -70,7 +71,7 @@ namespace HotelManagement.Pages
 			CMNDTextBox.Text = selectedEmployee.CMND;
 			usernameTextBox.Text = selectedEmployee.Username;
 
-			employeeRoleComboBox.SelectedIndex = (selectedEmployee.LoaiNhanVien ?? false) ? 0 : 1;
+			employeeRoleComboBox.SelectedIndex = (selectedEmployee.LoaiNhanVien ?? false) ? 1 : 0;
 		}
 
         private void addCustomerButton_Click(object sender, RoutedEventArgs e)
@@ -105,10 +106,10 @@ namespace HotelManagement.Pages
 				selectedEmployee.HidenPassword = passwordTextBox.Text;
 				if (selectedEmployee.HidenPassword.Length > 0)
 				{
-					selectedEmployee.Password = selectedEmployee.HidenPassword;
+					selectedEmployee.Password = BCrypt.Net.BCrypt.HashPassword(selectedEmployee.HidenPassword, workFactor: 10);
 				}
 
-				selectedEmployee.LoaiNhanVien = employeeRoleComboBox.SelectedIndex == 0 ? false : true;
+				selectedEmployee.LoaiNhanVien = employeeRoleComboBox.SelectedIndex == 0 ? true : false;
 
 				_databaseUtilities.updateEmployee(selectedEmployee);
 				employees = _databaseUtilities.getAllEmployee();
@@ -157,8 +158,9 @@ namespace HotelManagement.Pages
 					notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống mật khẩu của nhân viên", "OK", () => { });
 					return;
 				}
+				newEmployee.Password = BCrypt.Net.BCrypt.HashPassword(newEmployee.Password, workFactor: 10);
 
-				newEmployee.LoaiNhanVien = employeeRoleComboBox.SelectedIndex == 0 ? false : true;
+				newEmployee.LoaiNhanVien = employeeRoleComboBox.SelectedIndex == 0 ? true : false;
 
 				_databaseUtilities.addNewEmployee(newEmployee);
 
