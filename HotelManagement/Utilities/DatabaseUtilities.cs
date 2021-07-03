@@ -338,10 +338,14 @@ namespace HotelManagement.Utilities
             if (result.Active == 1)
             {
                 result.Status = "Chưa thanh toán";
+                result.Visible_View_For_Bingding = "Collapsed";
+                result.Visible_Edit_Delete_For_Bingding = "Visible";
             }
             else if (result.Active == 2)
             {
                 result.Status = "Đã thanh toán";
+                result.Visible_View_For_Bingding = "Visible";
+                result.Visible_Edit_Delete_For_Bingding = "Collapsed";
             }
 
             result.SoPhong_For_Binding = rentBillDetail.SoPhong;

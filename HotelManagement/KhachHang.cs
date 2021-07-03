@@ -33,5 +33,6 @@ namespace HotelManagement
         //For Binding
         public string TenLoaiKhach { get; set; }
         public int STT_For_Binding { get; set; }
+        public string Visible_For_Binding {get; set;}
     }
 }

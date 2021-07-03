@@ -166,6 +166,7 @@
                                 <!--xaif chieue binding tag thoi bro :v-->
                                 <Button Name="editButton"
                                         Click="editButton_Click"
+                                        Visibility="{Binding Visible_Edit_Delete_For_Bingding}"
                                         Tag="{Binding ID_PhieuThue}"
                                             Width="35"
                                             Background="{DynamicResource MyBlue}"
@@ -183,6 +184,7 @@
                                 </Button>
 
                                 <Button Name="deleteButton"
+                                        Visibility="{Binding Visible_Edit_Delete_For_Bingding}"
                                          Tag="{Binding ID_PhieuThue}"
                                             Margin="15, 0, 0, 0"
                                             Width="35"
@@ -202,8 +204,8 @@
 
                                 <!--TODO: Tuan implement this-->
                                 <Button Name="viewButton"
-                                        Visibility="Collapsed"
-                                        Tag="{Binding ID_HoaDon}"
+                                        Visibility="{Binding Visible_View_For_Bingding}"
+                                        Tag="{Binding ID_PhieuThue}"
                                         Click="viewButton_Click"
                                             Width="35"
                                             Background="{DynamicResource MyBlue}"

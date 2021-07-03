@@ -426,6 +426,7 @@
                                 Style="{StaticResource GilroyRegular15}"/>
 
                                     <Button Name="deleteMemberButton"
+                                            Visibility="{Binding Visible_For_Binding}"
                                             Margin="0, 0, 8, 0"
                                             Tag="{Binding STT_For_Binding}"
                                             HorizontalAlignment="Right"

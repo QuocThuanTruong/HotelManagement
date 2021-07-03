@@ -24,6 +24,9 @@ namespace HotelManagement.Pages
 		public delegate void EditRentBill(int id);
 		public event EditRentBill EditRentBillEvent;
 
+		public delegate void ViewRentBill(int id);
+		public event ViewRentBill ViewRentBillEvent;
+
 		private DatabaseUtilities _databaseUtilities = DatabaseUtilities.GetDatabaseInstance();
 		private ApplicationUtilities _applicationUtilities = ApplicationUtilities.GetAppInstance();
 
@@ -66,5 +69,12 @@ namespace HotelManagement.Pages
 			roomRevenueList.ItemsSource = null;
 			roomRevenueList.ItemsSource = rentedBills;
 		}
-    }
+
+		private void viewButton_Click(object sender, RoutedEventArgs e)
+		{
+			int idRental = Convert.ToInt32(((Button)sender).Tag);
+
+			ViewRentBillEvent?.Invoke(idRental);
+		}
+	}
 }

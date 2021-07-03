@@ -26,7 +26,7 @@ namespace HotelManagement.Pages
 		public event BackPage BackPageEvent;
 		private int _idRoom;
 		private int _idRentBill;
-		private bool _isEdited;
+		private int _status;
 		private Button backPage;
 
 		private DatabaseUtilities _databaseUtilities = DatabaseUtilities.GetDatabaseInstance();
@@ -48,13 +48,13 @@ namespace HotelManagement.Pages
 			InitializeComponent();
 		}
 
-		public CreateRentBillPage(int id, bool isEdited, Button backPage)
+		public CreateRentBillPage(int id, int status, Button backPage)
 		{
 			InitializeComponent();
 			
-			this._isEdited = isEdited;
+			this._status = status;
 
-			if (_isEdited)
+			if (_status == 1 || _status == 2)
 			{
 				this._idRentBill = id;
 			}
@@ -65,8 +65,6 @@ namespace HotelManagement.Pages
 			
 
 			this.backPage = backPage;
-
-			Debug.WriteLine(isEdited);
 		}
 
 		private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -81,11 +79,11 @@ namespace HotelManagement.Pages
 
 			_deleteCustomers = new List<KhachHang>();
 
-			if (!_isEdited)
+			if (_status == 0)
             {
 				bookingDatePicker.SelectedDate = DateTime.Now;
 				customers = new List<KhachHang>();
-
+			
 				var currentIndex = 0;
 
 				for (; currentIndex < _rooms.Count; ++currentIndex)
@@ -101,7 +99,7 @@ namespace HotelManagement.Pages
 
 				reciptionistTextBlock.Text = Global.staticCurrentEmployee.HoTen;
 			} 
-			else
+			else 
             {
 				customers = _databaseUtilities.getCurrentCustomerInRoom(_idRentBill);
 
@@ -123,7 +121,24 @@ namespace HotelManagement.Pages
 				comboboxRoomList.SelectedIndex = currentIndex;
 
 				bookingDatePicker.SelectedDate = currentRentBill.NgayBatDau;
-			}
+
+				if (_status == 2)
+                {
+					finishButton.Visibility = Visibility.Collapsed;
+					addCustomerButton.Visibility = Visibility.Collapsed;
+					comboboxRoomList.IsEnabled = false;
+					bookingDatePicker.IsEnabled = false;
+					customerTypeComboBox.IsEnabled = false;
+					customerNameTextBox.IsEnabled = false;
+					customerAddrTextBox.IsEnabled = false;
+					customerIDTextBox.IsEnabled = false;
+
+					for (int i = 0; i < customers.Count; ++i)
+                    {
+						customers[i].Visible_For_Binding = "Collapsed";
+					}
+				}
+			} 
 
 			customerListView.ItemsSource = null;
 			customerListView.ItemsSource = customers;
@@ -200,7 +215,7 @@ namespace HotelManagement.Pages
 				customers[i].STT_For_Binding -= 1;
 			}
 
-			if (_isEdited)
+			if (_status == 1)
             {
 				_deleteCustomers.Add(customers[deleteIndex]);
 			}
@@ -217,7 +232,7 @@ namespace HotelManagement.Pages
 
 		private void finishButton_Click(object sender, RoutedEventArgs e)
 		{
-			if (!_isEdited)
+			if (_status == 0)
             {
 				if (customers.Count == 0)
 				{
@@ -256,7 +271,7 @@ namespace HotelManagement.Pages
 
 				notiMessageSnackbar.MessageQueue.Enqueue($"Thêm thành công phiếu thuê", "OK", () => { BackPageEvent?.Invoke(backPage); });
 			}
-			else
+			else if (_status == 1)
             {
 				currentRentBill.NgayBatDau = bookingDatePicker.SelectedDate;
 
