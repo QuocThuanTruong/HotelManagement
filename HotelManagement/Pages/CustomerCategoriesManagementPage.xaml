@@ -316,6 +316,7 @@
 
 
             <Button Name="importExcelButton"
+                    Click="importExcelButton_Click"
                         Width="176"
                         Style="{StaticResource StepButton}"
                         materialDesign:ButtonAssist.CornerRadius="18"

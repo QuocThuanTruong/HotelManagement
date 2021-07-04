@@ -137,6 +137,25 @@ namespace HotelManagement.Utilities
             return result;
         }
 
+        public bool checkExistRoom(int ID_Room)
+        {
+            var count = _databaseHotelManagement
+                .Database
+                .SqlQuery<int>($"Select count(*) from Phong where SoPhong = {ID_Room}")
+                .Single();
+
+            if (count > 0)
+            {
+                return true;
+            } 
+            else
+            {
+                return false;
+            }
+        }
+
+
+
         public int getRoomDensity(int soPhong, int month)
         {
             var result = _databaseHotelManagement
@@ -573,6 +592,60 @@ namespace HotelManagement.Utilities
             return result;
         }
 
+        public bool checkExistsRoomCategoryByName(string name)
+        {
+            var count = _databaseHotelManagement
+              .Database
+              .SqlQuery<int>($"select count(*) from LoaiPhong where TenLoaiPhong = N'{name}'")
+              .Single();
+
+            if (count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public LoaiPhong getRoomCategoryByName(string name)
+        {
+            var result = _databaseHotelManagement
+              .Database
+              .SqlQuery<LoaiPhong>($"select * from LoaiPhong where TenLoaiPhong = N'{name}'")
+              .Single();
+
+            return result;
+        }
+
+        public bool checkExistsCustomerCategoryByName(string name)
+        {
+            var count = _databaseHotelManagement
+              .Database
+              .SqlQuery<int>($"select count(*) from LoaiKhach where TenLoaiKhach = N'{name}'")
+              .Single();
+
+            if (count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public LoaiKhach getCustomerCategoryByName(string name)
+        {
+            var result = _databaseHotelManagement
+              .Database
+              .SqlQuery<LoaiKhach>($"select * from LoaiKhach where TenLoaiKhach = N'{name}'")
+              .Single();
+
+            return result;
+        }
+
         public void updateCustomerCategory(LoaiKhach customerCategory)
         {
             _databaseHotelManagement
@@ -633,7 +706,7 @@ namespace HotelManagement.Utilities
 
         public void updateEmployee(NhanVien employee)
         {
-            string role = (employee.LoaiNhanVien ?? false) ? "false" : "true";
+            string role = (employee.LoaiNhanVien == false) ? "false" : "true";
 
             _databaseHotelManagement
                 .Database
@@ -649,7 +722,7 @@ namespace HotelManagement.Utilities
 
         public void addNewEmployee(NhanVien employee)
         {
-            int role = (employee.LoaiNhanVien ?? false) == false ? 0 : 1;
+            int role = (employee.LoaiNhanVien == false) ? 0 : 1;
 
             string query = $"INSERT [dbo].[NhanVien] ([ID_NhanVien], [HoTen], [CMND], [LoaiNhanVien], [Username], [Password], [Active]) VALUES ({employee.ID_NhanVien}, N'{employee.HoTen}', N'{employee.CMND}', {role}, N'{employee.Username}', N'{employee.Password}', 1)";
             _databaseHotelManagement
@@ -709,6 +782,33 @@ namespace HotelManagement.Utilities
                 .Database
                 .SqlQuery<double>($"Select dbo.func_GetRentBillFactor({IDRenBill})")
                 .Single();
+
+            return result;
+        }
+
+        public bool checkExistsEmployeeByName(string name)
+        {
+            var count = _databaseHotelManagement
+              .Database
+              .SqlQuery<int>($"select count(*) from NhanVien where HoTen = N'{name}'")
+              .Single();
+
+            if (count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public NhanVien getEmployeeByName(string name)
+        {
+            var result = _databaseHotelManagement
+              .Database
+              .SqlQuery<NhanVien>($"select * from NhanVien where HoTen = N'{name}'")
+              .Single();
 
             return result;
         }

@@ -1,4 +1,5 @@
 ﻿using HotelManagement.Utilities;
+using System.Windows.Forms;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,6 +15,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data;
+using System.IO;
+using ExcelDataReader;
 
 namespace HotelManagement.Pages
 {
@@ -29,7 +33,8 @@ namespace HotelManagement.Pages
 		public List<LoaiPhong> roomCategories;
 
 		private int _editedIndex = -1;
-		public RoomManagementPage()
+
+        public RoomManagementPage()
 		{
 			InitializeComponent();
 		}
@@ -41,7 +46,7 @@ namespace HotelManagement.Pages
 			iconAddRoom.Source = (ImageSource)FindResource("IconWhiteUpdate");
 			//iconAddRoom.Source = (ImageSource)FindResource("IconWhiteAdd");
 
-			_editedIndex = Convert.ToInt32(((Button)sender).Tag) - 1;
+			_editedIndex = Convert.ToInt32(((System.Windows.Controls.Button)sender).Tag) - 1;
 			Phong selectedRoom = rooms[_editedIndex];
 
 			roomIdTextBox.Text = selectedRoom.SoPhong.ToString();
@@ -66,7 +71,7 @@ namespace HotelManagement.Pages
 
 				if (soPhong != rooms[_editedIndex].SoPhong)
                 {
-					//notiMessageSnackbar.MessageQueue.Enqueue($"Không được sửa đổi số phòng ", "OK", () => {});
+					notiMessageSnackbar.MessageQueue.Enqueue($"Không được sửa đổi số phòng ", "OK", () => {});
 					return;
 				}
 
@@ -81,7 +86,7 @@ namespace HotelManagement.Pages
 
 				_databaseUtilities.updateRoom(rooms[_editedIndex]);
 
-				//Rest
+				//Reset
 				_editedIndex = -1;
 				roomIdTextBox.Text = "";
 				roomTypeComboBox.SelectedIndex = 0;
@@ -125,7 +130,7 @@ namespace HotelManagement.Pages
 
         private void deleteButton_Click(object sender, RoutedEventArgs e)
         {
-			var deleteIndex = Convert.ToInt32(((Button)sender).Tag) - 1;
+			var deleteIndex = Convert.ToInt32(((System.Windows.Controls.Button)sender).Tag) - 1;
 
 			_databaseUtilities.deActiveRoom(rooms[deleteIndex]);
 
@@ -138,6 +143,69 @@ namespace HotelManagement.Pages
 
 			roomList.ItemsSource = null;
 			roomList.ItemsSource = rooms;
+		}
+
+        private void importExcelButton_Click(object sender, RoutedEventArgs e)
+        {
+			using (OpenFileDialog openFileDialog = new OpenFileDialog())
+			{
+				openFileDialog.Multiselect = true;
+				openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);
+				openFileDialog.Filter = "Excel Files|*.xls;*.xlsx";
+
+				if (openFileDialog.ShowDialog() == DialogResult.OK)
+				{
+					DataTableCollection tables;
+
+					using (var stream = File.Open(openFileDialog.FileName, FileMode.Open, FileAccess.Read))
+					{
+						using (IExcelDataReader reader = ExcelReaderFactory.CreateReader(stream))
+						{
+							DataSet result = reader.AsDataSet(new ExcelDataSetConfiguration()
+							{
+								ConfigureDataTable = (_) => new ExcelDataTableConfiguration()
+								{
+									UseHeaderRow = true
+								}
+							});
+
+							tables = result.Tables;
+						}
+
+						DataTable dt = tables["room"];
+						if (dt != null)
+						{
+							List<Phong> list = new List<Phong>();
+							for (int i = 0; i < dt.Rows.Count; i++)
+							{
+								Phong room = new Phong();
+								room.SoPhong = Convert.ToInt32(dt.Rows[i]["SoPhong"].ToString());
+								room.ID_LoaiPhong = Convert.ToInt32(dt.Rows[i]["ID_LoaiPhong"].ToString());
+								room.TinhTrang = Convert.ToBoolean(dt.Rows[i]["TinhTrang"].ToString());
+								room.GhiChu = dt.Rows[i]["GhiChu"].ToString();
+								room.Active = true;
+
+								if (_databaseUtilities.checkExistRoom(room.SoPhong))
+                                {
+									_databaseUtilities.updateRoom(room);
+                                } 
+								else
+                                {
+									rooms.Add(room);
+
+									_databaseUtilities.addNewRoom(room);
+								}
+							}
+							Page_Loaded(null, null);
+							notiMessageSnackbar.MessageQueue.Enqueue($"Thêm dữ liệu thành công", "OK", () => { });
+
+						} else
+                        {
+							notiMessageSnackbar.MessageQueue.Enqueue($"Sheet chứa dữ liệu phòng cần được đổi tên thành \"room\"", "OK", () => { });
+						}
+					}
+				}
+			}
 		}
     }
 }

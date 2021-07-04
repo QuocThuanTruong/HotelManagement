@@ -14,6 +14,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BCrypt.Net;
+using System.Windows.Forms;
+using System.Data;
+using System.IO;
+using ExcelDataReader;
 
 namespace HotelManagement.Pages
 {
@@ -42,7 +46,7 @@ namespace HotelManagement.Pages
 
 		private void deleteButton_Click(object sender, RoutedEventArgs e)
         {
-			var deleteId = Convert.ToInt32(((Button)sender).Tag);
+			var deleteId = Convert.ToInt32(((System.Windows.Controls.Button)sender).Tag);
 			NhanVien selectedRoomCategory = (from em in employees
 											  where em.ID_NhanVien == deleteId
 											  select em).First();
@@ -62,7 +66,7 @@ namespace HotelManagement.Pages
 			iconAddEmployee.Source = (ImageSource)FindResource("IconWhiteUpdate");
 			//iconAddRoom.Source = (ImageSource)FindResource("IconWhiteAdd");
 
-			_editedID = Convert.ToInt32(((Button)sender).Tag);
+			_editedID = Convert.ToInt32(((System.Windows.Controls.Button)sender).Tag);
 			NhanVien selectedEmployee = (from em in employees
 											  where em.ID_NhanVien == _editedID
 											  select em).First();
@@ -174,6 +178,81 @@ namespace HotelManagement.Pages
 				CMNDTextBox.Text = "";
 				usernameTextBox.Text = "";
 				passwordTextBox.Text = "";
+			}
+		}
+
+        private void importExcelButton_Click(object sender, RoutedEventArgs e)
+        {
+			using (OpenFileDialog openFileDialog = new OpenFileDialog())
+			{
+				openFileDialog.Multiselect = true;
+				openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);
+				openFileDialog.Filter = "Excel Files|*.xls;*.xlsx";
+
+				if (openFileDialog.ShowDialog() == DialogResult.OK)
+				{
+					DataTableCollection tables;
+
+					using (var stream = File.Open(openFileDialog.FileName, FileMode.Open, FileAccess.Read))
+					{
+						using (IExcelDataReader reader = ExcelReaderFactory.CreateReader(stream))
+						{
+							DataSet result = reader.AsDataSet(new ExcelDataSetConfiguration()
+							{
+								ConfigureDataTable = (_) => new ExcelDataTableConfiguration()
+								{
+									UseHeaderRow = true
+								}
+							});
+
+							tables = result.Tables;
+						}
+
+						DataTable dt = tables["employee"];
+						if (dt != null)
+						{
+							List<NhanVien> list = new List<NhanVien>();
+							for (int i = 0; i < dt.Rows.Count; i++)
+							{
+								NhanVien employee = new NhanVien();
+								employee.HoTen = dt.Rows[i]["HoTen"].ToString();
+
+								bool exists = _databaseUtilities.checkExistsEmployeeByName(employee.HoTen);
+								if (exists)
+								{
+									employee.ID_NhanVien = _databaseUtilities.getEmployeeByName(employee.HoTen).ID_NhanVien;
+								}
+								else
+								{
+									employee.ID_NhanVien = _databaseUtilities.getMaxIdEmployee() + 1;
+								}
+
+								employee.CMND = dt.Rows[i]["CMND"].ToString();
+								employee.LoaiNhanVien = Convert.ToBoolean(dt.Rows[i]["LoaiNhanVien"].ToString());
+								employee.Username = dt.Rows[i]["Username"].ToString();
+								employee.Password = BCrypt.Net.BCrypt.HashPassword(dt.Rows[i]["Password"].ToString(), workFactor: 10);
+								employee.Active = true;
+
+								if (exists)
+								{
+									_databaseUtilities.updateEmployee(employee);
+								}
+								else
+								{
+									employees.Add(employee);
+
+									_databaseUtilities.addNewEmployee(employee);
+								}
+							}
+							Page_Loaded(null, null);
+							notiMessageSnackbar.MessageQueue.Enqueue($"Thêm dữ liệu thành công", "OK", () => { });
+						}
+						else
+						{
+							notiMessageSnackbar.MessageQueue.Enqueue($"Sheet chứa dữ liệu phòng cần được đổi tên thành \"employee\"", "OK", () => { });
+						}
+					}
+				}
 			}
 		}
     }

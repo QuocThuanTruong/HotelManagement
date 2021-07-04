@@ -325,7 +325,8 @@
                         Style="{StaticResource StepButton}"
                         materialDesign:ButtonAssist.CornerRadius="18"
                         Height="35"  
-                        materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                        materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                    Click="importExcelButton_Click">
 
                 <TextBlock Text="IMPORT EXCEL"
                            Style="{StaticResource GilroyMedium15}"/>
