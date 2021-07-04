@@ -258,9 +258,9 @@ namespace HotelManagement
 			clearDrawerButton();
 		}
 
-		private void Dashboard_ShowReportPageEvent(int month)
+		private void Dashboard_ShowReportPageEvent(int month, bool hasRevenueReport, bool hasDensityReport)
 		{
-			RevenueReportPage reportPage = new RevenueReportPage(month);
+			RevenueReportPage reportPage = new RevenueReportPage(month, hasRevenueReport, hasDensityReport);
 			reportPage.BackDashboardEvent += ReportPage_BackDashboardEvent;
 			pageNavigation.NavigationService.Navigate(reportPage);
 			clearDrawerButton();

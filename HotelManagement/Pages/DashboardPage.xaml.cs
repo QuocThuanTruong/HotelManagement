@@ -18,6 +18,7 @@ using LiveCharts.Wpf;
 using System.Diagnostics;
 using HotelManagement.CustomViews;
 
+
 namespace HotelManagement.Pages
 {
 	/// <summary>
@@ -25,19 +26,18 @@ namespace HotelManagement.Pages
 	/// </summary>
 	public partial class DashboardPage : Page
 	{
-		public delegate void ShowReportPage(int month);
+		public delegate void ShowReportPage(int month, bool hasRevenueReport, bool hasDensityReport);
 		public event ShowReportPage ShowReportPageEvent;
 
 		private DatabaseUtilities _databaseUtilities = DatabaseUtilities.GetDatabaseInstance();
 		private static readonly string[] StaticListMonth = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
-		
+
+		bool isDensityLoaded = false;
+		bool isCategoryLoaded = false;
 
 		public DashboardPage()
 		{
-			
 			InitializeComponent();
-			
-			
 		}
 
 		private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -67,14 +67,11 @@ namespace HotelManagement.Pages
 		{
 			int month = monthCombobox.SelectedIndex + 1;
 
-			ShowReportPageEvent?.Invoke(month);
+			ShowReportPageEvent?.Invoke(month, isCategoryLoaded, isDensityLoaded);
 		}
 
 		private void loadDashboard()
         {
-			bool isDensityLoaded = false;
-			bool isCategoryLoaded = false;
-
 			loadStatistical();
 
 			if (!loadColumnChart() )
@@ -170,7 +167,6 @@ namespace HotelManagement.Pages
 
 			foreach (var category in roomCategories)
 			{
-
 				var res = _databaseUtilities.getRevenueByRoomCategory(category.ID_LoaiPhong, month) ?? 0;
 
 				if (res != 0)
