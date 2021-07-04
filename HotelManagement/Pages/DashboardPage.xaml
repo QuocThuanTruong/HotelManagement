@@ -320,7 +320,28 @@
             </Grid.ColumnDefinitions>
 
             <StackPanel Grid.Row="1"
-                        Name="notFoundContainer"
+                        Name="notFoundContainerInDensity"
+                        Visibility="Collapsed"
+                        
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center">
+
+                <!--<Image gif:ImageBehavior.RepeatBehavior="100x"
+               x:Name="gifFailed"
+               Grid.RowSpan="2"
+               Width="400"
+              Height="250"
+               Margin="0, 0, 0, 20"
+               gif:ImageBehavior.AnimatedSource="{StaticResource 404Gif}" />-->
+                
+                <TextBlock Text="Không có dữ liệu"
+                        TextAlignment="Center"
+                           FontSize="24"
+                       Style="{StaticResource GilroySemiBold18}"/>
+            </StackPanel>
+            
+            <StackPanel Grid.Row="1"
+                        Name="notFoundContainerCategory"
                         Visibility="Collapsed"
                         Grid.ColumnSpan="3"
                             VerticalAlignment="Center"
@@ -339,6 +360,7 @@
                            FontSize="24"
                        Style="{StaticResource GilroySemiBold18}"/>
             </StackPanel>
+
 
             <Grid>
                 <Grid.RowDefinitions>

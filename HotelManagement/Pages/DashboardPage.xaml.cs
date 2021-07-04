@@ -72,21 +72,35 @@ namespace HotelManagement.Pages
 
 		private void loadDashboard()
         {
+			bool isDensityLoaded = false;
+			bool isCategoryLoaded = false;
+
 			loadStatistical();
 
-			if (!loadColumnChart() || !loadCircleChart())
+			if (!loadColumnChart() )
 			{
-				notFoundContainer.Visibility = Visibility.Visible;
+				notFoundContainerInDensity.Visibility = Visibility.Visible;
 				roomDensityChart.Visibility = Visibility.Collapsed;
-				revenueByCategoryChart.Visibility = Visibility.Collapsed;
-				showReportButton.Visibility = Visibility.Collapsed;
 			} else
 			{
-				notFoundContainer.Visibility = Visibility.Collapsed;
-				revenueByCategoryChart.Visibility = Visibility.Visible;
+				notFoundContainerInDensity.Visibility = Visibility.Collapsed;
 				roomDensityChart.Visibility = Visibility.Visible;
-				showReportButton.Visibility = Visibility.Visible;
+				isDensityLoaded = true;
 			}
+
+			if (!loadCircleChart())
+			{
+				notFoundContainerCategory.Visibility = Visibility.Visible;
+				revenueByCategoryChart.Visibility = Visibility.Collapsed;
+			}
+			else
+			{
+				notFoundContainerCategory.Visibility = Visibility.Collapsed;
+				revenueByCategoryChart.Visibility = Visibility.Visible;
+				isCategoryLoaded = true;
+			}
+
+			showReportButton.Visibility = (isDensityLoaded || isCategoryLoaded) ? Visibility.Visible : Visibility.Collapsed;
 		}
 
 		private void loadStatistical()
