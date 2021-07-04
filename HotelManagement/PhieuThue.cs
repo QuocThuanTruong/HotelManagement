@@ -42,5 +42,7 @@ namespace HotelManagement
         public string TenNhanVienLapPhieu { get; set; }
         public string Status { get; set; }
         public int ID_NhanVien { get; set; }
+        public string Visible_View_For_Bingding { get; set; }
+        public string Visible_Edit_Delete_For_Bingding { get; set; }
     }
 }

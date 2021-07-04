@@ -35,7 +35,7 @@ namespace HotelManagement.Pages
 			string newPassword = newPwdTextBox.Password;
 			string retypePassword = retypePwdTextBox.Password;
 
-			if (oldPassword != Global.staticCurrentEmployee.Password)
+			if (BCrypt.Net.BCrypt.Verify(oldPassword, Global.staticCurrentEmployee.Password) == false)
             {
 
 				notiMessageSnackbar.MessageQueue.Enqueue($"Mật khẩu không chính xác", "OK", () => { });
@@ -57,7 +57,11 @@ namespace HotelManagement.Pages
 				return;
 			}
 
+			newPassword = BCrypt.Net.BCrypt.HashPassword(newPassword, workFactor: 10);
+
 			_databaseUtilities.updatePassword(newPassword);
+
+			notiMessageSnackbar.MessageQueue.Enqueue($"Đổi mật khẩu thành công", "OK", () => { });
 
 		}
 

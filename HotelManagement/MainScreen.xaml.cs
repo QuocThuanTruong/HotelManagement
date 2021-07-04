@@ -149,6 +149,7 @@ namespace HotelManagement
 				rentBillPageName.Foreground = (Brush)FindResource("MyPurple");
 				RentBillManagementPage rentBill = new RentBillManagementPage();
 				rentBill.EditRentBillEvent += RentBill_EditRentBillEvent;
+				rentBill.ViewRentBillEvent += RentBill_ViewRentBillEvent;
 				result = rentBill;
 
 			}
@@ -227,7 +228,15 @@ namespace HotelManagement
 
 		private void RentBill_EditRentBillEvent(int id)
 		{
-			CreateRentBillPage createRentBill = new CreateRentBillPage(id, true, rentBillPageButton);
+			CreateRentBillPage createRentBill = new CreateRentBillPage(id, 1, rentBillPageButton);
+			createRentBill.BackPageEvent += All_BackPageEvent;
+			pageNavigation.NavigationService.Navigate(createRentBill);
+			clearDrawerButton();
+		}
+
+		private void RentBill_ViewRentBillEvent(int id)
+		{
+			CreateRentBillPage createRentBill = new CreateRentBillPage(id, 2, rentBillPageButton);
 			createRentBill.BackPageEvent += All_BackPageEvent;
 			pageNavigation.NavigationService.Navigate(createRentBill);
 			clearDrawerButton();
@@ -243,7 +252,7 @@ namespace HotelManagement
 
 		private void ListRoom_CreateRentBillEvent(int id)
 		{
-			CreateRentBillPage createRentBill = new CreateRentBillPage(id, false, roomPageButton);
+			CreateRentBillPage createRentBill = new CreateRentBillPage(id, 0, roomPageButton);
 			createRentBill.BackPageEvent += All_BackPageEvent;
 			pageNavigation.NavigationService.Navigate(createRentBill);
 			clearDrawerButton();

@@ -1,6 +1,9 @@
-﻿using HotelManagement.Utilities;
+﻿using ExcelDataReader;
+using HotelManagement.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +11,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -45,7 +49,7 @@ namespace HotelManagement.Pages
 			iconAddCustomerCategory.Source = (ImageSource)FindResource("IconWhiteUpdate");
 			//iconAddRoom.Source = (ImageSource)FindResource("IconWhiteAdd");
 
-			_editedID = Convert.ToInt32(((Button)sender).Tag);
+			_editedID = Convert.ToInt32(((System.Windows.Controls.Button)sender).Tag);
 			LoaiKhach selectedCustomerCategory = (from c in customerCategories
 												  where c.ID_LoaiKhach == _editedID
 											  select c).First();
@@ -56,7 +60,7 @@ namespace HotelManagement.Pages
 
         private void deleteButton_Click(object sender, RoutedEventArgs e)
         {
-			var deleteId = Convert.ToInt32(((Button)sender).Tag);
+			var deleteId = Convert.ToInt32(((System.Windows.Controls.Button)sender).Tag);
 			LoaiKhach selectedCustomerCategory = (from c in customerCategories
 											  where c.ID_LoaiKhach == deleteId
 											  select c).First();
@@ -137,6 +141,79 @@ namespace HotelManagement.Pages
 				//Rest
 				customercatTextBox.Text = "";
 				customerAddrTextBox.Text = "";
+			}
+		}
+
+        private void importExcelButton_Click(object sender, RoutedEventArgs e)
+        {
+			using (OpenFileDialog openFileDialog = new OpenFileDialog())
+			{
+				openFileDialog.Multiselect = true;
+				openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);
+				openFileDialog.Filter = "Excel Files|*.xls;*.xlsx";
+
+				if (openFileDialog.ShowDialog() == DialogResult.OK)
+				{
+					DataTableCollection tables;
+
+					using (var stream = File.Open(openFileDialog.FileName, FileMode.Open, FileAccess.Read))
+					{
+						using (IExcelDataReader reader = ExcelReaderFactory.CreateReader(stream))
+						{
+							DataSet result = reader.AsDataSet(new ExcelDataSetConfiguration()
+							{
+								ConfigureDataTable = (_) => new ExcelDataTableConfiguration()
+								{
+									UseHeaderRow = true
+								}
+							});
+
+							tables = result.Tables;
+						}
+
+						DataTable dt = tables["customer-category"];
+						if (dt != null)
+						{
+							List<LoaiKhach> list = new List<LoaiKhach>();
+							for (int i = 0; i < dt.Rows.Count; i++)
+							{
+								LoaiKhach category = new LoaiKhach();
+								category.TenLoaiKhach = dt.Rows[i]["TenLoaiKhach"].ToString();
+
+								bool exists = _databaseUtilities.checkExistsCustomerCategoryByName(category.TenLoaiKhach);
+								if (exists)
+								{
+									category.ID_LoaiKhach = _databaseUtilities.getCustomerCategoryByName(category.TenLoaiKhach).ID_LoaiKhach;
+								}
+								else
+								{
+									category.ID_LoaiKhach = _databaseUtilities.getMaxIdCustomerCategory() + 1;
+								}
+
+								category.HeSo = Convert.ToDouble(dt.Rows[i]["HeSo"].ToString());
+								category.Active = true;
+
+								if (exists)
+								{
+									_databaseUtilities.updateCustomerCategory(category);
+								}
+								else
+								{
+									customerCategories.Add(category);
+
+									_databaseUtilities.addNewCustomerCategory(category);
+								}
+							}
+							Page_Loaded(null, null);
+							notiMessageSnackbar.MessageQueue.Enqueue($"Thêm dữ liệu thành công", "OK", () => { });
+
+						}
+						else
+						{
+							notiMessageSnackbar.MessageQueue.Enqueue($"Sheet chứa dữ liệu phòng cần được đổi tên thành \"customer-category\"", "OK", () => { });
+						}
+					}
+				}
 			}
 		}
     }

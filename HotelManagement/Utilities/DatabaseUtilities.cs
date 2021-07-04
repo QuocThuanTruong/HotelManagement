@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Media.Imaging;
 using HotelManagement.Converters;
+using BCrypt.Net;
 
 namespace HotelManagement.Utilities
 {
@@ -36,17 +38,23 @@ namespace HotelManagement.Utilities
         {
             NhanVien result = null;
 
-            int isExist = _databaseHotelManagement
+            int count = _databaseHotelManagement
                 .Database
-                .SqlQuery<int>($"SELECT dbo.func_AuthenticateUser('{username}' , '{password}')")
-                .Single();
+                .SqlQuery<int>($"SELECT COUNT(*) from NhanVien where Username = N'{username}'")
+                .FirstOrDefault();
 
-            if (isExist == 1)
+            if (count > 0)
             {
+                
                 result = _databaseHotelManagement
-                .Database
-                .SqlQuery<NhanVien>($"SELECT * FROM NhanVien Where Username = '{username}' AND Password = '{password}'")
-                .Single();
+                   .Database
+                   .SqlQuery<NhanVien>($"SELECT * from NhanVien where Username = N'{username}'")
+                   .FirstOrDefault();
+
+                if (BCrypt.Net.BCrypt.Verify(password, result.Password) == false)
+                {
+                    result = null;
+                }
             }
 
             return result;
@@ -128,6 +136,25 @@ namespace HotelManagement.Utilities
 
             return result;
         }
+
+        public bool checkExistRoom(int ID_Room)
+        {
+            var count = _databaseHotelManagement
+                .Database
+                .SqlQuery<int>($"Select count(*) from Phong where SoPhong = {ID_Room}")
+                .Single();
+
+            if (count > 0)
+            {
+                return true;
+            } 
+            else
+            {
+                return false;
+            }
+        }
+
+
 
         public int getRoomDensity(int soPhong, int month)
         {
@@ -338,10 +365,14 @@ namespace HotelManagement.Utilities
             if (result.Active == 1)
             {
                 result.Status = "Chưa thanh toán";
+                result.Visible_View_For_Bingding = "Collapsed";
+                result.Visible_Edit_Delete_For_Bingding = "Visible";
             }
             else if (result.Active == 2)
             {
                 result.Status = "Đã thanh toán";
+                result.Visible_View_For_Bingding = "Visible";
+                result.Visible_Edit_Delete_For_Bingding = "Collapsed";
             }
 
             result.SoPhong_For_Binding = rentBillDetail.SoPhong;
@@ -561,6 +592,60 @@ namespace HotelManagement.Utilities
             return result;
         }
 
+        public bool checkExistsRoomCategoryByName(string name)
+        {
+            var count = _databaseHotelManagement
+              .Database
+              .SqlQuery<int>($"select count(*) from LoaiPhong where TenLoaiPhong = N'{name}'")
+              .Single();
+
+            if (count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public LoaiPhong getRoomCategoryByName(string name)
+        {
+            var result = _databaseHotelManagement
+              .Database
+              .SqlQuery<LoaiPhong>($"select * from LoaiPhong where TenLoaiPhong = N'{name}'")
+              .Single();
+
+            return result;
+        }
+
+        public bool checkExistsCustomerCategoryByName(string name)
+        {
+            var count = _databaseHotelManagement
+              .Database
+              .SqlQuery<int>($"select count(*) from LoaiKhach where TenLoaiKhach = N'{name}'")
+              .Single();
+
+            if (count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public LoaiKhach getCustomerCategoryByName(string name)
+        {
+            var result = _databaseHotelManagement
+              .Database
+              .SqlQuery<LoaiKhach>($"select * from LoaiKhach where TenLoaiKhach = N'{name}'")
+              .Single();
+
+            return result;
+        }
+
         public void updateCustomerCategory(LoaiKhach customerCategory)
         {
             _databaseHotelManagement
@@ -601,7 +686,7 @@ namespace HotelManagement.Utilities
 
             for (int i = 0; i < result.Count; ++i)
             {
-                for (int j = 0; j < result[i].Password.Length; ++j)
+                for (int j = 0; j < 6; ++j)
                 {
                     result[i].HidenPassword += "*";
                 }
@@ -621,7 +706,7 @@ namespace HotelManagement.Utilities
 
         public void updateEmployee(NhanVien employee)
         {
-            string role = (employee.LoaiNhanVien ?? false) ? "false" : "true";
+            string role = (employee.LoaiNhanVien == false) ? "false" : "true";
 
             _databaseHotelManagement
                 .Database
@@ -637,7 +722,7 @@ namespace HotelManagement.Utilities
 
         public void addNewEmployee(NhanVien employee)
         {
-            int role = (employee.LoaiNhanVien ?? false) == false ? 0 : 1;
+            int role = (employee.LoaiNhanVien == false) ? 0 : 1;
 
             string query = $"INSERT [dbo].[NhanVien] ([ID_NhanVien], [HoTen], [CMND], [LoaiNhanVien], [Username], [Password], [Active]) VALUES ({employee.ID_NhanVien}, N'{employee.HoTen}', N'{employee.CMND}', {role}, N'{employee.Username}', N'{employee.Password}', 1)";
             _databaseHotelManagement
@@ -697,6 +782,33 @@ namespace HotelManagement.Utilities
                 .Database
                 .SqlQuery<double>($"Select dbo.func_GetRentBillFactor({IDRenBill})")
                 .Single();
+
+            return result;
+        }
+
+        public bool checkExistsEmployeeByName(string name)
+        {
+            var count = _databaseHotelManagement
+              .Database
+              .SqlQuery<int>($"select count(*) from NhanVien where HoTen = N'{name}'")
+              .Single();
+
+            if (count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public NhanVien getEmployeeByName(string name)
+        {
+            var result = _databaseHotelManagement
+              .Database
+              .SqlQuery<NhanVien>($"select * from NhanVien where HoTen = N'{name}'")
+              .Single();
 
             return result;
         }
