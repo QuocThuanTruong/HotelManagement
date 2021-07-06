@@ -417,6 +417,7 @@
 
 
                     <Button Name="exportExcelButton"
+                            Click="exportExcelButton_Click"
                              Margin="46, 0, 0, 0"
                         Width="176"
                         Style="{StaticResource StepButton}"
