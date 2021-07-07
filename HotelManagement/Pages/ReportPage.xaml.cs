@@ -157,8 +157,16 @@ namespace HotelManagement.Pages
 
         private void exportExcelButton_Click(object sender, RoutedEventArgs e)
         {
+			_applicationUtilities.createExportedDirectory("Exported Report");
+			string _reportFileName = $"Report_{DateTime.Now.ToString("ddMMyyyyHHmmss")}.xlsx";
+
+			_applicationUtilities.copyFileToDirectory(
+				_absolutePathConverter.Convert($"Assets/XLSXTemplate/Report_template.xlsx", null, null, null).ToString(),
+				"Exported Report",
+				_reportFileName);
+
 			ExcelPackage.LicenseContext = LicenseContext.Commercial;
-			using (var excelPackage = new ExcelPackage(new MemoryStream()))
+			using (var excelPackage = new ExcelPackage(new FileInfo("Exported Report/" + _reportFileName)))
             {
 
 				if (_hasRevenueReport && _hasDensityReport)
@@ -175,16 +183,7 @@ namespace HotelManagement.Pages
 					exportDensity(excelPackage);
 				}
 
-				Guid guid = Guid.NewGuid();
-				string uid = guid.ToString();
-
-				_applicationUtilities.createExportedDirectory("Exported Report");
-
-				var destPath = (string)_absolutePathConverter.Convert($"Exported Report/Report-{uid}.xlsx", null, null, null);
-				Stream stream = File.Create(destPath);
-
-				excelPackage.SaveAs(stream);
-				stream.Close();
+				excelPackage.Save();
 			}
 
 			//Thêm cái này vô bro
@@ -193,64 +192,28 @@ namespace HotelManagement.Pages
 
 		public void exportRevenue(ExcelPackage excelPackage)
         {
-			var revenueWorksheet = excelPackage.Workbook.Worksheets.Add("Revenue Report");
-
-			revenueWorksheet.Cells[1, 1].Value = "STT";
-			revenueWorksheet.Cells[1, 2].Value = "Loại phòng";
-			revenueWorksheet.Cells[1, 3].Value = "Doanh thu";
-			revenueWorksheet.Cells[1, 4].Value = "Tỉ lệ (%)";
-
-			using (var range = revenueWorksheet.Cells["A1:D1"])
-			{
-				// Canh giữa cho các text
-				range.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-				// Set Font cho text  trong Range hiện tại
-				range.Style.Font.SetFromFont(new System.Drawing.Font("Arial", 10, System.Drawing.FontStyle.Bold));
-				// Set Border
-				range.Style.Border.Bottom.Style = ExcelBorderStyle.Thick;
-				// Set màu ch Border
-				range.Style.Border.Bottom.Color.SetColor(Color.Blue);
-				range.AutoFitColumns(15);
-			}
+			var revenueWorksheet = excelPackage.Workbook.Worksheets["Revenue Report"];
 
 			for (int i = 1; i <= roomCategories.Count; ++i)
 			{
-				revenueWorksheet.Cells[i + 1, 1].Value = roomCategories[i - 1].ID_LoaiPhong; //STT
-				revenueWorksheet.Cells[i + 1, 2].Value = roomCategories[i - 1].TenLoaiPhong; //Loai phòng
-				revenueWorksheet.Cells[i + 1, 3].Value = roomCategories[i - 1].Revenue_For_Binding; //Doanh Thu
-				revenueWorksheet.Cells[i + 1, 4].Value = double.Parse(roomCategories[i - 1].Percent_For_Binding.Substring(0, roomCategories[i - 1].Percent_For_Binding.Length - 1)); //Tỉ lệ
+				revenueWorksheet.Cells[i + 5, 1].Value = roomCategories[i - 1].ID_LoaiPhong; //STT
+				revenueWorksheet.Cells[i + 5, 2].Value = roomCategories[i - 1].TenLoaiPhong; //Loai phòng
+				revenueWorksheet.Cells[i + 5, 3].Value = roomCategories[i - 1].Revenue_For_Binding; //Doanh Thu
+				revenueWorksheet.Cells[i + 5, 4].Value = double.Parse(roomCategories[i - 1].Percent_For_Binding.Substring(0, roomCategories[i - 1].Percent_For_Binding.Length - 1)) / 100.0; //Tỉ lệ
 			}
 
 		}
 
 		public void exportDensity(ExcelPackage excelPackage)
 		{
-			var densityWorksheet = excelPackage.Workbook.Worksheets.Add("Density Report");
-
-			densityWorksheet.Cells[1, 1].Value = "STT";
-			densityWorksheet.Cells[1, 2].Value = "Phòng";
-			densityWorksheet.Cells[1, 3].Value = "Số ngày thuê";
-			densityWorksheet.Cells[1, 4].Value = "Tỉ lệ (%)";
-
-			using (var range = densityWorksheet.Cells["A1:D1"])
-			{
-				// Canh giữa cho các text
-				range.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-				// Set Font cho text  trong Range hiện tại
-				range.Style.Font.SetFromFont(new System.Drawing.Font("Arial", 10, System.Drawing.FontStyle.Bold));
-				// Set Border
-				range.Style.Border.Bottom.Style = ExcelBorderStyle.Thick;
-				// Set màu ch Border
-				range.Style.Border.Bottom.Color.SetColor(Color.Blue);
-				range.AutoFitColumns(15);
-			}
+			var densityWorksheet = excelPackage.Workbook.Worksheets["Density Report"];
 
 			for (int i = 1; i <= rooms.Count; ++i)
 			{
-				densityWorksheet.Cells[i + 1, 1].Value = rooms[i - 1].STT_For_Binding; //STT
-				densityWorksheet.Cells[i + 1, 2].Value = rooms[i - 1].ID_For_Binding; //Loai phòng
-				densityWorksheet.Cells[i + 1, 3].Value = rooms[i - 1].Density_For_Binding; //Doanh Thu
-				densityWorksheet.Cells[i + 1, 4].Value = double.Parse(rooms[i - 1].Percent_For_Binding.Substring(0, rooms[i - 1].Percent_For_Binding.Length - 1)); //Tỉ lệ
+				densityWorksheet.Cells[i + 5, 1].Value = rooms[i - 1].STT_For_Binding; //STT
+				densityWorksheet.Cells[i + 5, 2].Value = rooms[i - 1].ID_For_Binding; //Loai phòng
+				densityWorksheet.Cells[i + 5, 3].Value = rooms[i - 1].Density_For_Binding; //Doanh Thu
+				densityWorksheet.Cells[i + 5, 4].Value = double.Parse(rooms[i - 1].Percent_For_Binding.Substring(0, rooms[i - 1].Percent_For_Binding.Length - 1)) / 100.0; //Tỉ lệ
 			}
 		}
 
