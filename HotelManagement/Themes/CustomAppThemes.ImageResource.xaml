@@ -41,6 +41,8 @@
     <ImageSource x:Key="IconDesc">pack://application:,,,/Assets/Images/ic-desc.png</ImageSource>
     <ImageSource x:Key="IconAsc">pack://application:,,,/Assets/Images/ic-asc.png</ImageSource>
     <ImageSource x:Key="IconWhiteUpdate">pack://application:,,,/Assets/Images/ic-white-update.png</ImageSource>
+    <ImageSource x:Key="IconWhiteAsc">pack://application:,,,/Assets/Images/ic-asc-whtie.png</ImageSource>
+    <ImageSource x:Key="IconWhiteDesc">pack://application:,,,/Assets/Images/ic-desc-white.png</ImageSource>
 
     <ImageSource x:Key="IconPurpleConfig">pack://application:,,,/Assets/Images/ic-purple-config.png</ImageSource>
     <ImageSource x:Key="IconPurpleCustomer">pack://application:,,,/Assets/Images/ic-purple-customer.png</ImageSource>

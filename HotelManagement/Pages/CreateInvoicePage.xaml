@@ -72,6 +72,29 @@
 
                     </StackPanel>
 
+                    <StackPanel Margin="0, 0 ,40 ,0" >
+                        <TextBlock Text="NGÀY THUÊ PHÒNG"
+                                   Style="{StaticResource Bebas21}"/>
+
+                        <Grid
+                             HorizontalAlignment="Left"
+                             Width="160"
+                             VerticalAlignment="Top"
+                             Margin="2, 8, 0, 0"
+                             Grid.Column="1"
+                             Grid.Row="1">
+
+                            <TextBlock x:Name="checkinDateTextBlock"
+                                       Foreground="{DynamicResource MyLightGray4}"
+                                       Style="{StaticResource GilroyMedium17}"
+                                       Margin="0, 6, 0, 0"
+                                       Text="09/07/2021"/>
+
+
+                        </Grid>
+
+                    </StackPanel>
+
                     <StackPanel Margin="0, 0 ,0 ,0">
                         <TextBlock Text="NGÀY TRẢ PHÒNG"
                                    Style="{StaticResource Bebas21}"/>
