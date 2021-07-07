@@ -1,6 +1,7 @@
 ﻿using HotelManagement.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -62,7 +63,6 @@ namespace HotelManagement.Pages
 			_databaseUtilities.updatePassword(newPassword);
 
 			notiMessageSnackbar.MessageQueue.Enqueue($"Đổi mật khẩu thành công", "OK", () => { });
-
 		}
 
 		private void oldPwdTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
