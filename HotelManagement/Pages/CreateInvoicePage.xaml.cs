@@ -235,16 +235,15 @@ namespace HotelManagement.Pages
 
 		private void exportExcelButton_Click(object sender, RoutedEventArgs e)
 		{
-			Guid guid = Guid.NewGuid();
-			string uid = guid.ToString();
-			String _invoiceFileName = $"Invoice_{_invoice.ID_HoaDon}_{_invoice.TenKH_For_Binding}_{DateTime.Now.ToString("ddMMyyyyHHmmss")}.xlsx";
+			_applicationUtilities.createExportedDirectory();
+			string _invoiceFileName = $"Invoice_{_invoice.ID_HoaDon}_{_invoice.TenKH_For_Binding}_{DateTime.Now.ToString("ddMMyyyyHHmmss")}.xlsx";
 
 			_applicationUtilities.copyFileToDirectory(
 				_converter.Convert($"Assets/XLSXTemplate/Invoice_template.xlsx", null, null, null).ToString(),
 				_invoiceFileName);
 
 			ExcelPackage.LicenseContext = LicenseContext.Commercial;
-			using (var excelPackage = new ExcelPackage(new FileInfo(_invoiceFileName)))
+			using (var excelPackage = new ExcelPackage(new FileInfo("Exported Invoice/" + _invoiceFileName)))
 			{
 				var rentBill = _databaseUtilities.getRentBillById(_invoice.ID_PhieuThue);
 				var room = _databaseUtilities.getRoomById(rentBill.SoPhong_For_Binding);

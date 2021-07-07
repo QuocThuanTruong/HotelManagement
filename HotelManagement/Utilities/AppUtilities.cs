@@ -30,6 +30,20 @@ namespace HotelManagement.Utilities
             return _applicationInstance;
         }
 
+        public void createExportedDirectory()
+        {
+            string path = (string)(_absolutePathConverter.Convert($"Exported Invoice", null, null, null));
+
+            if (Directory.Exists(path))
+            {
+                return;
+            }
+            else
+            {
+                Directory.CreateDirectory(path);
+            }
+        }
+
         public string getStandardName(string name, int maxLength)
         {
             var result = name;
@@ -87,7 +101,7 @@ namespace HotelManagement.Utilities
 
         public void copyFileToDirectory(string srcPath, string nameFile)
         {
-            var destPath = (string)_absolutePathConverter.Convert($"{nameFile}", null, null, null);
+            var destPath = (string)_absolutePathConverter.Convert($"Exported Invoice/{nameFile}", null, null, null);
 
             File.Copy(srcPath, destPath, true);
 
