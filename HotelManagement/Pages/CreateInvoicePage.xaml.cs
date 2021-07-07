@@ -292,7 +292,7 @@ namespace HotelManagement.Pages
 
 				excelPackage.Save();
 
-				notiMessageSnackbar.MessageQueue.Enqueue($"Đã tạo thành công {_invoiceFileName}", "OK", () => { BackPageEvent?.Invoke(backPage); });
+				notiMessageSnackbar.MessageQueue.Enqueue($"Xuất hóa đơn thành công: {_invoiceFileName}", "OK", () => { BackPageEvent?.Invoke(backPage); });
 			}
 		}
     }
