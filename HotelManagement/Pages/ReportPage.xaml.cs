@@ -187,7 +187,7 @@ namespace HotelManagement.Pages
 			}
 
 			//Thêm cái này vô bro
-			//notiMessageSnackbar.MessageQueue.Enqueue($"Xuất biểu mẫu thành công", "OK", () => { });
+			//notiMessageSnackbar.MessageQueue.Enqueue($"Đã tạo thành công {_reportFileName}", "OK", () => { BackPageEvent?.Invoke(backPage); });
 		}
 
 		public void exportRevenue(ExcelPackage excelPackage)
