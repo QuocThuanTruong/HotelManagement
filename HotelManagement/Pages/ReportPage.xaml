@@ -461,7 +461,7 @@
                                  Margin="24, 0, 0, 0"
                                  Height="45"
                                  MaxWidth="1000"
-                                 IsActive="True"
+                                 IsActive="False"
                                  Grid.Column="1"
                                  Grid.Row="2"
                                  Grid.RowSpan="2">
