@@ -508,10 +508,30 @@
                         Height="35"  
                         materialDesign:ShadowAssist.ShadowDepth="Depth0">
 
-                        <TextBlock Text="EXPORT EXCEL"
-                           Style="{StaticResource GilroyMedium15}"/>
 
-                    </Button>
+                        <Grid Width="170">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="4*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Image Width="15"
+                               Height="15"
+                                   Margin="6, 0, 0, 0"
+                               RenderOptions.BitmapScalingMode="HighQuality"
+                               Source="{DynamicResource IconWhiteDesc}"/>
+
+                        <TextBlock 
+                            HorizontalAlignment="Center"
+                            Grid.Column="1"
+                            Margin="0, 0, 22, 0"
+                           Style="{StaticResource GilroyMedium15}"
+                           Foreground="White"
+                           Text="EXPORT EXCEL"/>
+        </Grid>
+
+        </Button>
+
                 </StackPanel>
             </materialDesign:ColorZone>
 
