@@ -316,15 +316,34 @@
 
 
             <Button Name="importExcelButton"
-                    Click="importExcelButton_Click"
                         Width="176"
                         Style="{StaticResource StepButton}"
                         materialDesign:ButtonAssist.CornerRadius="18"
                         Height="35"  
-                        materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                        materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                    Click="importExcelButton_Click">
 
-                <TextBlock Text="IMPORT EXCEL"
-                           Style="{StaticResource GilroyMedium15}"/>
+                <Grid Width="170">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="4*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Image Width="15"
+                               Height="15"
+                                   Margin="6, 0, 0, 0"
+                               RenderOptions.BitmapScalingMode="HighQuality"
+                               Source="{DynamicResource IconWhiteAsc}"/>
+
+                    <TextBlock 
+                            HorizontalAlignment="Center"
+                            Grid.Column="1"
+                            Margin="0, 0, 22, 0"
+                           Style="{StaticResource GilroyMedium15}"
+                           Foreground="White"
+                           Text="IMPORT EXCEL"/>
+                </Grid>
+
 
             </Button>
         </materialDesign:ColorZone>

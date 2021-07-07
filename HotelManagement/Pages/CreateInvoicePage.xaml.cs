@@ -102,7 +102,9 @@ namespace HotelManagement.Pages
 				currentRentBill.TotalPrice = Convert.ToInt32((selectedRoom.DonGia ?? 0) * currentRentBill.Ratio_For_Binding) * currentRentBill.Total_Day_For_Binding;
 				currentRentBill.Total_Price_For_Binding = _applicationUtilities.getMoneyForBinding(currentRentBill.TotalPrice);
 
-				List<PhieuThue> source = new List<PhieuThue>();
+				checkinDateTextBlock.Text = (currentRentBill.NgayBatDau ?? DateTime.Now).ToString("dd/MM/yyyy"); ;
+
+				List <PhieuThue> source = new List<PhieuThue>();
 				source.Add(currentRentBill);
 				roomRevenueList.ItemsSource = source;
 
@@ -122,10 +124,13 @@ namespace HotelManagement.Pages
             {
 				CauHinh config = _databaseUtilities.getConfig();
 				invoice = _databaseUtilities.getInvoiceById(_idInvoice);
+				customerNameComboBox.IsReadOnly = true;
+				customerNameComboBox.IsEnabled = false;
+		
 
 				reciptionistTextBlock.Text = invoice.HoTenNV_For_Binding;
 				checkoutDateTextBlock.Text = (invoice.NgayTraPhong ?? DateTime.Now).ToString("dd/MM/yyyy");
-
+				
 				currentCustomers = _databaseUtilities.getCurrentCustomerInRoom(invoice.ID_PhieuThue);
 
 				customerNameComboBox.ItemsSource = currentCustomers;
@@ -147,11 +152,13 @@ namespace HotelManagement.Pages
 				currentRentBill.Total_Day_For_Binding = Convert.ToInt32(invoice.NumDayRent_For_Binding);
 				currentRentBill.Ratio_For_Binding = 1;
 
-				currentRentBill.Ratio_For_Binding = _databaseUtilities.getRentBillFactor(_idRentBill);
+				currentRentBill.Ratio_For_Binding = _databaseUtilities.getRentBillFactor(invoice.ID_PhieuThue);
 
 				currentRentBill.Price_Per_Day_For_Binding = invoice.DonGia_For_Binding;
 				currentRentBill.TotalPrice = Convert.ToInt32(invoice.DonGia * currentRentBill.Ratio_For_Binding) * currentRentBill.Total_Day_For_Binding;
 				currentRentBill.Total_Price_For_Binding = _applicationUtilities.getMoneyForBinding(currentRentBill.TotalPrice);
+				checkinDateTextBlock.Text = (currentRentBill.NgayBatDau ?? DateTime.Now).ToString("dd/MM/yyyy"); ;
+
 
 				List<PhieuThue> source = new List<PhieuThue>();
 				source.Add(currentRentBill);
