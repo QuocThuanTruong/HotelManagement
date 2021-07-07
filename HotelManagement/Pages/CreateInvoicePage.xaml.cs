@@ -87,7 +87,7 @@ namespace HotelManagement.Pages
 				checkoutDateTextBlock.Text = DateTime.Now.ToString("dd/MM/yyyy");
 
 				CauHinh config = _databaseUtilities.getConfig();
-				maxCustomerTextBlock.Text = $"Phòng {config.DieuKien.Substring(2)} khách trở lên phụ thu {Convert.ToDouble(config.GiaTri) * 100}% 1 người";
+				maxCustomerTextBlock.Text = $"Phòng {config.DieuKien.Substring(2)} khách trở lên phụ thu {Convert.ToDouble(config.GiaTri) * 100}% trên tổng hóa đơn";
 
 				_idRentBill = _databaseUtilities.getCurrentRentBillIdBelongToRoom(_idRoom);
 
@@ -236,7 +236,7 @@ namespace HotelManagement.Pages
 		private void exportExcelButton_Click(object sender, RoutedEventArgs e)
 		{
 			_applicationUtilities.createExportedDirectory();
-			string _invoiceFileName = $"Invoice_{_invoice.ID_HoaDon}_{_invoice.TenKH_For_Binding}_{DateTime.Now.ToString("ddMMyyyyHHmmss")}.xlsx";
+			string _invoiceFileName = $"Invoice_{_invoice.ID_HoaDon}_{currentCustomers[_customerSelectedIndex].HoTen}_{DateTime.Now.ToString("ddMMyyyyHHmmss")}.xlsx";
 
 			_applicationUtilities.copyFileToDirectory(
 				_converter.Convert($"Assets/XLSXTemplate/Invoice_template.xlsx", null, null, null).ToString(),
@@ -253,22 +253,22 @@ namespace HotelManagement.Pages
 				serviceInvoice.Cells["E4"].Value = currentCustomers[_customerSelectedIndex].HoTen; 
 				serviceInvoice.Cells["E5"].Value = currentCustomers[_customerSelectedIndex].CMND;
 				serviceInvoice.Cells["E6"].Value = currentCustomers[_customerSelectedIndex].DiaChi;
-				serviceInvoice.Cells["E7"].Value = (rentBill.NgayBatDau ?? DateTime.Now).ToString("dd/MM/yyyy");
-				serviceInvoice.Cells["E8"].Value = (_invoice.NgayTraPhong ?? DateTime.Now).ToString("dd/MM/yyyy");
+				serviceInvoice.Cells["E7"].Value = (rentBill.NgayBatDau ?? DateTime.Now).Date;
+				serviceInvoice.Cells["E8"].Value = (_invoice.NgayTraPhong ?? DateTime.Now).Date;
 				serviceInvoice.Cells["I4"].Value = _invoice.ID_HoaDon;
-				serviceInvoice.Cells["I5"].Value = DateTime.Now.ToString("dd/MM/yyyy");
+				//serviceInvoice.Cells["I5"].Value = DateTime.Now.ToString("dd/MM/yyyy");
 
-				serviceInvoice.Cells["C12"].Value = "1";
+				serviceInvoice.Cells["C12"].Value = 1;
 				serviceInvoice.Cells["D12"].Value = rentBill.SoPhong_For_Binding;
 				serviceInvoice.Cells["E12"].Value = currentCustomers.Count;
 				_invoice.NumDayRent_For_Binding = Convert.ToInt32((_invoice.NgayTraPhong - rentBill.NgayBatDau).Value.TotalDays);
 				_invoice.NumDayRent_For_Binding = _invoice.NumDayRent_For_Binding == 0 ? 1 : _invoice.NumDayRent_For_Binding;
-				serviceInvoice.Cells["F12"].Value = _invoice.NumDayRent_For_Binding;
+				//serviceInvoice.Cells["F12"].Value = _invoice.NumDayRent_For_Binding;
 				serviceInvoice.Cells["G12"].Value = _databaseUtilities.getRentBillFactor(_invoice.ID_PhieuThue);
-				serviceInvoice.Cells["H12"].Value = _applicationUtilities.getMoneyForBinding2(Convert.ToInt32(room.DonGia));
-				rentBill.TotalPrice = Convert.ToInt32(room.DonGia * _databaseUtilities.getRentBillFactor(_invoice.ID_PhieuThue)) * _invoice.NumDayRent_For_Binding;
-				serviceInvoice.Cells["I12"].Value = _applicationUtilities.getMoneyForBinding2(rentBill.TotalPrice);
-				serviceInvoice.Cells["I22"].Value = _applicationUtilities.getMoneyForBinding2(rentBill.TotalPrice);
+				serviceInvoice.Cells["H12"].Value = Convert.ToInt32(room.DonGia);
+				//rentBill.TotalPrice = Convert.ToInt32(room.DonGia * _databaseUtilities.getRentBillFactor(_invoice.ID_PhieuThue)) * _invoice.NumDayRent_For_Binding;
+				//serviceInvoice.Cells["I12"].Value = rentBill.TotalPrice;
+				//serviceInvoice.Cells["I22"].Value = rentBill.TotalPrice;
 
 				CauHinh config = _databaseUtilities.getConfig();
 				surcharge = Convert.ToInt32(rentBill.TotalPrice * (currentCustomers.Count - Convert.ToInt32(config.DieuKien.Substring(2)) + 1) * Convert.ToDouble(config.GiaTri));
@@ -278,11 +278,11 @@ namespace HotelManagement.Pages
 					surcharge = 0;
 				}
 
-				serviceInvoice.Cells["H23"].Value = $"{Convert.ToDouble(config.GiaTri) * 100}%";
-				serviceInvoice.Cells["I23"].Value = _applicationUtilities.getMoneyForBinding2(surcharge);
+				serviceInvoice.Cells["H23"].Value = currentCustomers.Count - Convert.ToInt32(config.DieuKien.Substring(2)) + 1 > 0 ? Convert.ToDouble(config.GiaTri) : 0;
+				//serviceInvoice.Cells["I23"].Value = _applicationUtilities.getMoneyForBinding2(surcharge);
 
 				resultPrice = surcharge + rentBill.TotalPrice;
-				serviceInvoice.Cells["I24"].Value = _applicationUtilities.getMoneyForBinding2(resultPrice);
+				//serviceInvoice.Cells["I24"].Value = _applicationUtilities.getMoneyForBinding2(resultPrice);
 
 				serviceInvoice.Cells["H34"].Value = Global.staticCurrentEmployee.HoTen;
 
