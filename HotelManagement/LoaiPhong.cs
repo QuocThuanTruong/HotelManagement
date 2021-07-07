@@ -38,6 +38,7 @@ namespace HotelManagement
         public virtual ICollection<Phong> Phongs { get; set; }
 
         //FOR BINDING
+        public double Revenue_In_Double { get; set; }
         public string Revenue_For_Binding { get; set; }
         public string Percent_For_Binding { get; set; }
         public string DonGia_For_Binding { get; set; }

@@ -125,6 +125,7 @@ namespace HotelManagement.Pages
 				total += revenues[i];
 
 				roomCategories[i].Revenue_For_Binding = _applicationUtilities.getMoneyForBinding((int)revenues[i]);
+				roomCategories[i].Revenue_In_Double = revenues[i];
 			}
 
 			double temp = 0;
@@ -197,7 +198,7 @@ namespace HotelManagement.Pages
 			{
 				revenueWorksheet.Cells[i + 5, 1].Value = roomCategories[i - 1].ID_LoaiPhong; //STT
 				revenueWorksheet.Cells[i + 5, 2].Value = roomCategories[i - 1].TenLoaiPhong; //Loai phòng
-				revenueWorksheet.Cells[i + 5, 3].Value = roomCategories[i - 1].Revenue_For_Binding; //Doanh Thu
+				revenueWorksheet.Cells[i + 5, 3].Value = roomCategories[i - 1].Revenue_In_Double; //Doanh Thu
 				revenueWorksheet.Cells[i + 5, 4].Value = double.Parse(roomCategories[i - 1].Percent_For_Binding.Substring(0, roomCategories[i - 1].Percent_For_Binding.Length - 1)) / 100.0; //Tỉ lệ
 			}
 

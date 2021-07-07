@@ -458,10 +458,10 @@
         <materialDesign:Snackbar Name="notiMessageSnackbar"
                                  HorizontalAlignment="Center"
                                  MessageQueue="{materialDesign:MessageQueue}"
-                                 Margin="0, 0, 20, 0"
+                                 Margin="0, 0, 20, 6"
                                  Height="45"
                                  MaxWidth="1000"
-                                 IsActive="False"
+                                 IsActive="True"
                                  Grid.Column="1"
                                  Grid.Row="2"
                                  Grid.RowSpan="2">
