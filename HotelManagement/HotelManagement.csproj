@@ -354,7 +354,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>HotelManagementModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Assets\XLSXTemplate\Hóa-đơn-template.xlsx">
+    <Content Include="Assets\XLSXTemplate\Invoice_template.xlsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Hóa-đơn-template.xlsx" />
