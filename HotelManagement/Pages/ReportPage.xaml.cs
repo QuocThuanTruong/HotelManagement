@@ -178,7 +178,9 @@ namespace HotelManagement.Pages
 				Guid guid = Guid.NewGuid();
 				string uid = guid.ToString();
 
-				var destPath = (string)_absolutePathConverter.Convert($"Report-{uid}.xlsx", null, null, null);
+				_applicationUtilities.createExportedDirectory("Exported Report");
+
+				var destPath = (string)_absolutePathConverter.Convert($"Exported Report/Report-{uid}.xlsx", null, null, null);
 				Stream stream = File.Create(destPath);
 
 				excelPackage.SaveAs(stream);
