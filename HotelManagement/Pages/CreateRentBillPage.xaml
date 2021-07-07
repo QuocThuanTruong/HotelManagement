@@ -32,8 +32,8 @@
         <Grid Grid.Row="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1.5*"/>
-                <RowDefinition Height="4.5*"/>
-                <RowDefinition Height="7*"/>
+                <RowDefinition Height="2.3*"/>
+                <RowDefinition Height="9.2*"/>
                 <RowDefinition Height="1.5*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
@@ -193,10 +193,19 @@
                 </StackPanel>
 
 
+
+            </StackPanel>
+
+            <StackPanel  Grid.Row="2" HorizontalAlignment="Center">
+
+
                 <TextBlock Text="Thông tin khách hàng"
+                           HorizontalAlignment="Left"
+                           Margin="5, 0, 0, 5"
                                    Style="{StaticResource Bebas21}"/>
 
                 <StackPanel Orientation="Horizontal" 
+                            HorizontalAlignment="Center"
                             Name="AddCustomerInformation">
 
                     <materialDesign:Card Background="{StaticResource MyPurpleGradient}"
@@ -292,14 +301,10 @@
 
                 </StackPanel>
 
-            </StackPanel>
-
-            <StackPanel  Grid.Row="2">
-
                 <TextBlock x:Name="maxCustomerTextBlock"
                            Text=""
                            Width="766"
-                           Margin="0, 5, 0, 10"
+                           Margin="0, 10, 0, 10"
                            Foreground="{DynamicResource MyLightGray4}"
                            Style="{StaticResource GilroyMedium15}"/>
 
