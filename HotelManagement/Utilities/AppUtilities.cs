@@ -53,6 +53,15 @@ namespace HotelManagement.Utilities
             return result;
         }
 
+        public string getMoneyForBinding2(int money)
+        {
+            string result = string.Format("{0:n0}", money);
+
+            result += " VND";
+
+            return result;
+        }
+
         public List<Phong> convertToPhong(List<func_getAllRoom_Result> rooms)
         {
             List<Phong> result = new List<Phong>();
@@ -74,6 +83,14 @@ namespace HotelManagement.Utilities
             }
 
             return result;
+        }
+
+        public void copyFileToDirectory(string srcPath, string nameFile)
+        {
+            var destPath = (string)_absolutePathConverter.Convert($"{nameFile}", null, null, null);
+
+            File.Copy(srcPath, destPath, true);
+
         }
     }
 }

@@ -89,7 +89,6 @@ namespace HotelManagement.Pages
 			BackDashboardEvent?.Invoke();
 		}
 
-
 		private void switchReportButton_Click(object sender, RoutedEventArgs e)
 		{
 			if (densityListContainer.Visibility == Visibility.Collapsed)

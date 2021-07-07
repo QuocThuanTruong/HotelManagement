@@ -1,6 +1,7 @@
 ﻿using HotelManagement.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using HotelManagement.Converters;
+using OfficeOpenXml;
+using System.IO;
 
 namespace HotelManagement.Pages
 {
@@ -39,11 +43,13 @@ namespace HotelManagement.Pages
 
 		private DatabaseUtilities _databaseUtilities = DatabaseUtilities.GetDatabaseInstance();
 		private ApplicationUtilities _applicationUtilities = ApplicationUtilities.GetAppInstance();
+		private AbsolutePathConverter _converter = new AbsolutePathConverter();
 
 		public DateTime now;
 		public List<KhachHang> currentCustomers;
 
 		private bool _isView;
+		private HoaDon _invoice;
 		public CreateInvoicePage()
 		{
 			InitializeComponent();
@@ -58,9 +64,12 @@ namespace HotelManagement.Pages
 			if (this._isView)
             {
 				this._idInvoice = id;
-            } 
+				_invoice = _databaseUtilities.getInvoiceById(_idInvoice);
+
+			} 
 			else
             {
+				exportExcelButton.Visibility = Visibility.Collapsed;
 				this._idRoom = id;
             }
 
@@ -119,6 +128,7 @@ namespace HotelManagement.Pages
 
 				surchargeTextBlock.Text = _applicationUtilities.getMoneyForBinding(surcharge);
 				resultPriceTextBlock.Text = _applicationUtilities.getMoneyForBinding(resultPrice);
+				exportExcelButton.Visibility = Visibility.Collapsed;
 			} 
 			else
             {
@@ -177,7 +187,7 @@ namespace HotelManagement.Pages
 				resultPriceTextBlock.Text = _applicationUtilities.getMoneyForBinding(resultPrice);
 
 				finishButton.Visibility = Visibility.Collapsed;
-				
+				exportExcelButton.Visibility = Visibility.Visible;
 			}
 
 		}
@@ -203,7 +213,13 @@ namespace HotelManagement.Pages
 			_databaseUtilities.updateEmptyRoom(_idRoom);
 			_databaseUtilities.finishRentalBill(_idRentBill);
 
+			_invoice = newInvoice;
+
+			exportExcelButton.Visibility = Visibility.Visible;
+
 			notiMessageSnackbar.MessageQueue.Enqueue($"Thanh toán thành công", "OK", () => { BackPageEvent?.Invoke(backPage); });
+
+			finishButton.Visibility = Visibility.Collapsed;
 		}
 
         private void customerNameComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -216,5 +232,64 @@ namespace HotelManagement.Pages
                 }
             }
         }
+
+		private void exportExcelButton_Click(object sender, RoutedEventArgs e)
+		{
+			Guid guid = Guid.NewGuid();
+			string uid = guid.ToString();
+
+			_applicationUtilities.copyFileToDirectory(
+				_converter.Convert($"Assets/XLSXTemplate/Hóa-đơn-template.xlsx", null, null, null).ToString(),
+				$"Hóa-đơn-{uid}.xlsx");
+
+			ExcelPackage.LicenseContext = LicenseContext.Commercial;
+			using (var excelPackage = new ExcelPackage(new FileInfo($"Hóa-đơn-{uid}.xlsx")))
+			{
+				var rentBill = _databaseUtilities.getRentBillById(_invoice.ID_PhieuThue);
+				var room = _databaseUtilities.getRoomById(rentBill.SoPhong_For_Binding);
+
+				var serviceInvoice = excelPackage.Workbook.Worksheets["Service Invoice"];
+
+				serviceInvoice.Cells["E4"].Value = currentCustomers[_customerSelectedIndex].HoTen; 
+				serviceInvoice.Cells["E5"].Value = currentCustomers[_customerSelectedIndex].CMND;
+				serviceInvoice.Cells["E6"].Value = currentCustomers[_customerSelectedIndex].DiaChi;
+				serviceInvoice.Cells["E7"].Value = (rentBill.NgayBatDau ?? DateTime.Now).ToString("dd/MM/yyyy");
+				serviceInvoice.Cells["E8"].Value = (_invoice.NgayTraPhong ?? DateTime.Now).ToString("dd/MM/yyyy");
+				serviceInvoice.Cells["I4"].Value = _invoice.ID_HoaDon;
+				serviceInvoice.Cells["I5"].Value = DateTime.Now.ToString("dd/MM/yyyy");
+
+				serviceInvoice.Cells["C12"].Value = "1";
+				serviceInvoice.Cells["D12"].Value = rentBill.SoPhong_For_Binding;
+				serviceInvoice.Cells["E12"].Value = currentCustomers.Count;
+				_invoice.NumDayRent_For_Binding = Convert.ToInt32((_invoice.NgayTraPhong - rentBill.NgayBatDau).Value.TotalDays);
+				_invoice.NumDayRent_For_Binding = _invoice.NumDayRent_For_Binding == 0 ? 1 : _invoice.NumDayRent_For_Binding;
+				serviceInvoice.Cells["F12"].Value = _invoice.NumDayRent_For_Binding;
+				serviceInvoice.Cells["G12"].Value = _databaseUtilities.getRentBillFactor(_invoice.ID_PhieuThue);
+				serviceInvoice.Cells["H12"].Value = _applicationUtilities.getMoneyForBinding2(Convert.ToInt32(room.DonGia));
+				rentBill.TotalPrice = Convert.ToInt32(room.DonGia * _databaseUtilities.getRentBillFactor(_invoice.ID_PhieuThue)) * _invoice.NumDayRent_For_Binding;
+				serviceInvoice.Cells["I12"].Value = _applicationUtilities.getMoneyForBinding2(rentBill.TotalPrice);
+				serviceInvoice.Cells["I22"].Value = _applicationUtilities.getMoneyForBinding2(rentBill.TotalPrice);
+
+				CauHinh config = _databaseUtilities.getConfig();
+				surcharge = Convert.ToInt32(rentBill.TotalPrice * (currentCustomers.Count - Convert.ToInt32(config.DieuKien.Substring(2)) + 1) * Convert.ToDouble(config.GiaTri));
+
+				if (surcharge < 0)
+				{
+					surcharge = 0;
+				}
+
+				serviceInvoice.Cells["H23"].Value = $"{Convert.ToDouble(config.GiaTri) * 100}%";
+				serviceInvoice.Cells["I23"].Value = _applicationUtilities.getMoneyForBinding2(surcharge);
+
+				resultPrice = surcharge + rentBill.TotalPrice;
+				serviceInvoice.Cells["I24"].Value = _applicationUtilities.getMoneyForBinding2(resultPrice);
+
+				serviceInvoice.Cells["H34"].Value = Global.staticCurrentEmployee.HoTen;
+
+				excelPackage.Save();
+
+				notiMessageSnackbar.MessageQueue.Enqueue($"Đã tạo Hóa-đơn-{uid}.xlsx", "OK", () => { BackPageEvent?.Invoke(backPage); });
+			}
+		}
     }
 }
