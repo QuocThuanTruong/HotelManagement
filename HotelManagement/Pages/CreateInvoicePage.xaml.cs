@@ -217,7 +217,7 @@ namespace HotelManagement.Pages
 
 			exportExcelButton.Visibility = Visibility.Visible;
 
-			notiMessageSnackbar.MessageQueue.Enqueue($"Thanh toán thành công", "OK", () => { BackPageEvent?.Invoke(backPage); });
+			notiMessageSnackbar.MessageQueue.Enqueue($"Thanh toán thành công", "OK", () => {});
 
 			finishButton.Visibility = Visibility.Collapsed;
 		}
@@ -237,13 +237,14 @@ namespace HotelManagement.Pages
 		{
 			Guid guid = Guid.NewGuid();
 			string uid = guid.ToString();
+			String _invoiceFileName = $"Invoice_{_invoice.ID_HoaDon}_{_invoice.TenKH_For_Binding}_{DateTime.Now.ToString("ddMMyyyyHHmmss")}.xlsx";
 
 			_applicationUtilities.copyFileToDirectory(
-				_converter.Convert($"Assets/XLSXTemplate/Hóa-đơn-template.xlsx", null, null, null).ToString(),
-				$"Hóa-đơn-{uid}.xlsx");
+				_converter.Convert($"Assets/XLSXTemplate/Invoice_template.xlsx", null, null, null).ToString(),
+				_invoiceFileName);
 
 			ExcelPackage.LicenseContext = LicenseContext.Commercial;
-			using (var excelPackage = new ExcelPackage(new FileInfo($"Hóa-đơn-{uid}.xlsx")))
+			using (var excelPackage = new ExcelPackage(new FileInfo(_invoiceFileName)))
 			{
 				var rentBill = _databaseUtilities.getRentBillById(_invoice.ID_PhieuThue);
 				var room = _databaseUtilities.getRoomById(rentBill.SoPhong_For_Binding);
@@ -288,7 +289,7 @@ namespace HotelManagement.Pages
 
 				excelPackage.Save();
 
-				notiMessageSnackbar.MessageQueue.Enqueue($"Đã tạo Hóa-đơn-{uid}.xlsx", "OK", () => { BackPageEvent?.Invoke(backPage); });
+				notiMessageSnackbar.MessageQueue.Enqueue($"Đã tạo thành công {_invoiceFileName}", "OK", () => { BackPageEvent?.Invoke(backPage); });
 			}
 		}
     }
