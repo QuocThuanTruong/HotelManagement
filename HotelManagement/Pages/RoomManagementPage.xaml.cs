@@ -106,9 +106,9 @@ namespace HotelManagement.Pages
 				newRoom.STT_For_Binding = rooms.Count();
 				newRoom.ID_For_Binding = "P." + newRoom.SoPhong.ToString();
 
-				rooms.Add(newRoom);
 
 				_databaseUtilities.addNewRoom(newRoom);
+				Page_Loaded(null, null);
 
 				//Rest
 				roomIdTextBox.Text = "";

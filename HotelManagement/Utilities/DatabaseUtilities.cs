@@ -563,9 +563,11 @@ namespace HotelManagement.Utilities
 
         public void updateRoomCategory(LoaiPhong roomCategory)
         {
+            string active = roomCategory.Active == true ? "'true'" : "'false'";
+
             _databaseHotelManagement
                 .Database
-                .ExecuteSqlCommand($"UPDATE LoaiPhong Set TenLoaiPhong = N'{roomCategory.TenLoaiPhong}', SLKhachToiDa = {roomCategory.SLKhachToiDa}, DonGia = {roomCategory.DonGia} WHERE ID_LoaiPhong = {roomCategory.ID_LoaiPhong}");
+                .ExecuteSqlCommand($"UPDATE LoaiPhong Set TenLoaiPhong = N'{roomCategory.TenLoaiPhong}', SLKhachToiDa = {roomCategory.SLKhachToiDa}, DonGia = {roomCategory.DonGia}, Active = {active} WHERE ID_LoaiPhong = {roomCategory.ID_LoaiPhong}");
         }
 
         public void deleteRoomCategory(LoaiPhong roomCategory)
@@ -648,9 +650,11 @@ namespace HotelManagement.Utilities
 
         public void updateCustomerCategory(LoaiKhach customerCategory)
         {
+            string active = customerCategory.Active == true ? "'true'" : "'false'";
+
             _databaseHotelManagement
                 .Database
-                .ExecuteSqlCommand($"UPDATE LoaiKhach Set TenLoaiKhach = N'{customerCategory.TenLoaiKhach}', HeSo = {customerCategory.HeSo} WHERE ID_LoaiKhach = {customerCategory.ID_LoaiKhach}");
+                .ExecuteSqlCommand($"UPDATE LoaiKhach Set TenLoaiKhach = N'{customerCategory.TenLoaiKhach}', HeSo = {customerCategory.HeSo}, Active = {active} WHERE ID_LoaiKhach = {customerCategory.ID_LoaiKhach}");
         }
 
         public void deleteCustomerCategory(LoaiKhach customerCategory)
