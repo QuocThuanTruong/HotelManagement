@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HotelManagement"
+        xmlns:custom="clr-namespace:HotelManagement.CustomViews"
         mc:Ignorable="d"
         Background="Transparent"
         AllowsTransparency="True"
@@ -121,65 +122,11 @@
                                Foreground="{DynamicResource MyDarkBlue}"
                                    Style="{StaticResource GilroyMedium15}"/>
 
-                    <Grid>
-                        <PasswordBox Name="passwordTextBox"
-                                  PreviewTextInput="showPasswordTextBox_PreviewTextInput"
-                                      GotFocus="showPasswordTextBox_GotFocus"
-                                 LostFocus="showPasswordTextBox_LostFocus"
-                                    Padding="5, 5, 50, 5"
-                                    Width="250"
-                                    Margin="0, 8, 2 ,0"
-                         HorizontalAlignment="Left"
-                                   OverridesDefaultStyle="True"
-                        Foreground="{DynamicResource MyBlack}"
-                        materialDesign:HintAssist.IsFloating="False"
-                        Height ="32"
-                        FontFamily ="{StaticResource GilroyRegular}"
-                     
-                      materialDesign:TextFieldAssist.HasOutlinedTextField="True"
-                                 Style="{DynamicResource MaterialDesignOutlinedPasswordBox}"
-                        FontSize ="14"
-                        VerticalContentAlignment ="Center"
-                        materialDesign:HintAssist.Hint="Mật khẩu"
-                                    Grid.Column="1"
-                                    Grid.Row="1"
-                                    
-                                          />
 
-                        <TextBox Name="showPasswordTextBox"
-                          PreviewTextInput="showPasswordTextBox_PreviewTextInput"
-                                 GotFocus="showPasswordTextBox_GotFocus"
-                                 LostFocus="showPasswordTextBox_LostFocus"
-                                    Padding="5, 5, 5, 5"
-                                    Width="250"
-                                    Margin="0, 8, 2 ,0"
-                                 HorizontalAlignment="Left"
-                                
-                                    Style="{StaticResource AddRecipePageTextBox}"
-                                    materialDesign:HintAssist.Hint="Mật khẩu"
-                                    Grid.Column="1"
-                                    Grid.Row="1"
-                                  Visibility="Collapsed"
-                                          />
-
-                        <Button x:Name="btnShowPassword"
-                                Click="btnShowPassword_Click"
-                                Visibility="Collapsed"
-                                Width="32"
-                                Height="32"
-                                 Margin="0, 8, 2 ,0"
-                                HorizontalAlignment="Right"
-                                Style="{StaticResource WindowOptionsButton}"
-                                >
-                            <Image x:Name="showPasswordImage"
-                                   
-                                   Width="18"
-                                   Height="18"
-                                   Source="{StaticResource IconPurpleEye}"/>
-
-                        </Button>
-                    </Grid>
-              
+                    <custom:PasswordTextField 
+                      
+                      x:Name="passwordTextField"
+                        />
 
                     <materialDesign:ColorZone Mode="Custom"
                                   VerticalAlignment="Top"

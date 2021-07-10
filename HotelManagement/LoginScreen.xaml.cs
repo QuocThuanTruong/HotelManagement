@@ -26,7 +26,6 @@ namespace HotelManagement
 
 		private DatabaseUtilities _databaseUtilities = DatabaseUtilities.GetDatabaseInstance();
 		private ApplicationUtilities _applicationUtilities = ApplicationUtilities.GetAppInstance();
-        private bool _showPassword = false;
         LoadingDialog loadingDialog;
         AlertDialog alertDialog;
 
@@ -63,14 +62,14 @@ namespace HotelManagement
                
             }
 
-            if (passwordTextBox.Password.Length == 0)
+            if (passwordTextField.Password.Length == 0)
             {
                 //notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống mật khẩu", "OK", () => { });
                 
               
             }
 
-            Global.staticCurrentEmployee = _databaseUtilities.checkLogin(userNameTextBox.Text, passwordTextBox.Password);
+            Global.staticCurrentEmployee = _databaseUtilities.checkLogin(userNameTextBox.Text, passwordTextField.Password);
 
             if (Global.staticCurrentEmployee != null)
             {
@@ -114,62 +113,79 @@ namespace HotelManagement
 
         }
 
-		private void btnShowPassword_Click(object sender, RoutedEventArgs e)
-		{
-            if (_showPassword == false)
-			{
-                showPasswordImage.Source = (ImageSource)FindResource("IconPurpleEyeOff");
-                _showPassword = true;
-                showPasswordTextBox.Text = passwordTextBox.Password;
-                passwordTextBox.Visibility = Visibility.Collapsed;
-                showPasswordTextBox.Visibility = Visibility.Visible;
-                showPasswordTextBox.Focus();
-            } 
-            else
-			{
-                showPasswordImage.Source = (ImageSource)FindResource("IconPurpleEye");
-                _showPassword = false;
-                passwordTextBox.Password = showPasswordTextBox.Text;
-                showPasswordTextBox.Visibility = Visibility.Collapsed;
-                passwordTextBox.Visibility = Visibility.Visible;
-                passwordTextBox.Focus();
-            }
+		//private void btnShowPassword_Click(object sender, RoutedEventArgs e)
+		//{
+  //          if (_showPassword == false)
+		//	{
+  //              showPasswordImage.Source = (ImageSource)FindResource("IconPurpleEyeOff");
+  //              _showPassword = true;
+  //              showPasswordTextBox.Text = passwordTextBox.Password;
+  //              showPasswordTextBox.CaretIndex = showPasswordTextBox.Text.Length;
+  //              passwordTextBox.Visibility = Visibility.Collapsed;
+  //              showPasswordTextBox.Visibility = Visibility.Visible;
+  //              showPasswordTextBox.Focus();
+  //          } 
+  //          else
+		//	{
+  //              showPasswordImage.Source = (ImageSource)FindResource("IconPurpleEye");
+  //              _showPassword = false;
+  //              passwordTextBox.Password = showPasswordTextBox.Text;
+  //              showPasswordTextBox.CaretIndex = showPasswordTextBox.Text.Length;
+  //              showPasswordTextBox.Visibility = Visibility.Collapsed;
+  //              passwordTextBox.Visibility = Visibility.Visible;
+  //              passwordTextBox.Focus();
+  //          }
            
-        }
+  //      }
 
-		private void showPasswordTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
-		{
-            if (passwordTextBox.Password.Length > 0 || showPasswordTextBox.Text.Length > 0)
-			{
-                btnShowPassword.Visibility = Visibility.Visible;
-			} else
-			{
-                btnShowPassword.Visibility = Visibility.Collapsed;
-            }
-		}
+		//private void showPasswordTextBox_PreviewTextInput(object sender, EventArgs e)
+		//{
+  //          if (passwordTextBox.Password.Length > 0 || showPasswordTextBox.Text.Length > 0)
+		//	{
+  //              btnShowPassword.Visibility = Visibility.Visible;
+		//	} else
+		//	{
+  //              btnShowPassword.Visibility = Visibility.Collapsed;
+  //          }
 
-		private void showPasswordTextBox_GotFocus(object sender, RoutedEventArgs e)
-		{
-            if (passwordTextBox.Password.Length > 0 || showPasswordTextBox.Text.Length > 0)
-            {
-                btnShowPassword.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                btnShowPassword.Visibility = Visibility.Collapsed;
-            }
-        }
 
-		private void showPasswordTextBox_LostFocus(object sender, RoutedEventArgs e)
-		{
-            if (passwordTextBox.Password.Length > 0 || showPasswordTextBox.Text.Length > 0)
-            {
-                btnShowPassword.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                btnShowPassword.Visibility = Visibility.Collapsed;
-            }
-        }
+  //          if (_showPassword == false)
+		//	{
+  //              showPasswordTextBox.Text = passwordTextBox.Password;
+  //          } 
+  //          else
+		//	{
+              
+  //              passwordTextBox.Password = showPasswordTextBox.Text;
+  //          }
+
+  //          Console.WriteLine("Hide pass: " + passwordTextBox.Password);
+  //          Console.WriteLine("Show pass: " + showPasswordTextBox.Text);
+           
+  //      }
+
+		//private void showPasswordTextBox_GotFocus(object sender, RoutedEventArgs e)
+		//{
+  //          if (passwordTextBox.Password.Length > 0 || showPasswordTextBox.Text.Length > 0)
+  //          {
+  //              btnShowPassword.Visibility = Visibility.Visible;
+  //          }
+  //          else
+  //          {
+  //              btnShowPassword.Visibility = Visibility.Collapsed;
+  //          }
+  //      }
+
+		//private void showPasswordTextBox_LostFocus(object sender, RoutedEventArgs e)
+		//{
+  //          if (passwordTextBox.Password.Length > 0 || showPasswordTextBox.Text.Length > 0)
+  //          {
+  //              btnShowPassword.Visibility = Visibility.Visible;
+  //          }
+  //          else
+  //          {
+  //              btnShowPassword.Visibility = Visibility.Collapsed;
+  //          }
+  //      }
 	}
 }

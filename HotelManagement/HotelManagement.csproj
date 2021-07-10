@@ -149,6 +149,9 @@
     <Compile Include="CustomViews\LoadingDialog.xaml.cs">
       <DependentUpon>LoadingDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CustomViews\PasswordTextField.xaml.cs">
+      <DependentUpon>PasswordTextField.xaml</DependentUpon>
+    </Compile>
     <Compile Include="func_getAllRoom_Result.cs">
       <DependentUpon>HotelManagementModel.tt</DependentUpon>
     </Compile>
@@ -391,6 +394,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CustomViews\LoadingDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomViews\PasswordTextField.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
