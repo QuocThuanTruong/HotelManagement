@@ -75,7 +75,7 @@ namespace HotelManagement.Pages
 			CMNDTextBox.Text = selectedEmployee.CMND;
 			usernameTextBox.Text = selectedEmployee.Username;
 
-			employeeRoleComboBox.SelectedIndex = (selectedEmployee.LoaiNhanVien ?? false) ? 1 : 0;
+			employeeRoleComboBox.SelectedIndex = (selectedEmployee.LoaiNhanVien ?? false) == true ? 1 : 0;
 		}
 
         private void addCustomerButton_Click(object sender, RoutedEventArgs e)
@@ -113,7 +113,7 @@ namespace HotelManagement.Pages
 					selectedEmployee.Password = BCrypt.Net.BCrypt.HashPassword(selectedEmployee.HidenPassword, workFactor: 10);
 				}
 
-				selectedEmployee.LoaiNhanVien = employeeRoleComboBox.SelectedIndex == 0 ? true : false;
+				selectedEmployee.LoaiNhanVien = employeeRoleComboBox.SelectedIndex == 1 ? true : false;
 
 				_databaseUtilities.updateEmployee(selectedEmployee);
 				employees = _databaseUtilities.getAllEmployee();
@@ -164,7 +164,7 @@ namespace HotelManagement.Pages
 				}
 				newEmployee.Password = BCrypt.Net.BCrypt.HashPassword(newEmployee.Password, workFactor: 10);
 
-				newEmployee.LoaiNhanVien = employeeRoleComboBox.SelectedIndex == 0 ? true : false;
+				newEmployee.LoaiNhanVien = employeeRoleComboBox.SelectedIndex == 1 ? true : false;
 
 				_databaseUtilities.addNewEmployee(newEmployee);
 
