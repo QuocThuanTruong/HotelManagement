@@ -21,8 +21,8 @@ namespace HotelManagement.CustomViews
 	/// </summary>
 	public partial class PasswordTextField : UserControl
 	{
-        public String Password { get; set; }
-        public String PasswordHint { get; set; } = "Mật khẩu";
+        public string Password { get; set; }
+        public string PasswordHint { get; set; } = "Mật khẩu";
 
         private bool _showPassword = false;
 
