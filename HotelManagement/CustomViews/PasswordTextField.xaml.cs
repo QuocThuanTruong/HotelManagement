@@ -80,15 +80,17 @@ namespace HotelManagement.CustomViews
             if (_showPassword == false)
             {
                 showPasswordTextBox.Text = passwordTextBox.Password;
+                Password = showPasswordTextBox.Text;
             }
             else
             {
 
                 passwordTextBox.Password = showPasswordTextBox.Text;
+                Password = passwordTextBox.Password;
             }
 
-            Password = showPasswordTextBox.Text;
 
+            btnShowPassword_Click(this, null);
         }
 
         private void showPasswordTextBox_GotFocus(object sender, RoutedEventArgs e)
