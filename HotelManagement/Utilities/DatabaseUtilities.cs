@@ -450,6 +450,15 @@ namespace HotelManagement.Utilities
                 .ExecuteSqlCommand($"UPDATE ChiTietPhieuThue Set Active = '{sActive}' WHERE ID_PhieuThue = {IdRentBill}");
         }
 
+        public void updateRentalBillDetail2(ChiTietPhieuThue rentBill)
+        {
+            string active = rentBill.Active == true ? "true" : "false";
+
+            _databaseHotelManagement
+                .Database
+                .ExecuteSqlCommand($"UPDATE ChiTietPhieuThue Set Active = '{active}', SoPhong = {rentBill.SoPhong} WHERE ID_PhieuThue = {rentBill.ID_PhieuThue}");
+        }
+
         public void finishRentalBill(int IdRentalBill)
         {
             _databaseHotelManagement
