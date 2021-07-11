@@ -159,6 +159,7 @@ namespace HotelManagement.Pages
         {
 			var index = comboboxRoomList.SelectedIndex;
 			currentRoom = _rooms[index];
+
 			loadRoom();
 		}
 
@@ -196,6 +197,12 @@ namespace HotelManagement.Pages
 			customerNameTextBox.Text = "";
 			customerIDTextBox.Text = "";
 			customerAddrTextBox.Text = "";
+
+			if (customers.Count >= currentRoom.SLKhachToiDa)
+            {
+				notiMessageSnackbar.MessageQueue.Enqueue($"Không thể thêm khách hàng, phòng đã đạt số lượng khách tối đa", "OK", () => { });
+				return;
+			}
 
 			customers.Add(customer);
 
@@ -276,6 +283,8 @@ namespace HotelManagement.Pages
 				rentalDetail.ID_PhieuThue = currentRentBill.ID_PhieuThue;
 				rentalDetail.SoPhong = currentRoom.SoPhong;
 				rentalDetail.ID_NhanVien = currentRentBill.ID_NhanVien;
+
+				_databaseUtilities.updateRentalBillDetail2(rentalDetail);
 
 				foreach (var customer in customers)
 				{
